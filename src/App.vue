@@ -17,7 +17,7 @@
               {{item}}
               <span class="sr-only" v-if="current === item">(current)</span>
             </a>
-            <hr>
+            <hr />
           </span>
         </nav>
       </div>
@@ -51,11 +51,16 @@
             </div>
           </div>
           <div class="col-md-7" style="text-align: justify">
-            {{exps}}
-            {{eds}}
-            {{skills}}
-            {{projs}}
-            {{certs}}
+            Experience
+            <pre>{{exps}}</pre>
+            <hr />Education
+            <pre>{{eds}}</pre>
+            <hr />Skills
+            <pre>{{skills}}</pre>
+            <hr />Projects
+            <pre>{{projs}}</pre>
+            <hr />Certifications
+            <pre>{{certs}}</pre>
           </div>
         </div>
       </div>
@@ -182,8 +187,8 @@ export default {
 .nav-item {
   background-color: beige;
 }
-a:hover{
+a:hover {
   background: gray;
-  color:antiquewhite;
+  color: antiquewhite;
 }
 </style>
