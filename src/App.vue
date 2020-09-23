@@ -50,7 +50,13 @@
               <hr />
             </div>
           </div>
-          <div class="col-md-7" style="text-align: justify"></div>
+          <div class="col-md-7" style="text-align: justify">
+            {{exps}}
+            {{eds}}
+            {{skills}}
+            {{projs}}
+            {{certs}}
+          </div>
         </div>
       </div>
     </div>
