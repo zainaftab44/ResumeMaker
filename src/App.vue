@@ -1,28 +1,29 @@
 <template>
-  <div id="app" class="container-fluid">
+  <div id="app">
     <div class="row">
       <div class="col-lg-2">
-        <nav id="sidebarMenu" class="col-md-8 d-md-block bg-dark sidebar">
-          <div class="sidebar-fixed pt-3">
-            <ul class="nav">
-              <li class="nav-item" v-for="(item,i) in nav" :key="i">
-                <a
-                  class="nav-link"
-                  href="#"
-                  :class="{active: current === item }"
-                  @click.prevent="current=item"
-                >
-                  {{item}}
-                  <span class="sr-only" v-if="current === item">(current)</span>
-                </a>
-              </li>
-            </ul>
-          </div>
+        <nav id="sidebarMenu" style="height:100%" class="col-md-8 d-md-block bg-dark sidebar nav">
+          <span
+            :class="[{'nav-item':true} ,{'pt-2':true} ,{active: current === item }]"
+            v-for="(item,i) in nav"
+            :key="i"
+          >
+            <a
+              class="nav-link"
+              href="#"
+              :class="[{active: current === item }]"
+              @click.prevent="current=item"
+            >
+              {{item}}
+              <span class="sr-only" v-if="current === item">(current)</span>
+            </a>
+            <hr>
+          </span>
         </nav>
       </div>
-      <div class="col-md-10">
-        <div class="row">
-          <div class="col-md-6">
+      <div class="col">
+        <div class="row mt-4">
+          <div class="col-md-4">
             <div v-if="current == 'Experience'">
               <Experience v-for="(exp, i) in exps" :key="i" :exp="exp" />
               <button @click="add('exp')" class="btn btn-primary">Add Experience</button>
@@ -49,7 +50,7 @@
               <hr />
             </div>
           </div>
-          <div class="col-md-6" style="text-align: justify"></div>
+          <div class="col-md-7" style="text-align: justify"></div>
         </div>
       </div>
     </div>
@@ -74,11 +75,39 @@ export default {
   },
   data() {
     return {
-      exps: [],
-      eds: [],
-      skills: [],
-      projs: [],
-      certs: [],
+      exps: [
+        {
+          company: "",
+          location: "",
+          title: "",
+          start: "",
+          end: "",
+          resp: [""],
+        },
+      ],
+      eds: [
+        {
+          institute: "",
+          degree: "",
+          major: "",
+          locations: "",
+          start: "",
+          end: "",
+        },
+      ],
+      skills: [{ type: "", name: [""] }],
+      projs: [
+        {
+          title: "",
+          desc: "",
+          link: "",
+          start: "",
+          end: "",
+          tools: [""],
+          resp: [""],
+        },
+      ],
+      certs: [{ institute: "", title: "", link: "", date: "" }],
       nav: ["Experience", "Education", "Skills", "Projects", "Certifications"],
       current: "Experience",
     };
@@ -138,8 +167,17 @@ export default {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+  text-align: justify;
+  color: #22c4d6;
+}
+.nav-link {
+  color: aliceblue;
+}
+.nav-item {
+  background-color: beige;
+}
+a:hover{
+  background: gray;
+  color:antiquewhite;
 }
 </style>

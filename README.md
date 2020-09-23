@@ -1,4 +1,8 @@
-# vue_2
+# Resume Maker
+
+A Resume maker app developed in Vue.js to generate beautiful resumes free-of-cost. 
+
+
 
 ## Project setup
 ```

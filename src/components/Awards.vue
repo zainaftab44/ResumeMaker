@@ -1,35 +1,29 @@
 <template>
   <div style="text-align:left">
-    <h3>Education {{this.$vnode.key+1}}</h3>
+    <h3>Honors &amp; Awards {{this.$vnode.key+1}}</h3>
     <hr />
     <div class="form-group">
-      <label for="inst" class="col-md-3 col-form-label">Institue</label>
+      <label for="inst" class="col-md-3 col-form-label">Title</label>
       <div class="col">
-        <input type="text" class="form-control" v-model="edu.institue" placeholder="Institute" />
+        <input type="text" class="form-control" v-model="awd.title" placeholder="Title" />
       </div>
     </div>
     <div class="form-group">
-      <label for="deg" class="col-md-3 col-form-label">Degree</label>
+      <label for="deg" class="col-md-3 col-form-label">Awarded By</label>
       <div class="col">
-        <input type="text" class="form-control" v-model="edu.degree" placeholder="Degree" />
+        <input type="text" class="form-control" v-model="awd.degree" placeholder="Awarder" />
       </div>
     </div>
     <div class="form-group">
-      <label for="location" class="col-md-3 col-form-label">Location</label>
+      <label for="date" class="col-md-3 col-form-label">Date</label>
       <div class="col">
-        <input type="text" class="form-control" v-model="edu.location" placeholder="Location" />
+        <input type="text" class="form-control" v-model="awd.date" placeholder="Jan 2020" />
       </div>
     </div>
     <div class="form-group">
-      <label for="start" class="col-md-3 col-form-label">Start</label>
+      <label for="end" class="col-md-3 col-form-label">Summary</label>
       <div class="col">
-        <input type="text" class="form-control" v-model="edu.start" placeholder="Jan 2020" />
-      </div>
-    </div>
-    <div class="form-group">
-      <label for="end" class="col-md-3 col-form-label">End</label>
-      <div class="col">
-        <input type="text" class="form-control" v-model="edu.end" placeholder="Dec 2020" />
+        <input type="text" class="form-control" v-model="awd.summary" placeholder="Summary" />
       </div>
     </div>
   </div>
@@ -39,7 +33,7 @@
 
 <script>
 export default {
-  name: "Education",
-  props: ["edu"],
+  name: "Awards",
+  props: ["awd"],
 };
 </script>
