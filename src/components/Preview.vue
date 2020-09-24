@@ -8,11 +8,9 @@
           </td>
         </tr>
         <tr>
-          <table>
+          <table style="width:100%">
             <tr>
-              <td
-                style="max-width:100%;-ms-flex-preferred-size: 0;flex-basis: 0;-ms-flex-positive: 1;flex-grow: 1;"
-              >
+              <td style="max-width:100%;-ms-flex-preferred-size: 0;flex-basis: 0;-ms-flex-positive: 1;flex-grow: 1;">
                 <small>{{data.profile.address}}</small>
                 <br />
                 <small>{{data.profile.phone}}</small>
@@ -49,7 +47,7 @@
             <strong>{{exp.title.toUpperCase()}}</strong>
             <br />
             {{exp.company.toUpperCase()}}, {{exp.location.toUpperCase()}}
-            <ul v-if="exp.resp.length">
+            <ul v-if="exp.resp.join('')">
               <li v-for="(res,i) in exp.resp" :key="i">{{res}}</li>
             </ul>
           </td>
@@ -63,7 +61,7 @@
           <td>
             <table>
               <tbody>
-                <tr v-for="(skill,i) in data.skills" :key="i">
+                <tr v-for="(skill,j) in data.skills" :key="j">
                   <td class="pr-2">
                     <strong>{{skill.type}}</strong>
                   </td>
@@ -78,7 +76,7 @@
             <h4>EDUCATION</h4>
           </td>
         </tr>
-        <tr v-for="(ed,i) in data.eds" :key="i">
+        <tr v-for="(ed,k) in data.eds" :key="k">
           <td>
             <small>{{ed.start.toUpperCase()}} - {{ed.end.toUpperCase()}}</small>
             <br />
@@ -98,7 +96,7 @@
             <h4>Projects</h4>
           </td>
         </tr>
-        <tr v-for="(proj,i) in data.projs" :key="i">
+        <tr v-for="(proj,l) in data.projs" :key="l">
           <td>
             <small>{{proj.start.toUpperCase()}} &ndash; {{proj.end.toUpperCase()}}</small>
             <br />
@@ -109,8 +107,11 @@
               <a :href="proj.link">{{proj.link}}</a>
             </span>
             <ul>
-              <li v-for="(res,i) in proj.resp" :key="i">{{res}}</li>
-              <li v-if="proj.tools[0].length" ><strong>Technologies:</strong> {{proj.tools.join(", ")}}</li>
+              <li v-for="(res,m) in proj.resp" :key="m">{{res}}</li>
+                <li v-if="proj.tools.join('')">
+                  <strong>Technologies:</strong>
+                  {{proj.tools.join(", ")}}
+                </li>
             </ul>
           </td>
         </tr>
