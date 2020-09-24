@@ -24,7 +24,10 @@
       <div class="col">
         <div class="row mt-4">
           <div class="col-md-4">
-            <div v-if="current == 'Experience'">
+            <div v-if="current == 'Profile'">
+              <Profile :profile="profile" />
+            </div>
+            <div v-else-if="current == 'Experience'">
               <Experience v-for="(exp, i) in exps" :key="i" :exp="exp" />
               <button @click="add('exp')" class="btn btn-primary">Add Experience</button>
               <hr />
@@ -51,16 +54,9 @@
             </div>
           </div>
           <div class="col-md-7" style="text-align: justify">
-            Experience
-            <pre>{{exps}}</pre>
-            <hr />Education
-            <pre>{{eds}}</pre>
-            <hr />Skills
-            <pre>{{skills}}</pre>
-            <hr />Projects
-            <pre>{{projs}}</pre>
-            <hr />Certifications
-            <pre>{{certs}}</pre>
+            <!-- Data -->
+            <!-- <pre>{{$data}}</pre> -->
+            <Preview :data="$data"/>
           </div>
         </div>
       </div>
@@ -69,6 +65,10 @@
 </template>
 
 <script>
+
+
+import Preview from "./components/Preview.vue";
+import Profile from "./components/Profile.vue";
 import Experience from "./components/Experience.vue";
 import Education from "./components/Education.vue";
 import Skills from "./components/Skills.vue";
@@ -78,6 +78,8 @@ import Certifications from "./components/Certifications.vue";
 export default {
   name: "App",
   components: {
+    Preview,
+    Profile,
     Experience,
     Education,
     Skills,
@@ -86,6 +88,14 @@ export default {
   },
   data() {
     return {
+      profile: {
+        name: "",
+        email: "",
+        phone: "",
+        address: "",
+        summary: "",
+        website: "",
+      },
       exps: [
         {
           company: "",
@@ -119,8 +129,15 @@ export default {
         },
       ],
       certs: [{ institute: "", title: "", link: "", date: "" }],
-      nav: ["Experience", "Education", "Skills", "Projects", "Certifications"],
-      current: "Experience",
+      nav: [
+        "Profile",
+        "Experience",
+        "Education",
+        "Skills",
+        "Projects",
+        "Certifications",
+      ],
+      current: "Profile",
     };
   },
   methods: {
@@ -169,17 +186,17 @@ export default {
       }
       // console.log(this.$refs);
     },
+    create: function () {
+    },
   },
 };
 </script>
-
 <style>
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: justify;
-  color: #22c4d6;
 }
 .nav-link {
   color: aliceblue;

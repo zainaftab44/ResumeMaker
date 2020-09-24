@@ -1,0 +1,149 @@
+\documentclass[a4paper]{article}
+    \usepackage{fullpage}
+    \usepackage{amsmath}
+    \usepackage{amssymb}
+    \usepackage{textcomp}
+    \usepackage[utf8]{inputenc}
+    \usepackage[T1]{fontenc}
+    \textheight=10in
+    \pagestyle{empty}
+    \raggedright
+
+    %\renewcommand{\encodingdefault}{cg}
+%\renewcommand{\rmdefault}{lgrcmr}
+
+\def\bull{\vrule height 0.8ex width .7ex depth -.1ex }
+
+% DEFINITIONS FOR RESUME %%%%%%%%%%%%%%%%%%%%%%%
+
+\newcommand{\area} [2] {
+    \vspace*{-9pt}
+    \begin{verse}
+        \textbf{#1}   #2
+    \end{verse}
+}
+
+\newcommand{\lineunder} {
+    \vspace*{-8pt} \\
+    \hspace*{-18pt} \hrulefill \\
+}
+
+\newcommand{\header} [1] {
+    {\hspace*{-18pt}\vspace*{6pt} \textsc{#1}}
+    \vspace*{-6pt} \lineunder
+}
+
+\newcommand{\employer} [3] {
+    { \textbf{#1} (#2)\\ \underline{\textbf{\emph{#3}}}\\  }
+}
+
+\newcommand{\contact} [3] {
+    \vspace*{-10pt}
+    \begin{center}
+        {\Huge \scshape {#1}}\\
+        #2 \\ #3
+    \end{center}
+    \vspace*{-8pt}
+}
+
+\newenvironment{achievements}{
+    \begin{list}
+        {$\bullet$}{\topsep 0pt \itemsep -2pt}}{\vspace*{4pt}
+    \end{list}
+}
+
+\newcommand{\schoolwithcourses} [4] {
+    \textbf{#1} #2 $\bullet$ #3\\
+    #4 \\
+    \vspace*{5pt}
+}
+
+\newcommand{\school} [4] {
+    \textbf{#1} #2 $\bullet$ #3\\
+    #4 \\
+}
+% END RESUME DEFINITIONS %%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{document}
+\vspace*{-40pt}
+
+    
+
+%==== Profile ====%
+\vspace*{-10pt}
+\begin{center}
+	{\Huge \scshape {Zain Aftab}}\\
+	Lahore, Pakistan $\cdot$ zainaftab44@gmail.com $\cdot$ +92 312 4210568 $\cdot$ https://www.linkedin.com/in/zainaftab\\
+\end{center}
+
+%==== Education ====%
+\header{Education}
+\textbf{PUCIT, University of the Punjab}\hfill Lahore, PK\\
+BS Computer Science \hfill Oct 2011 - Jul 2015\\
+\vspace{2mm}
+\textbf{PUCIT, University of the Punjab}\hfill Lahore, PK\\
+MPhil Computer Science \hfill Sep 2015 - July 2017\\
+\vspace{2mm}
+
+%==== Experience ====%
+\header{Work Experience}
+\vspace{1mm}
+
+\textbf{Contour Software} \hfill Lahore, PK\\
+\textit{Software Developer} \hfill Feb 2020 - Present\\
+\vspace{-1mm}
+\begin{itemize} \itemsep 1pt
+	\item Managing the software build, release and deployment process.
+	\item Integrated the system with Zapier for automation purposes.
+	\item Analysis and execution of ETL for migration of legacy system users to latest release.
+	\item Developing and integrating new features and maintained existing ones.
+	\item Performing code reviews to improve code quality.
+\end{itemize}
+\textbf{BellStone Pvt Ltd} \hfill Lahore, PK\\
+\textit{Software Developer} \hfill Oct 2018 - Dec 2019\\
+\vspace{-1mm}
+\begin{itemize} \itemsep 1pt
+	\item Leading the R\&D team for performing live data transfer
+	\item Fullstack development of application using Node.js, HTML/CSS/JS, JQuery and WebRTC stack
+	\item Integration with third-party payment service
+	\item Benchmarking application performance against opensource systems.
+	\item Integrated mailgun for email sending to users for verification and notifications.
+\end{itemize}
+\textbf{Sir Syed College of Computer Science} \hfill Lahore, PK\\
+\textit{Lecturer} \hfill Jan 2017 - Oct 2018\\
+\vspace{-1mm}
+\begin{itemize} \itemsep 1pt
+	\item Teaching software development courses
+	\item Supervised Final Year Projects.
+	\item Worked as part of Accreditation Committee
+	\item Represented college at various events and workshops
+\end{itemize}
+
+\header{Skills}
+\begin{tabular}{ l l }
+	Languages:           & PHP, Node.js, JavaScript, Java             \\
+	Frameworks:          & Zend Framework, Laravel, Kohana, ExpressJs \\
+	Databases:           & MySQL, MongoDB, PostgreSQL                 \\
+	Software Versioning: & SVN, Git                                   \\
+	Misc:                & Docker, Linux, MVC                         \\
+\end{tabular}
+\vspace{2mm}
+
+\header{Projects}
+{\textbf{Zurple}} {\sl PHP, Java, Zend Framework, Javascript, MySQL} \hfill https://zurple.com/\\
+Zurple software offers a complete real estate marketing solution for busy agents. The defining feature of zurple is automated lead engagement for our agents.\\
+\vspace*{2mm}
+{\textbf{TorchX}} {\sl PHP, Java, Zend Framework, Javascript, jQuery, MySQL} \hfill https://torchx.com/\\
+TORCHx is a premium digital marketing platform designed to help residential Real Estate Agents and Brokers generate leads and never let them fall through the cracks.\\
+\vspace*{2mm}
+{\textbf{PropertyPulse}} {\sl PHP, Kohana, Wordpress, jQuery, Facebook Ads, MySQL} \hfill https://propertypulse.info/\\
+PropertyPulse is developed to provide all the real estate professionals out there looking for the best and easiest method of advertising themselves on new age mediums with an intelligent solution.\\
+\vspace*{2mm}
+{\textbf{Trango}} {\sl WebRTC, Node.js, ExpressJs, MySQL} \hfill https://play.google.com/store/apps/details?id=com.bellstone.trango\\
+Trango is a live file transfer, video call and voice calling application. It auto-discovers user availability in locat network and internet. Trango is much faster, faithfully secure and substantially cheaper than antiquated alternatives like intercom/pbx.\\
+\vspace*{2mm}
+
+
+
+\ 
+\end{document}
