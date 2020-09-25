@@ -35,7 +35,7 @@
             </tr>
           </table>
         </tr>
-        <tr>
+        <tr v-if="data.profile.summary">
           <td>
             <br />
             <h4>SUMMARY</h4>
@@ -44,7 +44,7 @@
         <tr>
           <td>{{ data.profile.summary }}</td>
         </tr>
-        <tr>
+        <tr v-if="data.exps.length">
           <td>
             <br />
             <h4>PROFESSIONAL EXPERIENCE</h4>
@@ -73,7 +73,7 @@
             </ul>
           </td>
         </tr>
-        <tr>
+        <tr v-if="data.skills.length">
           <td>
             <br />
             <h4>SKILLS</h4>
@@ -95,7 +95,7 @@
             </table>
           </td>
         </tr>
-        <tr>
+        <tr v-if="data.eds.length">
           <td>
             <br />
             <h4>EDUCATION</h4>
@@ -121,7 +121,7 @@
         </tr>
       </tbody>
     </table>
-    <table>
+    <table v-if="data.projs.length">
       <tbody>
         <tr>
           <td>
@@ -143,7 +143,7 @@
               Live:
               <a :href="proj.link" :title="proj.link">{{ proj.link }}</a>
             </span>
-            <ul v-if="proj.resp.join('').length">
+            <ul v-if="proj.resp.join('').length || proj.tools.join('').length">
               <li v-for="(res, m) in proj.resp" :key="m">{{ res }}</li>
               <li v-if="proj.tools.join('')">
                 <strong>Technologies:</strong>

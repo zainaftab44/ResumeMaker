@@ -9,7 +9,16 @@
         :aria-expanded="this.$vnode.key > 0 ? false : true"
         :aria-controls="'collapse' + this.$vnode.key"
       >
-        <h3>Experience</h3>
+        <h3>
+          Experience
+          <button
+            class="btn float-right"
+            style="color: red; padding: 0px 8px"
+            @click="$emit('delete-row')"
+          >
+            &ndash;
+          </button>
+        </h3>
       </div>
       <div
         :id="'collapse' + this.$vnode.key"
@@ -79,13 +88,24 @@
               >Responsibilities</label
             >
             <button @click="add" class="col-md-1 btn btn-secondary">+</button>
-            <div class="col mt-3" v-for="(res, i) in exp.resp" :key="i">
+            <div class="col mt-3 input-group" v-for="(res, i) in exp.resp" :key="i">
               <input
                 type="text"
                 class="form-control"
                 v-model="exp.resp[i]"
                 placeholder="Responsibility"
               />
+              <div class="input-group-append">
+                <button
+                  class="btn btn-outline-danger"
+                  type="button"
+                  id="button-addon2"
+                  title="Delete Responsibility"
+                  @click="$emit('del-resp', i)"
+                >
+                  &ndash;
+                </button>
+              </div>
             </div>
           </div>
         </div>

@@ -9,7 +9,7 @@
         :aria-expanded="this.$vnode.key > 0 ? false : true"
         :aria-controls="'collapsecer' + this.$vnode.key"
       >
-        <h3>Certification</h3>
+        <h3>Certification <button class="btn float-right" style="color:red; padding: 0px 8px;" @click="$emit('delete-row')">&ndash;</button></h3>
       </div>
       <div
         :id="'collapsecer' + this.$vnode.key"

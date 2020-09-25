@@ -9,7 +9,16 @@
         :aria-expanded="this.$vnode.key > 0 ? false : true"
         :aria-controls="'collapseski' + this.$vnode.key"
       >
-        <h3>Skill</h3>
+        <h3>
+          Skill
+          <button
+            class="btn float-right"
+            style="color: red; padding: 0px 8px"
+            @click="$emit('delete-row')"
+          >
+            &ndash;
+          </button>
+        </h3>
       </div>
       <div
         :id="'collapseski' + this.$vnode.key"
@@ -33,13 +42,16 @@
           <div class="form-group">
             <label for="end" class="col-md-6 col-form-label">Skills</label>
             <button @click="add" class="col-md-1 btn btn-secondary">+</button>
-            <div class="col mt-3" v-for="(res, i) in skill.name" :key="i">
+            <div class="col mt-3 input-group" v-for="(res, i) in skill.name" :key="i">
               <input
                 type="text"
                 class="form-control"
                 v-model="skill.name[i]"
                 placeholder="Skill Name"
               />
+              <div class="input-group-append">
+                    <button class="btn btn-outline-danger" type="button" id="button-addon2" title="Delete skill" @click="$emit('del-joined',i)">&ndash;</button>
+              </div>
             </div>
           </div>
         </div>

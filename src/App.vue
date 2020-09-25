@@ -45,7 +45,13 @@
               </div>
               <div v-else-if="current == 'Experience'">
                 <div class="accordion">
-                  <Experience v-for="(exp, i) in exps" :key="i" :exp="exp" />
+                  <Experience
+                    v-for="(exp, i) in exps"
+                    :key="i"
+                    :exp="exp"
+                    @delete-row="deleteThisRow('exp', i)"
+                    @del-resp="deleteResp('exp', i, $event)"
+                  />
                 </div>
                 <span class="col mx-auto">
                   <br />
@@ -57,7 +63,12 @@
               </div>
               <div v-else-if="current == 'Education'">
                 <div class="accordion">
-                  <Education v-for="(edu, i) in eds" :key="i" :edu="edu" />
+                  <Education
+                    v-for="(edu, i) in eds"
+                    :key="i"
+                    :edu="edu"
+                    @delete-row="deleteThisRow('ed', i)"
+                  />
                 </div>
                 <span class="col">
                   <button @click="add('edu')" class="btn btn-primary">
@@ -72,6 +83,8 @@
                     v-for="(skill, i) in skills"
                     :key="i"
                     :skill="skill"
+                    @delete-row="deleteThisRow('ski', i)"
+                    @del-joined="deleteJoined('ski', i, $event)"
                   />
                 </div>
                 <span class="col">
@@ -83,7 +96,14 @@
               </div>
               <div v-else-if="current == 'Projects'">
                 <div class="accordion">
-                  <Projects v-for="(proj, i) in projs" :key="i" :proj="proj" />
+                  <Projects
+                    v-for="(proj, i) in projs"
+                    :key="i"
+                    :proj="proj"
+                    @delete-row="deleteThisRow('proj', i)"
+                    @del-joined="deleteJoined('proj', i, $event)"
+                    @del-resp="deleteResp('proj', i, $event)"
+                  />
                 </div>
                 <span class="col">
                   <button @click="add('proj')" class="btn btn-primary">
@@ -98,6 +118,7 @@
                     v-for="(cert, i) in certs"
                     :key="i"
                     :cert="cert"
+                    @delete-row="deleteThisRow('cer', i)"
                   />
                 </div>
                 <span class="col">
@@ -110,7 +131,12 @@
             </div>
             <div
               class="col-lg-6 col-md-12 col-sm-12"
-              style="text-align: justify"
+              style="
+                text-align: justify;
+                border: solid 1px;
+                border-padding: 3px;
+                min-height: 29.7cm;
+              "
             >
               <!-- Data -->
               <!-- <pre>{{$data}}</pre> -->
@@ -124,8 +150,6 @@
 </template>
 
 <script>
-// import { jsPDF } from "jspdf";
-
 import Preview from "./components/Preview.vue";
 import Profile from "./components/Profile.vue";
 import Experience from "./components/Experience.vue";
@@ -155,39 +179,11 @@ export default {
         summary: "",
         website: "",
       },
-      exps: [
-        {
-          company: "",
-          location: "",
-          title: "",
-          start: "",
-          end: "",
-          resp: [""],
-        },
-      ],
-      eds: [
-        {
-          institute: "",
-          degree: "",
-          major: "",
-          locations: "",
-          start: "",
-          end: "",
-        },
-      ],
-      skills: [{ type: "", name: [""] }],
-      projs: [
-        {
-          title: "",
-          desc: "",
-          link: "",
-          start: "",
-          end: "",
-          tools: [""],
-          resp: [""],
-        },
-      ],
-      certs: [{ institute: "", title: "", link: "", date: "" }],
+      exps: [],
+      eds: [],
+      skills: [],
+      projs: [],
+      certs: [],
       nav: [
         "Profile",
         "Experience",
@@ -209,7 +205,7 @@ export default {
             title: "",
             start: "",
             end: "",
-            resp: [""],
+            resp: [],
           });
           break;
         case "edu":
@@ -223,7 +219,7 @@ export default {
           });
           break;
         case "skill":
-          this.skills.push({ type: "", name: [""] });
+          this.skills.push({ type: "", name: [] });
           break;
         case "proj":
           this.projs.push({
@@ -232,8 +228,8 @@ export default {
             link: "",
             start: "",
             end: "",
-            tools: [""],
-            resp: [""],
+            tools: [],
+            resp: [],
           });
           break;
         case "cert":
@@ -247,7 +243,7 @@ export default {
     },
     create: function () {
       var source =
-        "<html><head><style>@page {size: A4 portrait;} page[size='A4'] {  width: 21cm;  height: 29.7cm; } page[size='A4'][layout='landscape'] {  width: 29.7cm; height: 21cm;  } page{background:#fff;display:block;margin:0 auto;margin-bottom:.5cm; } .preview>*{text-align:justify!important;line-height:1.2!important}.preview>small{text-decoration:none!important;color:grey!important}.preview>.sub-color{color:grey!important}.preview>h4{margin-top:1.5em!important;margin-bottom:.5em!important}.preview>body{size:7in 9.25in!important;margin:27mm 16mm 27mm 16mm!important}li:before{content:'\\2014\\a0\\a0'}li{list-style:none!important}.pr-2{padding-right:5dp!important}</style></head><body><div class='preview'>" +
+        "<html><head><link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet'><style>body {font-family: 'Roboto';} @page {size: A4 portrait;} page[size='A4'] {  width: 21cm;  height: 29.7cm; } page[size='A4'][layout='landscape'] {  width: 29.7cm; height: 21cm;  } page{background:#fff;display:block;margin:0 auto;margin-bottom:.5cm; } .preview>*{text-align:justify!important;line-height:1.2!important}.preview>small{text-decoration:none!important;color:grey!important}.preview>.sub-color{color:grey!important}.preview>h4{margin-top:1.5em!important;margin-bottom:.5em!important}.preview>body{size:7in 9.25in!important;margin:27mm 16mm 27mm 16mm!important}li:before{content:'\\2014\\a0\\a0'}li{list-style:none!important}.pr-2{padding-right:5dp!important}</style></head><body><div class='preview'>" +
         "<page size='A4'>" +
         window.document.getElementsByClassName("preview")[0].innerHTML +
         "</page>" +
@@ -256,7 +252,6 @@ export default {
       var tab = window.open("/");
       tab.document.write(source);
       localStorage.data = JSON.stringify(this.$data);
-      // alert(JSON.stringify(this.profile))
     },
     save: function () {
       var data = this.$data;
@@ -287,6 +282,48 @@ export default {
         document.body.removeChild(a);
       }
     },
+    deleteThisRow: function (type, i) {
+      switch (type) {
+        case "exp":
+          this.exps.splice(i, 1);
+          break;
+        case "ed":
+          this.eds.splice(i, 1);
+          break;
+        case "ski":
+          this.skills.splice(i, 1);
+          break;
+        case "proj":
+          this.projs.splice(i, 1);
+          break;
+        case "cer":
+          this.certs.splice(i, 1);
+          break;
+
+        default:
+          break;
+      }
+    },
+    deleteJoined: function (type, i, j) {
+      switch (type) {
+        case "ski":
+          this.skills[i].name.splice(j, 1);
+          break;
+        case "proj":
+          this.projs[i].tools.splice(j, 1);
+          break;
+      }
+    },
+    deleteResp: function (type, i, j) {
+      switch (type) {
+        case "exp":
+          this.exps[i].resp.splice(j, 1);
+          break;
+        case "proj":
+          this.projs[i].resp.splice(j, 1);
+          break;
+      }
+    },
   },
   mounted() {
     if (typeof Storage !== "undefined") {
@@ -313,9 +350,6 @@ export default {
 .nav-link {
   color: aliceblue;
 }
-/* .nav-item {
-  background-color: beige;
-} */
 a:hover {
   background: gray;
   color: antiquewhite;

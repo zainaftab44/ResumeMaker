@@ -9,7 +9,16 @@
         :aria-expanded="this.$vnode.key > 0 ? false : true"
         :aria-controls="'collapseproj' + this.$vnode.key"
       >
-        <h3>Projects {{ this.$vnode.key + 1 }}</h3>
+        <h3>
+          Projects
+          <button
+            class="btn float-right"
+            style="color: red; padding: 0px 8px"
+            @click="$emit('delete-row')"
+          >
+            &ndash;
+          </button>
+        </h3>
       </div>
       <div
         :id="'collapseproj' + this.$vnode.key"
@@ -75,35 +84,53 @@
             </div>
           </div>
           <div class="form-group">
-            <label for="end" class="col-md-6 col-form-label"
-              >Tools &amp; Technologies</label
-            >
+            <label for="end" class="col-md-6 col-form-label">
+              Tools &amp; Technologies
+            </label>
             <button @click="add('tool')" class="col-md-1 btn btn-secondary">
               +
             </button>
-            <div class="col mt-3" v-for="(res, i) in proj.tools" :key="i">
+            <div
+              class="col mt-3 input-group"
+              v-for="(res, i) in proj.tools"
+              :key="i"
+            >
               <input
                 type="text"
                 class="form-control"
                 v-model="proj.tools[i]"
                 placeholder="Tool"
               />
+              <div class="input-group-append">
+                <button
+                  class="btn btn-outline-danger"
+                  type="button"
+                  id="button-addon2"
+                  title="Delete tool"
+                  @click="$emit('del-joined', i)"
+                >
+                  &ndash;
+                </button>
+              </div>
             </div>
           </div>
           <div class="form-group">
-            <label for="end" class="col-md-6 col-form-label"
-              >Responsibilities</label
-            >
+            <label for="end" class="col-md-6 col-form-label">
+              Responsibilities
+            </label>
             <button @click="add('resp')" class="col-md-1 btn btn-secondary">
               +
             </button>
-            <div class="col mt-3" v-for="(res, i) in proj.resp" :key="i">
+            <div class="col mt-3 input-group" v-for="(res, i) in proj.resp" :key="i">
               <input
                 type="text"
                 class="form-control"
                 v-model="proj.resp[i]"
                 placeholder="Responsibility"
               />
+              <div class="input-group-append">
+                    <button class="btn btn-outline-danger" type="button" id="button-addon2" title="Delete Responsibility" @click="$emit('del-resp',i)">&ndash;</button>
+              </div>
             </div>
           </div>
         </div>

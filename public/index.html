@@ -29,13 +29,12 @@
       crossorigin="anonymous"
     ></script>
   </head>
-  <body>
+  <body style="position: relative;">
     <noscript>
-      <strong
-        >We're sorry but <%= htmlWebpackPlugin.options.title %> doesn't work
-        properly without JavaScript enabled. Please enable it to
-        continue.</strong
-      >
+      <strong>
+        We're sorry but <%= htmlWebpackPlugin.options.title %> doesn't work
+        properly without JavaScript enabled. Please enable it to continue.
+      </strong>
     </noscript>
     <div class="container-fluid">
       <div class="row" style="background-color: rgb(11, 52, 90);">
@@ -46,10 +45,7 @@
     </div>
     <div id="app"></div>
 
-    <footer
-      class="section footer-classic context-dark bg-image pt-5 mt-5"
-      style=" background-color: rgb(11, 52, 90);color: rgb(100 198 214);"
-    >
+    <footer class="footer">
       <div class="container">
         <div class="row row-30">
           <div class="col-md-4 col-xl-5">
@@ -92,7 +88,9 @@
               <li><a href="https://zainaftab.netlify.app">About</a></li>
               <li><a href="https://www.github.com/zainaftab44">Projects</a></li>
               <li><a href="https://toppersdaily.blogspot.com">Blog</a></li>
-              <li><a href="https://www.linkedin.com/in/zainaftab">Contact</a></li>
+              <li>
+                <a href="https://www.linkedin.com/in/zainaftab">Contact</a>
+              </li>
             </ul>
           </div>
         </div>
@@ -118,13 +116,34 @@
         </a>
         <a
           class="anchor-tag col social-inner"
-          href="https://www.youtube.com/channel/UCX0dTk9JoDW3Cs8ZWzmtVQg"
+          href="https://www.youtube.com/user/1zainaftab"
         >
           <span>Youtube</span>
         </a>
       </div>
     </footer>
     <style>
+      /* footer {
+        bottom: 0;
+        left: 0;
+        right: 0;
+      }
+      .footer {
+        background-color: rgb(11, 52, 90);
+        color: rgb(100 198 214);
+        padding-top: 20px;
+        position: absolute;
+      } */
+      footer{
+        background-color: rgb(11, 52, 90);
+        color: rgb(100 198 214);
+        padding-top: 20px;
+        margin-top: 20px;
+      }
+      body {
+        overflow-x: hidden;
+        width: 100%;
+      }
       .anchor-tag {
         color: white;
         width: 100%;
@@ -151,11 +170,11 @@
         padding-top: 20px;
         padding-bottom: 20px;
       }
-      dd{
-        color:white
+      dd {
+        color: white;
       }
-      dd>a{
-        color:white
+      dd > a {
+        color: white;
       }
     </style>
     <!-- built files will be auto injected -->
