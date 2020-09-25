@@ -10,7 +10,9 @@
         <tr>
           <table style="width:100%">
             <tr>
-              <td style="max-width:100%;-ms-flex-preferred-size: 0;flex-basis: 0;-ms-flex-positive: 1;flex-grow: 1;">
+              <td
+                style="max-width:100%;-ms-flex-preferred-size: 0;flex-basis: 0;-ms-flex-positive: 1;flex-grow: 1;"
+              >
                 <small>{{data.profile.address}}</small>
                 <br />
                 <small>{{data.profile.phone}}</small>
@@ -29,6 +31,7 @@
         </tr>
         <tr>
           <td>
+            <br />
             <h4>SUMMARY</h4>
           </td>
         </tr>
@@ -37,16 +40,24 @@
         </tr>
         <tr>
           <td>
+            <br />
             <h4>PROFESSIONAL EXPERIENCE</h4>
           </td>
         </tr>
         <tr v-for="(exp,ind) in data.exps" :key="ind">
           <td>
-            <small>{{exp.start.toUpperCase()}} &ndash; {{exp.end.toUpperCase()}}</small>
+            <small v-if="exp.start.length">{{exp.start.toUpperCase()}}</small>
+            <small v-if="exp.end && exp.start">&ndash;</small>
+            <small v-if="exp.end">{{exp.end.toUpperCase()}}</small>
             <br />
-            <strong>{{exp.title.toUpperCase()}}</strong>
-            <br />
-            {{exp.company.toUpperCase()}}, {{exp.location.toUpperCase()}}
+
+            <strong v-if="exp.title.length">
+              {{exp.title.toUpperCase()}}
+              <br />
+            </strong>
+            <span v-if="exp.company.length">{{exp.company.toUpperCase()}}</span>
+            <span v-if="exp.company.length && exp.location.length">,</span>
+            <span v-if="exp.location.length">{{exp.location.toUpperCase()}}</span>
             <ul v-if="exp.resp.join('')">
               <li v-for="(res,i) in exp.resp" :key="i">{{res}}</li>
             </ul>
@@ -54,6 +65,7 @@
         </tr>
         <tr>
           <td>
+            <br />
             <h4>SKILLS</h4>
           </td>
         </tr>
@@ -65,7 +77,7 @@
                   <td class="pr-2">
                     <strong>{{skill.type}}</strong>
                   </td>
-                  <td>{{skill.name.join(", ")}}</td>
+                  <td v-if="skill.name.join('').length">{{skill.name.join(", ")}}</td>
                 </tr>
               </tbody>
             </table>
@@ -73,18 +85,25 @@
         </tr>
         <tr>
           <td>
+            <br />
             <h4>EDUCATION</h4>
           </td>
         </tr>
         <tr v-for="(ed,k) in data.eds" :key="k">
           <td>
-            <small>{{ed.start.toUpperCase()}} - {{ed.end.toUpperCase()}}</small>
-            <br />
-            <strong>{{ed.institute}}</strong>
-            <br />
+            <small v-if="ed.start">{{ed.start.toUpperCase()}}</small>
+            <small v-if="ed.end && ed.start">&ndash;</small>
+            <small v-if="ed.end">{{ed.end.toUpperCase()}}</small>
+            <br v-if="ed.end || ed.start" />
+            <strong v-if="ed.institute">
+              {{ed.institute}}
+              <br />
+            </strong>
             {{ed.location}}
-            <br />
-            {{ed.degree}}, {{ed.major}}
+            <br v-if="ed.location" />
+            <span v-if="ed.degree">{{ed.degree}}</span>
+            <span v-if="ed.major">{{ed.major}}</span>
+            <br v-if="ed.major || ed.degree" />
           </td>
         </tr>
       </tbody>
@@ -93,25 +112,30 @@
       <tbody>
         <tr>
           <td>
+            <br />
             <h4>Projects</h4>
           </td>
         </tr>
         <tr v-for="(proj,l) in data.projs" :key="l">
           <td>
-            <small>{{proj.start.toUpperCase()}} &ndash; {{proj.end.toUpperCase()}}</small>
+            <small v-if="proj.start">{{proj.start.toUpperCase()}}</small>
+            <small v-if="proj.start || proj.end">&ndash;</small>
+            <small v-if="proj.end">{{proj.end.toUpperCase()}}</small>
             <br />
-            <strong>{{proj.title.toUpperCase()}}</strong>
-            <br />
+            <strong v-if="proj.title">
+              {{proj.title.toUpperCase()}}
+              <br />
+            </strong>
             <span v-if="proj.link">
               Live:
-              <a :href="proj.link">{{proj.link}}</a>
+              <a :href="proj.link" :title="proj.link">{{proj.link}}</a>
             </span>
-            <ul>
+            <ul v-if="proj.resp.join('').length">
               <li v-for="(res,m) in proj.resp" :key="m">{{res}}</li>
-                <li v-if="proj.tools.join('')">
-                  <strong>Technologies:</strong>
-                  {{proj.tools.join(", ")}}
-                </li>
+              <li v-if="proj.tools.join('')">
+                <strong>Technologies:</strong>
+                {{proj.tools.join(", ")}}
+              </li>
             </ul>
           </td>
         </tr>
@@ -171,6 +195,9 @@
 export default {
   name: "Preview",
   props: ["data"],
+  methods: {
+    // available: function (type) {},
+  },
 };
 </script>
 
