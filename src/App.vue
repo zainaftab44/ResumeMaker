@@ -90,7 +90,7 @@
 </template>
 
 <script>
-import { jsPDF } from "jspdf";
+// import { jsPDF } from "jspdf";
 
 import Preview from "./components/Preview.vue";
 import Profile from "./components/Profile.vue";
@@ -212,30 +212,14 @@ export default {
       // console.log(this.$refs);
     },
     create: function () {
-      // var a4 = [595.28, 841.89]; // for a4 size paper width and height
-
-      var doc = new jsPDF('p',"px", "a4");
       var source =
-        "<html><head><style>.preview>*{text-align:justify!important;line-height:1.2!important}.preview>small{text-decoration:none!important;color:grey!important}.preview>.sub-color{color:grey!important}.preview>h4{margin-top:1.5em!important;margin-bottom:.5em!important}.preview>body{size:7in 9.25in!important;margin:27mm 16mm 27mm 16mm!important}li:before{content:'\\2014\\a0\\a0'}li{list-style:none!important}.pr-2{padding-right:5dp!important}</style></head><body><div class='preview'>" +
-        window.document.getElementsByClassName("preview")[0].innerHTML +
-        "</div></body></html>";
-      // document.write(source);
-
-      doc
-        .html(source, {
-          callback: function (doc) {
-            doc.save();
-          },
-          x: 10,
-          y: 2,
-        })
-        .css({
-          margin: 1,
-          padding: 10,
-          width: "auto",
-          height: "auto",
-          textAlign: "justify",
-        });
+        "<html><head><style>@page {size: A4 portrait;} page[size='A4'] {  width: 21cm;  height: 29.7cm; } page[size='A4'][layout='landscape'] {  width: 29.7cm; height: 21cm;  } page{background:#fff;display:block;margin:0 auto;margin-bottom:.5cm; } .preview>*{text-align:justify!important;line-height:1.2!important}.preview>small{text-decoration:none!important;color:grey!important}.preview>.sub-color{color:grey!important}.preview>h4{margin-top:1.5em!important;margin-bottom:.5em!important}.preview>body{size:7in 9.25in!important;margin:27mm 16mm 27mm 16mm!important}li:before{content:'\\2014\\a0\\a0'}li{list-style:none!important}.pr-2{padding-right:5dp!important}</style></head><body><div class='preview'>" 
+        +"<page size='A4'>" 
+        + window.document.getElementsByClassName("preview")[0].innerHTML 
+        + "</page>"
+        +'</div><script>window.print();<'+'/script></body></html>';
+      var tab = window.open("/");
+      tab.document.write(source);
     },
   },
 };
