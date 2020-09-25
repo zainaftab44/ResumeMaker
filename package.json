@@ -9,6 +9,7 @@
   },
   "dependencies": {
     "core-js": "^3.6.5",
+    "jspdf": "^2.1.1",
     "netlify-lualatex": "^1.2.1",
     "path": "^0.12.7",
     "vue": "^2.6.11"

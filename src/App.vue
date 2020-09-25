@@ -2,22 +2,33 @@
   <div id="app">
     <div class="row">
       <div class="col-lg-2">
-        <nav id="sidebarMenu" style="height:100%" class="col-md-8 d-md-block bg-dark sidebar nav">
+        <nav
+          id="sidebarMenu"
+          style="height: 100%"
+          class="col-md-8 d-md-block bg-dark sidebar nav"
+        >
           <span
-            :class="[{'nav-item':true} ,{'pt-2':true} ,{active: current === item }]"
-            v-for="(item,i) in nav"
+            :class="[
+              { 'nav-item': true },
+              { 'pt-2': true },
+              { active: current === item },
+            ]"
+            v-for="(item, i) in nav"
             :key="i"
           >
             <a
               class="nav-link"
               href="#"
-              :class="[{active: current === item }]"
-              @click.prevent="current=item"
+              :class="[{ active: current === item }]"
+              @click.prevent="current = item"
             >
-              {{item}}
+              {{ item }}
               <span class="sr-only" v-if="current === item">(current)</span>
             </a>
             <hr />
+          </span>
+          <span class="nav-item pt-2">
+            <a href="#" class="nav-link" @click.prevent="create">Generate</a>
           </span>
         </nav>
       </div>
@@ -29,34 +40,48 @@
             </div>
             <div v-else-if="current == 'Experience'">
               <Experience v-for="(exp, i) in exps" :key="i" :exp="exp" />
-              <button @click="add('exp')" class="btn btn-primary">Add Experience</button>
+              <button @click="add('exp')" class="btn btn-primary">
+                Add Experience
+              </button>
               <hr />
             </div>
             <div v-else-if="current == 'Education'">
               <Education v-for="(edu, i) in eds" :key="i" :edu="edu" />
-              <button @click="add('edu')" class="btn btn-primary">Add Education</button>
+              <button @click="add('edu')" class="btn btn-primary">
+                Add Education
+              </button>
               <hr />
             </div>
             <div v-else-if="current == 'Skills'">
               <Skills v-for="(skill, i) in skills" :key="i" :skill="skill" />
-              <button @click="add('skill')" class="btn btn-primary">Add Skill Set</button>
+              <button @click="add('skill')" class="btn btn-primary">
+                Add Skill Set
+              </button>
               <hr />
             </div>
             <div v-else-if="current == 'Projects'">
               <Projects v-for="(proj, i) in projs" :key="i" :proj="proj" />
-              <button @click="add('proj')" class="btn btn-primary">Add Project</button>
+              <button @click="add('proj')" class="btn btn-primary">
+                Add Project
+              </button>
               <hr />
             </div>
             <div v-else-if="current == 'Certifications'">
-              <Certifications v-for="(cert, i) in certs" :key="i" :cert="cert" />
-              <button @click="add('cert')" class="btn btn-primary">Add Certification</button>
+              <Certifications
+                v-for="(cert, i) in certs"
+                :key="i"
+                :cert="cert"
+              />
+              <button @click="add('cert')" class="btn btn-primary">
+                Add Certification
+              </button>
               <hr />
             </div>
           </div>
           <div class="col-md-7" style="text-align: justify">
             <!-- Data -->
             <!-- <pre>{{$data}}</pre> -->
-            <Preview :data="$data"/>
+            <Preview :data="$data" />
           </div>
         </div>
       </div>
@@ -65,7 +90,7 @@
 </template>
 
 <script>
-
+import { jsPDF } from "jspdf";
 
 import Preview from "./components/Preview.vue";
 import Profile from "./components/Profile.vue";
@@ -187,6 +212,30 @@ export default {
       // console.log(this.$refs);
     },
     create: function () {
+      // var a4 = [595.28, 841.89]; // for a4 size paper width and height
+
+      var doc = new jsPDF('p',"px", "a4");
+      var source =
+        "<html><head><style>.preview>*{text-align:justify!important;line-height:1.2!important}.preview>small{text-decoration:none!important;color:grey!important}.preview>.sub-color{color:grey!important}.preview>h4{margin-top:1.5em!important;margin-bottom:.5em!important}.preview>body{size:7in 9.25in!important;margin:27mm 16mm 27mm 16mm!important}li:before{content:'\\2014\\a0\\a0'}li{list-style:none!important}.pr-2{padding-right:5dp!important}</style></head><body><div class='preview'>" +
+        window.document.getElementsByClassName("preview")[0].innerHTML +
+        "</div></body></html>";
+      // document.write(source);
+
+      doc
+        .html(source, {
+          callback: function (doc) {
+            doc.save();
+          },
+          x: 10,
+          y: 2,
+        })
+        .css({
+          margin: 1,
+          padding: 10,
+          width: "auto",
+          height: "auto",
+          textAlign: "justify",
+        });
     },
   },
 };
