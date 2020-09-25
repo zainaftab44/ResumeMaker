@@ -1,11 +1,11 @@
 <template>
   <div id="app">
     <div class="row">
-      <div class="col-lg-2">
+      <div class="col-lg-12 col-md-4 col-sm-12">
         <nav
           id="sidebarMenu"
           style="height: 100%"
-          class="col-md-8 d-md-block bg-dark sidebar nav"
+          class="col-md-12 col-sm-12 bg-dark sidebar nav justify-content-center"
         >
           <span
             :class="[
@@ -29,59 +29,93 @@
           </span>
           <span class="nav-item pt-2">
             <a href="#" class="nav-link" @click.prevent="create">Generate</a>
+            <hr />
+          </span>
+          <span class="nav-item pt-2">
+            <a href="#" class="nav-link" @click.prevent="save">Save</a>
           </span>
         </nav>
       </div>
       <div class="col">
-        <div class="row mt-4">
-          <div class="col-md-4">
-            <div v-if="current == 'Profile'">
-              <Profile :profile="profile" />
+        <div class="container-fluid">
+          <div class="row mt-4">
+            <div class="col-lg-4 offset-lg-1 col-md-12 col-sm-12">
+              <div v-if="current == 'Profile'">
+                <Profile :profile="profile" />
+              </div>
+              <div v-else-if="current == 'Experience'">
+                <div class="accordion">
+                  <Experience v-for="(exp, i) in exps" :key="i" :exp="exp" />
+                </div>
+                <span class="col mx-auto">
+                  <br />
+                  <button @click="add('exp')" class="btn btn-primary">
+                    Add Experience
+                  </button>
+                </span>
+                <hr />
+              </div>
+              <div v-else-if="current == 'Education'">
+                <div class="accordion">
+                  <Education v-for="(edu, i) in eds" :key="i" :edu="edu" />
+                </div>
+                <span class="col">
+                  <button @click="add('edu')" class="btn btn-primary">
+                    Add Education
+                  </button>
+                  <hr />
+                </span>
+              </div>
+              <div v-else-if="current == 'Skills'">
+                <div class="accordion">
+                  <Skills
+                    v-for="(skill, i) in skills"
+                    :key="i"
+                    :skill="skill"
+                  />
+                </div>
+                <span class="col">
+                  <button @click="add('skill')" class="btn btn-primary">
+                    Add Skill Set
+                  </button>
+                  <hr />
+                </span>
+              </div>
+              <div v-else-if="current == 'Projects'">
+                <div class="accordion">
+                  <Projects v-for="(proj, i) in projs" :key="i" :proj="proj" />
+                </div>
+                <span class="col">
+                  <button @click="add('proj')" class="btn btn-primary">
+                    Add Project
+                  </button>
+                  <hr />
+                </span>
+              </div>
+              <div v-else-if="current == 'Certifications'">
+                <div class="accordion">
+                  <Certifications
+                    v-for="(cert, i) in certs"
+                    :key="i"
+                    :cert="cert"
+                  />
+                </div>
+                <span class="col">
+                  <button @click="add('cert')" class="btn btn-primary">
+                    Add Certification
+                  </button>
+                  <hr />
+                </span>
+              </div>
             </div>
-            <div v-else-if="current == 'Experience'">
-              <Experience v-for="(exp, i) in exps" :key="i" :exp="exp" />
-              <button @click="add('exp')" class="btn btn-primary">
-                Add Experience
-              </button>
-              <hr />
+            <div
+              class="col-lg-6 col-md-12 col-sm-12"
+              style="text-align: justify"
+            >
+              <!-- Data -->
+              <!-- <pre>{{$data}}</pre> -->
+              <Preview :data="$data" />
             </div>
-            <div v-else-if="current == 'Education'">
-              <Education v-for="(edu, i) in eds" :key="i" :edu="edu" />
-              <button @click="add('edu')" class="btn btn-primary">
-                Add Education
-              </button>
-              <hr />
-            </div>
-            <div v-else-if="current == 'Skills'">
-              <Skills v-for="(skill, i) in skills" :key="i" :skill="skill" />
-              <button @click="add('skill')" class="btn btn-primary">
-                Add Skill Set
-              </button>
-              <hr />
-            </div>
-            <div v-else-if="current == 'Projects'">
-              <Projects v-for="(proj, i) in projs" :key="i" :proj="proj" />
-              <button @click="add('proj')" class="btn btn-primary">
-                Add Project
-              </button>
-              <hr />
-            </div>
-            <div v-else-if="current == 'Certifications'">
-              <Certifications
-                v-for="(cert, i) in certs"
-                :key="i"
-                :cert="cert"
-              />
-              <button @click="add('cert')" class="btn btn-primary">
-                Add Certification
-              </button>
-              <hr />
-            </div>
-          </div>
-          <div class="col-md-7" style="text-align: justify">
-            <!-- Data -->
-            <!-- <pre>{{$data}}</pre> -->
-            <Preview :data="$data" />
           </div>
         </div>
       </div>
@@ -213,14 +247,59 @@ export default {
     },
     create: function () {
       var source =
-        "<html><head><style>@page {size: A4 portrait;} page[size='A4'] {  width: 21cm;  height: 29.7cm; } page[size='A4'][layout='landscape'] {  width: 29.7cm; height: 21cm;  } page{background:#fff;display:block;margin:0 auto;margin-bottom:.5cm; } .preview>*{text-align:justify!important;line-height:1.2!important}.preview>small{text-decoration:none!important;color:grey!important}.preview>.sub-color{color:grey!important}.preview>h4{margin-top:1.5em!important;margin-bottom:.5em!important}.preview>body{size:7in 9.25in!important;margin:27mm 16mm 27mm 16mm!important}li:before{content:'\\2014\\a0\\a0'}li{list-style:none!important}.pr-2{padding-right:5dp!important}</style></head><body><div class='preview'>" 
-        +"<page size='A4'>" 
-        + window.document.getElementsByClassName("preview")[0].innerHTML 
-        + "</page>"
-        +'</div><script>window.print();<'+'/script></body></html>';
+        "<html><head><style>@page {size: A4 portrait;} page[size='A4'] {  width: 21cm;  height: 29.7cm; } page[size='A4'][layout='landscape'] {  width: 29.7cm; height: 21cm;  } page{background:#fff;display:block;margin:0 auto;margin-bottom:.5cm; } .preview>*{text-align:justify!important;line-height:1.2!important}.preview>small{text-decoration:none!important;color:grey!important}.preview>.sub-color{color:grey!important}.preview>h4{margin-top:1.5em!important;margin-bottom:.5em!important}.preview>body{size:7in 9.25in!important;margin:27mm 16mm 27mm 16mm!important}li:before{content:'\\2014\\a0\\a0'}li{list-style:none!important}.pr-2{padding-right:5dp!important}</style></head><body><div class='preview'>" +
+        "<page size='A4'>" +
+        window.document.getElementsByClassName("preview")[0].innerHTML +
+        "</page>" +
+        "</div><script>window.print();<" +
+        "/script></body></html>";
       var tab = window.open("/");
       tab.document.write(source);
+      localStorage.data = JSON.stringify(this.$data);
+      // alert(JSON.stringify(this.profile))
     },
+    save: function () {
+      var data = this.$data;
+      delete data["certs"];
+      delete data["current"];
+      delete data["nav"];
+
+      localStorage.data = JSON.stringify(data);
+      let filename = "resumeforge_cv.json";
+      let contentType = "application/json;charset=utf-8;";
+      if (window.navigator && window.navigator.msSaveOrOpenBlob) {
+        var blob = new Blob(
+          [decodeURIComponent(encodeURI(JSON.stringify(data)))],
+          { type: contentType }
+        );
+        navigator.msSaveOrOpenBlob(blob, filename);
+      } else {
+        var a = document.createElement("a");
+        a.download = filename;
+        a.href =
+          "data:" +
+          contentType +
+          "," +
+          encodeURIComponent(JSON.stringify(data));
+        a.target = "_blank";
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+      }
+    },
+  },
+  mounted() {
+    if (typeof Storage !== "undefined") {
+      // Store
+      if (localStorage.data) {
+        var d = JSON.parse(localStorage.data);
+        if (d.profile) this.profile = d.profile;
+        if (d.exps) this.exps = d.exps;
+        if (d.eds) this.eds = d.eds;
+        if (d.skills) this.skills = d.skills;
+        if (d.projs) this.projs = d.projs;
+      }
+    }
   },
 };
 </script>
@@ -234,11 +313,15 @@ export default {
 .nav-link {
   color: aliceblue;
 }
-.nav-item {
+/* .nav-item {
   background-color: beige;
-}
+} */
 a:hover {
   background: gray;
   color: antiquewhite;
+}
+hr {
+  margin-top: 0.2em;
+  margin-bottom: 0.2rem;
 }
 </style>
