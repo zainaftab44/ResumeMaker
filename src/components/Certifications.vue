@@ -4,17 +4,18 @@
       <div
         class="card-header border-success bg-transparent"
         :id="'headingcer' + this.$vnode.key"
-        data-toggle="collapse"
-        :data-target="'#collapsecer' + this.$vnode.key"
+        data-bs-toggle="collapse"
+        :data-bs-target="'#collapsecer' + this.$vnode.key"
         :aria-expanded="this.$vnode.key > 0 ? false : true"
         :aria-controls="'collapsecer' + this.$vnode.key"
       >
-        <h3>Certification <button class="btn float-right" style="color:red; padding: 0px 8px;" @click="$emit('delete-row')">&ndash;</button></h3>
+        <h3>Certification <button class="btn float-end" style="color:red; padding: 0px 8px;" @click="$emit('delete-row')">&ndash;</button></h3>
       </div>
       <div
         :id="'collapsecer' + this.$vnode.key"
         :class="[{ collapse: true }, { show: this.$vnode.key == 0 }]"
         :aria-labelledby="'headingcer' + this.$vnode.key"
+        data-bs-parent="#certificates"
       >
         <div class="card-body">
           <div class="form-group">

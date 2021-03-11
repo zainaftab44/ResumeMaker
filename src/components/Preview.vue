@@ -1,5 +1,5 @@
 <template>
-  <div class="preview" style="text-align: justify">
+  <div class="preview" style="text-align: justify;">
     <table style="width: 100%">
       <tbody>
         <tr>
@@ -9,27 +9,33 @@
         </tr>
         <tr>
           <table style="width: 100%">
-            <tr>
-              <td style="max-width: 100%; flex-basis: 0px; flex-grow: 1">
+            <tr style="width: 100%">
+              <td style="max-width: 60%; flex-basis: 0px; flex-grow: 1">
                 <small v-if="data.profile.address">
-                  {{ data.profile.address }}<br />
+                  {{ data.profile.address }}
+                  <br />
                 </small>
                 <small v-if="data.profile.phone">
-                  {{ data.profile.phone }}<br />
+                  {{ data.profile.phone }}
+                  <br />
                 </small>
                 <small v-if="data.profile.email">
-                  {{ data.profile.email }}<br />
+                  {{ data.profile.email }}
+                  <br />
                 </small>
               </td>
-              <td valign="top" style="width: 10px">
+              <td valign="top" style="width: auto;text-align:end">
                 <small v-if="data.profile.website">
-                  {{ data.profile.website }}<br />
+                  {{ data.profile.website }}
+                  <br />
                 </small>
                 <small v-if="data.profile.github">
-                  {{ data.profile.github }}<br />
+                  {{ data.profile.github }}
+                  <br />
                 </small>
                 <small v-if="data.profile.linkedin">
-                  {{ data.profile.linkedin }}<br />
+                  {{ data.profile.linkedin }}
+                  <br />
                 </small>
               </td>
             </tr>
@@ -61,13 +67,9 @@
               {{ exp.title.toUpperCase() }}
               <br />
             </strong>
-            <span v-if="exp.company.length">{{
-              exp.company.toUpperCase()
-            }}</span>
-            <span v-if="exp.company.length && exp.location.length">, </span>
-            <span v-if="exp.location.length">
-              {{ exp.location.toUpperCase() }}
-            </span>
+            <span v-if="exp.company.length">{{ exp.company.toUpperCase() }}</span>
+            <span v-if="exp.company.length && exp.location.length">,</span>
+            <span v-if="exp.location.length">{{ exp.location.toUpperCase() }}</span>
             <ul v-if="exp.resp.join('')">
               <li v-for="(res, i) in exp.resp" :key="i">{{ res }}</li>
             </ul>
@@ -85,11 +87,9 @@
               <tbody>
                 <tr v-for="(skill, j) in data.skills" :key="j">
                   <td class="pr-2">
-                    <strong>{{ skill.type }}</strong>
+                    <strong>{{ skill.type + ": " }} </strong>
                   </td>
-                  <td v-if="skill.name.join('').length">
-                    {{ skill.name.join(", ") }}
-                  </td>
+                  <td v-if="skill.name.join('').length">{{ skill.name.join(", ") }}</td>
                 </tr>
               </tbody>
             </table>
@@ -113,10 +113,15 @@
             </strong>
             {{ ed.location }}
             <br v-if="ed.location" />
-            <span v-if="ed.degree">{{ ed.degree }}</span>
-            <span v-if="ed.degree && ed.major">, </span>
-            <span v-if="ed.major">{{ ed.major }}</span>
-            <br v-if="ed.major || ed.degree" />
+            <span class="degree" v-if="ed.major || ed.degree">
+              <span v-if="ed.degree">{{ ed.degree }} </span>
+              <span v-if="ed.degree.length + ed.major.length > 50">
+                <br />
+              </span>
+              <span v-if="ed.major">({{ ed.major }})</span>
+            </span>
+            <br  />
+            <br  />
           </td>
         </tr>
       </tbody>
@@ -132,16 +137,19 @@
         <tr v-for="(proj, l) in data.projs" :key="l">
           <td>
             <small v-if="proj.start">{{ proj.start.toUpperCase() }}</small>
-            <small v-if="proj.start || proj.end"> &ndash; </small>
+            <small v-if="proj.start && proj.end"> &ndash; </small>
             <small v-if="proj.end">{{ proj.end.toUpperCase() }}</small>
             <br />
             <strong v-if="proj.title">
-              {{ proj.title.toUpperCase() }}
+              {{ proj.title }}
               <br />
             </strong>
             <span v-if="proj.link">
-              Live:
               <a :href="proj.link" :title="proj.link">{{ proj.link }}</a>
+            </span>
+            <span v-if="proj.desc">
+              <br v-if="proj.link">
+              <span :title="proj.desc">{{ proj.desc }}</span>
             </span>
             <ul v-if="proj.resp.join('').length || proj.tools.join('').length">
               <li v-for="(res, m) in proj.resp" :key="m">{{ res }}</li>

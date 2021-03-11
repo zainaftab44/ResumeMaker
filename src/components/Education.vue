@@ -2,19 +2,21 @@
   <div class="accordion" style="text-align: justify">
     <div class="card">
       <div
-        class="card-header border-success bg-transparent"
+        class="card-header border-success bg-transparent collapsed"
         :id="'headinged' + this.$vnode.key"
-        data-toggle="collapse"
-        :data-target="'#collapseed' + this.$vnode.key"
-        :aria-expanded="this.$vnode.key > 0 ? false : true"
+        data-bs-toggle="collapse"
+        :data-bs-target="'#collapseed' + this.$vnode.key"
+        :aria-expanded="false"
         :aria-controls="'collapseed' + this.$vnode.key"
       >
-        <h3>Education <button class="btn float-right" style="color:red; padding: 0px 8px;" @click="$emit('delete-row')">&ndash;</button></h3>
+      <!-- :aria-expanded="this.$vnode.key > 0 ? false : true" -->
+        <h3>{{(edu.degree+edu.major)==""?"Education":edu.degree+" ("+edu.major+") "}} <button class="btn float-end" style="color:red; padding: 0px 8px;" @click="$emit('delete-row')">&ndash;</button></h3>
       </div>
       <div
         :id="'collapseed' + this.$vnode.key"
-        :class="[{ collapse: true }, { show: this.$vnode.key == 0 }]"
+        :class="[{ collapse: true }] "
         :aria-labelledby="'headinged' + this.$vnode.key"
+        data-bs-parent="#educations"
       >
         <div class="card-body">
           <div class="form-group">

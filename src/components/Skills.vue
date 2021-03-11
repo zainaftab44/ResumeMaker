@@ -4,15 +4,15 @@
       <div
         class="card-header border-success bg-transparent"
         :id="'headingski' + this.$vnode.key"
-        data-toggle="collapse"
-        :data-target="'#collapseski' + this.$vnode.key"
+        data-bs-toggle="collapse"
+        :data-bs-target="'#collapseski' + this.$vnode.key"
         :aria-expanded="this.$vnode.key > 0 ? false : true"
         :aria-controls="'collapseski' + this.$vnode.key"
       >
         <h3>
-          Skill
+          {{skill.type?"Skill: " +skill.type:"Skill"}}
           <button
-            class="btn float-right"
+            class="btn float-end"
             style="color: red; padding: 0px 8px"
             @click="$emit('delete-row')"
           >
@@ -24,6 +24,7 @@
         :id="'collapseski' + this.$vnode.key"
         :class="[{ collapse: true }, { show: this.$vnode.key == 0 }]"
         :aria-labelledby="'headingski' + this.$vnode.key"
+        data-bs-parent="#skills"
       >
         <div class="card-body">
           <div class="form-group">

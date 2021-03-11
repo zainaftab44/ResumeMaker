@@ -4,15 +4,15 @@
       <div
         class="card-header border-success bg-transparent"
         :id="'headingproj' + this.$vnode.key"
-        data-toggle="collapse"
-        :data-target="'#collapseproj' + this.$vnode.key"
+        data-bs-toggle="collapse"
+        :data-bs-target="'#collapseproj' + this.$vnode.key"
         :aria-expanded="this.$vnode.key > 0 ? false : true"
         :aria-controls="'collapseproj' + this.$vnode.key"
       >
         <h3>
-          Projects
+          {{proj.title?"Project: "+proj.title:"Project"}}
           <button
-            class="btn float-right"
+            class="btn float-end"
             style="color: red; padding: 0px 8px"
             @click="$emit('delete-row')"
           >
@@ -24,6 +24,7 @@
         :id="'collapseproj' + this.$vnode.key"
         :class="[{ collapse: true }, { show: this.$vnode.key == 0 }]"
         :aria-labelledby="'headingproj' + this.$vnode.key"
+        data-bs-parent="#projects"
       >
         <div class="card-body">
           <div class="form-group">

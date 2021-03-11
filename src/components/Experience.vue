@@ -1,18 +1,15 @@
 <template>
-  <div class="accordion" style="text-align: justify">
+  <div class="accordion-item" style="text-align: justify">
     <div class="card">
       <div
-        class="card-header border-success bg-transparent"
-        :id="'heading' + this.$vnode.key"
-        data-toggle="collapse"
-        :data-target="'#collapse' + this.$vnode.key"
-        :aria-expanded="this.$vnode.key > 0 ? false : true"
-        :aria-controls="'collapse' + this.$vnode.key"
-      >
+        class="card-header border-success bg-transparent" :id="'heading' + this.$vnode.key"
+        data-bs-toggle="collapse" :data-bs-target="'#collapse' + this.$vnode.key" 
+        :aria-expanded="this.$vnode.key > 0 ? true : false"
+         :aria-controls="'collapse' + this.$vnode.key">
         <h3>
-          Experience
+          {{exp.title?exp.title+(exp.company?", "+exp.company:""):"Experience"}}
           <button
-            class="btn float-right"
+            class="btn float-end"
             style="color: red; padding: 0px 8px"
             @click="$emit('delete-row')"
           >
@@ -24,6 +21,7 @@
         :id="'collapse' + this.$vnode.key"
         :class="[{ collapse: true }, { show: this.$vnode.key == 0 }]"
         :aria-labelledby="'heading' + this.$vnode.key"
+        data-bs-parent="#experiences"
       >
         <div class="card-body">
           <div class="form-group">
