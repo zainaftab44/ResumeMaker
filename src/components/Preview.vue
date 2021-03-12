@@ -50,7 +50,12 @@
         <tr>
           <td>{{ data.profile.summary }}</td>
         </tr>
-        <tr v-if="data.exps.length">
+      </tbody>
+    </table>
+    <div class="draggable-element" draggable="true">
+      <table v-if="data.exps.length">
+        <tbody>
+        <tr>
           <td>
             <br />
             <h4>PROFESSIONAL EXPERIENCE</h4>
@@ -75,7 +80,13 @@
             </ul>
           </td>
         </tr>
-        <tr v-if="data.skills.length">
+      </tbody>
+    </table>
+  </div>
+    <div class="draggable-element" draggable="true">
+      <table v-if="data.skills.length">
+        <tbody>
+        <tr>
           <td>
             <br />
             <h4>SKILLS</h4>
@@ -95,7 +106,13 @@
             </table>
           </td>
         </tr>
-        <tr v-if="data.eds.length">
+      </tbody>
+    </table>
+    </div>
+    <div class="draggable-element" draggable="true">
+      <table v-if="data.eds.length">
+        <tbody>
+        <tr>
           <td>
             <br />
             <h4>EDUCATION</h4>
@@ -126,42 +143,46 @@
         </tr>
       </tbody>
     </table>
-    <table v-if="data.projs.length">
-      <tbody>
-        <tr>
-          <td>
-            <br />
-            <h4>Projects</h4>
-          </td>
-        </tr>
-        <tr v-for="(proj, l) in data.projs" :key="l">
-          <td>
-            <small v-if="proj.start">{{ proj.start.toUpperCase() }}</small>
-            <small v-if="proj.start && proj.end"> &ndash; </small>
-            <small v-if="proj.end">{{ proj.end.toUpperCase() }}</small>
-            <br />
-            <strong v-if="proj.title">
-              {{ proj.title }}
+    </div>
+    <div class="draggable-element" draggable="true">
+      <table v-if="data.projs.length">
+        <tbody>
+          <tr>
+            <td>
               <br />
-            </strong>
-            <span v-if="proj.link">
-              <a :href="proj.link" :title="proj.link">{{ proj.link }}</a>
-            </span>
-            <span v-if="proj.desc">
-              <br v-if="proj.link">
-              <span :title="proj.desc">{{ proj.desc }}</span>
-            </span>
-            <ul v-if="proj.resp.join('').length || proj.tools.join('').length">
-              <li v-for="(res, m) in proj.resp" :key="m">{{ res }}</li>
-              <li v-if="proj.tools.join('')">
-                <strong>Technologies:</strong>
-                {{ proj.tools.join(", ") }}
-              </li>
-            </ul>
-          </td>
-        </tr>
-      </tbody>
-    </table>
+              <h4>Projects</h4>
+            </td>
+          </tr>
+          <tr v-for="(proj, l) in data.projs" :key="l">
+            <td>
+              <small v-if="proj.start">{{ proj.start.toUpperCase() }}</small>
+              <small v-if="proj.start && proj.end"> &ndash; </small>
+              <small v-if="proj.end">{{ proj.end.toUpperCase() }}</small>
+              <br />
+              <strong v-if="proj.title">
+                {{ proj.title }}
+                <br />
+              </strong>
+              <span v-if="proj.link">
+                <a :href="proj.link" :title="proj.link">{{ proj.link }}</a>
+              </span>
+              <span v-if="proj.desc">
+                <br v-if="proj.link">
+                <span :title="proj.desc">{{ proj.desc }}</span>
+              </span>
+              <ul v-if="proj.resp.join('').length || proj.tools.join('').length">
+                <li v-for="(res, m) in proj.resp" :key="m">{{ res }}</li>
+                <li v-if="proj.tools.join('')">
+                  <strong>Technologies:</strong>
+                  {{ proj.tools.join(", ") }}
+                </li>
+              </ul>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
     <!-- <table>
       <tbody>
         <tr>
