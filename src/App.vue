@@ -37,7 +37,13 @@
             <a href="#" class="nav-link" @click.prevent="save" id="save-nav">Save</a>
           </span>
           <span class="nav-item pt-2">
-            <a href="#" class="nav-link"  data-bs-toggle="modal" data-bs-target="#loadresume" id="load-nav">Load</a>
+            <a
+              href="#"
+              class="nav-link"
+              data-bs-toggle="modal"
+              data-bs-target="#loadresume"
+              id="load-nav"
+            >Load</a>
           </span>
         </nav>
       </div>
@@ -109,7 +115,7 @@
                   <hr />
                 </span>
               </div>
-              <div v-else-if="current == 'Certifications'">
+              <!-- <div v-else-if="current == 'Certifications'">
                 <div class="accordion" id="certificates">
                   <Certifications
                     v-for="(cert, i) in certs"
@@ -122,7 +128,7 @@
                   <button @click="add('cert')" class="btn btn-primary">Add Certification</button>
                   <hr />
                 </span>
-              </div>
+              </div>-->
             </div>
             <div
               class="col-lg-6 col-md-12 col-sm-12"
@@ -135,13 +141,21 @@
             >
               <!-- Data -->
               <!-- <pre>{{$data}}</pre> -->
-              <Preview :data="$data" />
+              <keep-alive>
+                <Preview :data="$data" />
+              </keep-alive>
             </div>
           </div>
         </div>
       </div>
     </div>
-    <div class="modal" tabindex="-1" aria-labelledby="loadresumeModal" aria-hidden="true"  id="loadresume" >
+    <div
+      class="modal"
+      tabindex="-1"
+      aria-labelledby="loadresumeModal"
+      aria-hidden="true"
+      id="loadresume"
+    >
       <div class="modal-dialog">
         <div class="modal-content">
           <div class="modal-header">Load Resume</div>
@@ -150,7 +164,12 @@
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-            <button type="button" class="btn btn-primary" @click.prevent="load" data-bs-dismiss="modal">Load</button>
+            <button
+              type="button"
+              class="btn btn-primary"
+              @click.prevent="load"
+              data-bs-dismiss="modal"
+            >Load</button>
           </div>
         </div>
       </div>
@@ -165,7 +184,7 @@ import Experience from "./components/Experience.vue";
 import Education from "./components/Education.vue";
 import Skills from "./components/Skills.vue";
 import Projects from "./components/Projects.vue";
-import Certifications from "./components/Certifications.vue";
+// import Certifications from "./components/Certifications.vue";
 // import $ from 'jquery';
 
 
@@ -178,7 +197,7 @@ export default {
     Education,
     Skills,
     Projects,
-    Certifications,
+    // Certifications,
   },
   data() {
     return {
@@ -194,14 +213,14 @@ export default {
       eds: [],
       skills: [],
       projs: [],
-      certs: [],
+      // certs: [],
       nav: [
         "Profile",
         "Experience",
         "Education",
         "Skills",
         "Projects",
-        "Certifications",
+        // "Certifications",
       ],
       current: "Profile",
     };
@@ -243,9 +262,9 @@ export default {
             resp: [],
           });
           break;
-        case "cert":
-          this.certs.push({ institute: "", title: "", link: "", date: "" });
-          break;
+        // case "cert":
+        //   this.certs.push({ institute: "", title: "", link: "", date: "" });
+        // break;
 
         default:
           break;
@@ -276,7 +295,7 @@ export default {
     load: function() {
       let e = document.getElementById('resumefile')
       let fr = new FileReader();
-      fr.onload =  ()=> {
+      fr.onload = () => {
         let d = JSON.parse(fr.result);
         console.log(d);
         if (d.profile) this.profile = d.profile;

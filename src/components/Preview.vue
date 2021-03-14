@@ -1,5 +1,5 @@
 <template>
-  <div class="preview" style="text-align: justify;">
+  <div id="preview" class="preview" style="text-align: justify;">
     <table style="width: 100%">
       <tbody>
         <tr>
@@ -55,94 +55,94 @@
     <div class="draggable-element" draggable="true">
       <table v-if="data.exps.length">
         <tbody>
-        <tr>
-          <td>
-            <br />
-            <h4>PROFESSIONAL EXPERIENCE</h4>
-          </td>
-        </tr>
-        <tr v-for="(exp, ind) in data.exps" :key="ind">
-          <td>
-            <small v-if="exp.start.length">{{ exp.start.toUpperCase() }}</small>
-            <small v-if="exp.end && exp.start"> &ndash; </small>
-            <small v-if="exp.end">{{ exp.end.toUpperCase() }}</small>
-            <br />
-
-            <strong v-if="exp.title.length">
-              {{ exp.title.toUpperCase() }}
+          <tr>
+            <td>
               <br />
-            </strong>
-            <span v-if="exp.company.length">{{ exp.company.toUpperCase() }}</span>
-            <span v-if="exp.company.length && exp.location.length">,</span>
-            <span v-if="exp.location.length">{{ exp.location.toUpperCase() }}</span>
-            <ul v-if="exp.resp.join('')">
-              <li v-for="(res, i) in exp.resp" :key="i">{{ res }}</li>
-            </ul>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
+              <h4>PROFESSIONAL EXPERIENCE</h4>
+            </td>
+          </tr>
+          <tr v-for="(exp, ind) in data.exps" :key="ind">
+            <td>
+              <small v-if="exp.start.length">{{ exp.start.toUpperCase() }}</small>
+              <small v-if="exp.end && exp.start">&ndash;</small>
+              <small v-if="exp.end">{{ exp.end.toUpperCase() }}</small>
+              <br />
+
+              <strong v-if="exp.title.length">
+                {{ exp.title.toUpperCase() }}
+                <br />
+              </strong>
+              <span v-if="exp.company.length">{{ exp.company.toUpperCase() }}</span>
+              <span v-if="exp.company.length && exp.location.length">,</span>
+              <span v-if="exp.location.length">{{ exp.location.toUpperCase() }}</span>
+              <ul v-if="exp.resp.join('')">
+                <li v-for="(res, i) in exp.resp" :key="i">{{ res }}</li>
+              </ul>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
     <div class="draggable-element" draggable="true">
       <table v-if="data.skills.length">
         <tbody>
-        <tr>
-          <td>
-            <br />
-            <h4>SKILLS</h4>
-          </td>
-        </tr>
-        <tr>
-          <td>
-            <table>
-              <tbody>
-                <tr v-for="(skill, j) in data.skills" :key="j">
-                  <td class="pr-2">
-                    <strong>{{ skill.type + ": " }} </strong>
-                  </td>
-                  <td v-if="skill.name.join('').length">{{ skill.name.join(", ") }}</td>
-                </tr>
-              </tbody>
-            </table>
-          </td>
-        </tr>
-      </tbody>
-    </table>
+          <tr>
+            <td>
+              <br />
+              <h4>SKILLS</h4>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <table>
+                <tbody>
+                  <tr v-for="(skill, j) in data.skills" :key="j">
+                    <td class="pr-2">
+                      <strong>{{ skill.type + ": " }}</strong>
+                    </td>
+                    <td v-if="skill.name.join('').length">{{ skill.name.join(", ") }}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </td>
+          </tr>
+        </tbody>
+      </table>
     </div>
     <div class="draggable-element" draggable="true">
       <table v-if="data.eds.length">
         <tbody>
-        <tr>
-          <td>
-            <br />
-            <h4>EDUCATION</h4>
-          </td>
-        </tr>
-        <tr v-for="(ed, k) in data.eds" :key="k">
-          <td>
-            <small v-if="ed.start">{{ ed.start.toUpperCase() }}</small>
-            <small v-if="ed.end && ed.start"> &ndash; </small>
-            <small v-if="ed.end">{{ ed.end.toUpperCase() }}</small>
-            <br v-if="ed.end || ed.start" />
-            <strong v-if="ed.institute">
-              {{ ed.institute }}
+          <tr>
+            <td>
               <br />
-            </strong>
-            {{ ed.location }}
-            <br v-if="ed.location" />
-            <span class="degree" v-if="ed.major || ed.degree">
-              <span v-if="ed.degree">{{ ed.degree }} </span>
-              <span v-if="ed.degree.length + ed.major.length > 50">
+              <h4>EDUCATION</h4>
+            </td>
+          </tr>
+          <tr v-for="(ed, k) in data.eds" :key="k">
+            <td>
+              <small v-if="ed.start">{{ ed.start.toUpperCase() }}</small>
+              <small v-if="ed.end && ed.start">&ndash;</small>
+              <small v-if="ed.end">{{ ed.end.toUpperCase() }}</small>
+              <br v-if="ed.end || ed.start" />
+              <strong v-if="ed.institute">
+                {{ ed.institute }}
                 <br />
+              </strong>
+              {{ ed.location }}
+              <br v-if="ed.location" />
+              <span class="degree" v-if="ed.major || ed.degree">
+                <span v-if="ed.degree">{{ ed.degree }}</span>
+                <span v-if="ed.degree.length + ed.major.length > 50">
+                  <br />
+                </span>
+                <span v-if="ed.major">({{ ed.major }})</span>
               </span>
-              <span v-if="ed.major">({{ ed.major }})</span>
-            </span>
-            <br  />
-            <br  />
-          </td>
-        </tr>
-      </tbody>
-    </table>
+              <br />
+              <br />
+            </td>
+          </tr>
+        </tbody>
+      </table>
     </div>
     <div class="draggable-element" draggable="true">
       <table v-if="data.projs.length">
@@ -156,7 +156,7 @@
           <tr v-for="(proj, l) in data.projs" :key="l">
             <td>
               <small v-if="proj.start">{{ proj.start.toUpperCase() }}</small>
-              <small v-if="proj.start && proj.end"> &ndash; </small>
+              <small v-if="proj.start && proj.end">&ndash;</small>
               <small v-if="proj.end">{{ proj.end.toUpperCase() }}</small>
               <br />
               <strong v-if="proj.title">
@@ -167,7 +167,7 @@
                 <a :href="proj.link" :title="proj.link">{{ proj.link }}</a>
               </span>
               <span v-if="proj.desc">
-                <br v-if="proj.link">
+                <br v-if="proj.link" />
                 <span :title="proj.desc">{{ proj.desc }}</span>
               </span>
               <ul v-if="proj.resp.join('').length || proj.tools.join('').length">
@@ -234,17 +234,60 @@
 
 
 <script>
+
 export default {
   name: "Preview",
   props: ["data"],
   methods: {
     // available: function (type) {},
   },
+  mounted() {
+    (function() {
+      var id_ = 'preview';
+      var rows_ = document.querySelectorAll('#' + id_ + '> .draggable-element');
+      var dragSrcEl_ = null;
+      var current = null;
+
+      function handleDragStart(e) {
+        e.dataTransfer.effectAllowed = 'move';
+        e.dataTransfer.setData('text/html', e.target.innerHTML);
+        e.dataTransfer.dropEffect="move";
+        dragSrcEl_ = e.target;
+
+      }
+
+      function handleDragOver(e) {
+        if (typeof e.target.closest == "function")
+          current = e.target.closest(".draggable-element");
+      }
+      function handleDrop(e) {
+        if (current.classList[0] == "draggable-element") {
+          dragSrcEl_.innerHTML = current.innerHTML;
+          current.innerHTML = e.dataTransfer.getData('text/html')
+        }
+      }
+
+      [].forEach.call(rows_, function(row) {
+        row.addEventListener('dragstart', handleDragStart, false);
+        row.addEventListener('dragover', handleDragOver, false);
+        row.addEventListener('dragend', handleDrop, false);
+      });
+
+    })()
+  }
 };
 </script>
 
 
 <style>
+.preview {
+  user-select: none;
+  -moz-user-select: none;
+  -khtml-user-select: none;
+  -webkit-user-select: none;
+  -o-user-select: none;
+}
+
 .preview > * {
   text-align: justify !important;
   line-height: 1.2 !important;
