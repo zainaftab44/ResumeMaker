@@ -26,7 +26,11 @@
             </a>
             <hr />
           </span>
-          <span class="nav-item pt-2">
+          <!-- <span class="nav-item pt-2">
+            <a href="#" class="nav-link" @click.prevent="preview">Preview</a>
+            <hr />
+          </span> -->
+          <span class="nav-item pt-2" v-if="current=='Preview'">
             <a href="#" class="nav-link" @click.prevent="create">Generate</a>
             <hr />
           </span>
@@ -50,7 +54,7 @@
       <div class="col">
         <div class="container-fluid">
           <div class="row mt-4">
-            <div class="col-lg-4 offset-lg-1 col-md-12 col-sm-12">
+            <div :class="[{'col-lg-4':(current !== 'Preview')},{'offset-lg-1' :(current !== 'Preview')},{'col-md-12' :true},{'col-sm-12':true}]">
               <div v-if="current == 'Profile'">
                 <Profile :profile="profile" />
               </div>
@@ -115,6 +119,11 @@
                   <hr />
                 </span>
               </div>
+              <div v-else-if="current == 'Preview'" style="width:70%; margin: 0 auto;text-align: justify; border: solid 1px;border-padding: 3px;min-height: 29.7cm;">
+                  <!-- Data -->
+                  <!-- <pre>{{$data}}</pre> -->
+                  <Preview :data="$data" />
+              </div>
               <!-- <div v-else-if="current == 'Certifications'">
                 <div class="accordion" id="certificates">
                   <Certifications
@@ -129,21 +138,6 @@
                   <hr />
                 </span>
               </div>-->
-            </div>
-            <div
-              class="col-lg-6 col-md-12 col-sm-12"
-              style="
-                text-align: justify;
-                border: solid 1px;
-                border-padding: 3px;
-                min-height: 29.7cm;
-              "
-            >
-              <!-- Data -->
-              <!-- <pre>{{$data}}</pre> -->
-              <keep-alive>
-                <Preview :data="$data" />
-              </keep-alive>
             </div>
           </div>
         </div>
@@ -220,6 +214,7 @@ export default {
         "Education",
         "Skills",
         "Projects",
+        "Preview"
         // "Certifications",
       ],
       current: "Profile",
