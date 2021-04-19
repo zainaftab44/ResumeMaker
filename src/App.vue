@@ -119,7 +119,7 @@
                   <hr />
                 </span>
               </div>
-              <div v-else-if="current == 'Preview'" style="width:70%; margin: 0 auto;text-align: justify; border: solid 1px;border-padding: 3px;min-height: 29.7cm;">
+              <div v-else-if="current == 'Preview'" >
                   <!-- Data -->
                   <!-- <pre>{{$data}}</pre> -->
                   <Preview :data="$data" />
