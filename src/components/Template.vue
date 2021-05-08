@@ -74,7 +74,7 @@
               <span v-if="exp.company.length && exp.location.length">,</span>
               <span v-if="exp.location.length">{{ exp.location.toUpperCase() }}</span>
               <ul style="margin-top:5px;margin-bottom:5px" v-if="exp.resp.join('')">
-                <li v-for="(res, i) in exp.resp" :key="i">{{ res }}</li>
+                <li v-for="(res, i) in exp.resp" :key="i" style="padding-left: 1.4em; text-indent: -1.55em;">{{ res }}</li>
               </ul>
             </td>
           </tr>
@@ -166,8 +166,8 @@
                 <span :title="proj.desc">{{ proj.desc }}</span>
               </span>
               <ul style="margin-top:5px;margin-bottom:5px" v-if="proj.resp.join('').length || proj.tools.join('').length">
-                <li v-for="(res, m) in proj.resp" :key="m">{{ res }}</li>
-                <li v-if="proj.tools.join('')">
+                <li v-for="(res, m) in proj.resp" :key="m" style="padding-left: 1.4em; text-indent: -1.55em;">{{ res }}</li>
+                <li v-if="proj.tools.join('')" style="padding-left: 1.4em; text-indent: -1.55em;">
                   <strong>Technologies:</strong>
                   {{ proj.tools.join(", ") }}
                 </li>
