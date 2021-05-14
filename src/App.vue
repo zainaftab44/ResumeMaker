@@ -29,9 +29,15 @@
           <!-- <span class="nav-item pt-2">
             <a href="#" class="nav-link" @click.prevent="preview">Preview</a>
             <hr />
-          </span> -->
-          <span class="nav-item pt-2" v-if="current=='Preview'">
-            <a href="#" class="nav-link" @click.prevent="create">Generate</a>
+          </span>-->
+          <span class="nav-item pt-2" v-if="current == 'Preview'">
+            <a
+              href="#"
+              class="nav-link"
+              @click.prevent="create"
+              data-toggle="modal"
+              data-target="#myModal"
+            >Generate</a>
             <hr />
           </span>
           <span class="nav-item pt-2">
@@ -52,85 +58,60 @@
         </nav>
       </div>
       <div class="col">
-        <div class="container-fluid">
+        <div :class="[{ 'container': current !== 'Preview' }, { 'container-fluid': current == 'Preview' }]">
           <div class="row mt-4">
-            <div :class="[{'col-lg-4':(current !== 'Preview')},{'offset-lg-1' :(current !== 'Preview')},{'col-md-12' :true},{'col-sm-12':true}]">
-              <div v-if="current == 'Profile'">
-                <Profile :profile="profile" />
+            <div :class="[{ 'col-md-12': true }, { 'col-sm-12': true }]">
+              <!-- { 'col-lg-4': (current !== 'Preview') }, { 'offset-lg-1': (current !== 'Preview') } -->
+              <Profile v-if="current == 'Profile'" :profile="profile" />
+              <div v-else-if="current == 'Experience'" class="accordion" id="experiences">
+                <Experience
+                  v-for="(exp, i) in exps"
+                  :key="i"
+                  :exp="exp"
+                  @delete-row="delRow('exp', i)"
+                  @del-resp="delRes('exp', i, $e)"
+                />
               </div>
-              <div v-else-if="current == 'Experience'">
-                <div class="accordion" id="experiences">
-                  <Experience
-                    v-for="(exp, i) in exps"
-                    :key="i"
-                    :exp="exp"
-                    @delete-row="deleteThisRow('exp', i)"
-                    @del-resp="deleteResp('exp', i, $event)"
-                  />
-                </div>
-                <span class="col mx-auto">
-                  <br />
-                  <button @click="add('exp')" class="btn btn-primary">Add Experience</button>
-                </span>
-                <hr />
+              <div v-else-if="current == 'Education'" class="accordion" id="educations">
+                <Education
+                  v-for="(edu, i) in eds"
+                  :key="i"
+                  :edu="edu"
+                  @delete-row="delRow('ed', i)"
+                />
               </div>
-              <div v-else-if="current == 'Education'">
-                <div class="accordion" id="educations">
-                  <Education
-                    v-for="(edu, i) in eds"
-                    :key="i"
-                    :edu="edu"
-                    @delete-row="deleteThisRow('ed', i)"
-                  />
-                </div>
-                <span class="col">
-                  <button @click="add('edu')" class="btn btn-primary">Add Education</button>
-                  <hr />
-                </span>
+              <div v-else-if="current == 'Skills' && stype==1" class="accordion" id="skills">
+                <Skills
+                  v-for="(skill, i) in skills"
+                  :key="i"
+                  :skill="skill"
+                  @delete-row="delRow('ski', i)"
+                  @del-joined="delJoined('ski', i, $e)"
+                />
               </div>
-              <div v-else-if="current == 'Skills'">
-                <div class="accordion" id="skills">
-                  <Skills
-                    v-for="(skill, i) in skills"
-                    :key="i"
-                    :skill="skill"
-                    @delete-row="deleteThisRow('ski', i)"
-                    @del-joined="deleteJoined('ski', i, $event)"
-                  />
-                </div>
-                <span class="col">
-                  <button @click="add('skill')" class="btn btn-primary">Add Skill Set</button>
-                  <hr />
-                </span>
+              <div v-else-if="current == 'Skills' && stype == 2">
+                <Skills2 :skill2="skills2" @del-joined="delJoined('sk2', i, $e)" />
               </div>
-              <div v-else-if="current == 'Projects'">
-                <div class="accordion" id="projects">
-                  <Projects
-                    v-for="(proj, i) in projs"
-                    :key="i"
-                    :proj="proj"
-                    @delete-row="deleteThisRow('proj', i)"
-                    @del-joined="deleteJoined('proj', i, $event)"
-                    @del-resp="deleteResp('proj', i, $event)"
-                  />
-                </div>
-                <span class="col">
-                  <button @click="add('proj')" class="btn btn-primary">Add Project</button>
-                  <hr />
-                </span>
+              <div v-else-if="current == 'Projects'" class="accordion" id="projects">
+                <Projects
+                  v-for="(proj, i) in projs"
+                  :key="i"
+                  :proj="proj"
+                  @delete-row="delRow('proj', i)"
+                  @del-joined="delJoined('proj', i, $e)"
+                  @del-resp="delRes('proj', i, $e)"
+                />
               </div>
-              <div v-else-if="current == 'Preview'" >
-                  <!-- Data -->
-                  <!-- <pre>{{$data}}</pre> -->
-                  <Preview :data="$data" />
-              </div>
+              <!-- Data -->
+              <Preview v-else-if="current == 'Preview'" :data="$data" />
+
               <!-- <div v-else-if="current == 'Certifications'">
                 <div class="accordion" id="certificates">
                   <Certifications
                     v-for="(cert, i) in certs"
                     :key="i"
                     :cert="cert"
-                    @delete-row="deleteThisRow('cer', i)"
+                    @delete-row="delRow('cer', i)"
                   />
                 </div>
                 <span class="col">
@@ -138,6 +119,12 @@
                   <hr />
                 </span>
               </div>-->
+              <span class="col">
+                <br>
+                <button v-if="['Preview','Profile', 'Skills'].indexOf(current)==-1"  @click="add(current.toLowerCase().substring(0, 3))" class="btn btn-primary">Add {{ current[current.length-1]=='s'?current.substring(0,current.length-1):current }}</button>
+                <button v-else-if="current== 'Skills' && stype == 1" @click="add(current.toLowerCase().substring(0, 3))" class="btn btn-primary">Add {{ current[current.length-1]=='s'?current.substring(0,current.length-1):current }}</button>
+                <button v-if="current== 'Skills'" @click="changeskillstyle()" class="btn btn-primary" :style="[stype == 1?{'margin-left':'10px'}:null]">Change style</button>
+              </span>
             </div>
           </div>
         </div>
@@ -168,6 +155,11 @@
         </div>
       </div>
     </div>
+    <span style="position: absolute; right: 20px; top: 20px;color: white;text-align:right ">
+      Press Ctrl+S for saving any time
+      <br />
+      Download to get backup and load from any device
+    </span>
   </div>
 </template>
 
@@ -177,6 +169,7 @@ import Profile from "./components/Profile.vue";
 import Experience from "./components/Experience.vue";
 import Education from "./components/Education.vue";
 import Skills from "./components/Skills.vue";
+import Skills2 from "./components/Skills2.vue";
 import Projects from "./components/Projects.vue";
 // import Certifications from "./components/Certifications.vue";
 // import $ from 'jquery';
@@ -191,6 +184,7 @@ export default {
     Education,
     Skills,
     Projects,
+    Skills2
     // Certifications,
   },
   data() {
@@ -207,6 +201,7 @@ export default {
       eds: [],
       skills: [],
       projs: [],
+      skills2: { name: [] },
       // certs: [],
       nav: [
         "Profile",
@@ -217,11 +212,13 @@ export default {
         "Preview"
         // "Certifications",
       ],
+      stype: 1,
       current: "Profile",
     };
   },
   methods: {
     add: function(type) {
+      alert(type)
       switch (type) {
         case "exp":
           this.exps.push({
@@ -243,10 +240,13 @@ export default {
             end: "",
           });
           break;
-        case "skill":
+        case "ski":
           this.skills.push({ type: "", name: [] });
           break;
-        case "proj":
+        // case "skill2":
+        //   this.skills2.push({ name: [] });
+        //   break;
+        case "pro":
           this.projs.push({
             title: "",
             desc: "",
@@ -265,6 +265,9 @@ export default {
           break;
       }
       // console.log(this.$refs);
+    },
+    changeskillstyle: function() {
+      this.stype = this.stype == 1 ? 2 : 1;
     },
     create: function() {
       var source =
@@ -285,6 +288,8 @@ export default {
       localStorage.setItem("education", JSON.stringify(this.$data.eds));
       localStorage.setItem("skills", JSON.stringify(this.$data.skills));
       localStorage.setItem("projects", JSON.stringify(this.$data.projs));
+      localStorage.setItem("stype", JSON.stringify(this.$data.stype));
+      localStorage.setItem("skills2", JSON.stringify(this.$data.skills2));
 
     },
     load: function() {
@@ -332,7 +337,7 @@ export default {
       }
 
     },
-    deleteThisRow: function(type, i) {
+    delRow: function(type, i) {
       switch (type) {
         case "exp":
           this.exps.splice(i, 1);
@@ -354,17 +359,20 @@ export default {
           break;
       }
     },
-    deleteJoined: function(type, i, j) {
+    delJoined: function(type, i, j) {
       switch (type) {
         case "ski":
           this.skills[i].name.splice(j, 1);
+          break;
+        case 'sk2':
+          this.skills2.name.splice(j, 1);
           break;
         case "proj":
           this.projs[i].tools.splice(j, 1);
           break;
       }
     },
-    deleteResp: function(type, i, j) {
+    delRes: function(type, i, j) {
       switch (type) {
         case "exp":
           this.exps[i].resp.splice(j, 1);
@@ -409,6 +417,15 @@ export default {
         this.projs = JSON.parse(localStorage.getItem('projects'));
         found = 1;
       }
+      if (localStorage.getItem('stype')) {
+        this.stype = JSON.parse(localStorage.getItem('stype'));
+        found = 1;
+      }
+      if (localStorage.getItem('skills2')) {
+        this.skills2 = JSON.parse(localStorage.getItem('skills2'));
+        found = 1;
+      }
+
       if (found == 0) {
         if (localStorage.data) {
           var d = JSON.parse(localStorage.data);

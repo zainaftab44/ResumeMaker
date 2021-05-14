@@ -43,7 +43,7 @@
       crossorigin="anonymous"
     ></script>
   </head>
-  <body style="position: relative;">
+  <body>
     <noscript>
       <strong>
         We're sorry but <%= htmlWebpackPlugin.options.title %> doesn't work
@@ -149,15 +149,19 @@
         padding-top: 20px;
         position: absolute;
       } */
+      #app{min-height: 80%;}
+      html,body{height: 100%;max-width: 100%;}
       footer {
         background-color: rgb(11, 52, 90);
         color: rgb(100 198 214);
         padding-top: 20px;
+        height: 270px;
         margin-top: 20px;
       }
       body {
-        overflow-x: hidden;
         width: 100%;
+        min-height: 100%;
+        margin: 0 auto -272px;
       }
       .anchor-tag {
         color: white;
@@ -190,6 +194,12 @@
       }
       dd > a {
         color: white;
+      }
+
+      @media print{
+        .skills2 {
+          background-color:#999;
+        }
       }
     </style>
     <!-- built files will be auto injected -->

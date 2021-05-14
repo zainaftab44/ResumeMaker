@@ -80,7 +80,7 @@
       </table>
     </div>
     <div class="draggable-element" draggable="true" style="margin-top:10px">
-      <table v-if="data.skills.length">
+      <table v-if="data.stype==1 && data.skills.length">
         <tbody>
           <tr>
             <td>
@@ -103,6 +103,10 @@
           </tr>
         </tbody>
       </table>
+      <div v-else-if="data.stype==2">
+        <h4 style="margin-bottom:5px;padding-bottom:5px">SKILLS</h4>
+        <span style="background-color:#bfbfbf; background-repeat:repeat;padding: 10px 15px;margin: 5px;border-radius: 5px;width: max-content;" class="skills2" v-for="skname in data.skills2.name" :key="skname">{{ skname }}</span>
+      </div>
     </div>
     <div class="draggable-element" draggable="true" style="margin-top:10px">
       <table v-if="data.eds.length" style="width:100%">
