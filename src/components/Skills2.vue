@@ -1,35 +1,25 @@
 <template>
   <div class="row">
-    <div class="col-md-5 accordion" style="text-align: justify">
+    <div class="col-md-5" style="text-align: justify">
       <div class="card">
-        <div
-          class="card-header border-success bg-transparent"
-          :id="'headingsk2'"
-        >
+        <div class="card-header border-success bg-transparent" :id="'headingsk2'" >
           <h3>
             Skills
-            <button @click="add" class="col-md-1 btn btn-secondary float-end">+</button>
+            <button @click="add" class="col-md-1 btn btn-success float-end">+</button>
           </h3>
         </div>
-        <div
-          :id="'collapsesk2'"
-          :class="[{ collapse: true }, { show: true }]"
-          :aria-labelledby="'headingsk2'"
-          data-bs-parent="#skills"
-        >
+        <div :aria-labelledby="'headingsk2'" data-bs-parent="#skills" >
           <div class="card-body">
-            <div class="form-group">
+            <div class="form-group row">
               <!-- <label for="end" class="col-md-6 col-form-label">Skills</label> -->
-              <div class="col mt-3 input-group" v-for="(res, i) in skill2.name" :key="i">
+              <div class="col-md-3 mt-2 input-group" v-for="(res, i) in skill2.name" :key="i">
                 <input
                   type="text"
                   class="form-control"
                   v-model="skill2.name[i]"
                   placeholder="Skill Name"
                 />
-                <div class="input-group-append">
-                  <button class="btn btn-outline-danger" type="button" id="button-addon2" title="Delete skill" @click="$emit('del-joined',i)">&ndash;</button>
-                </div>
+                <button class="btn btn-outline-danger" type="button" title="Delete skill" @click="$emit('del-joined',i)">X</button>
               </div>
             </div>
           </div>
@@ -38,16 +28,24 @@
     </div>
     <div class="col-md-6">
       <SK2P :skills2="skill2"/>
-
-      <div class="modal-header">
-        <h5 class="modal-title">Print Instructions</h5>
-      </div>
     </div>
 
   </div>
 </template>
 
-
+<style scoped>
+  @media screen and (min-width:1024px) {
+    .input-group{
+      min-width: 20%;
+      width:50%;
+    }
+  }
+  @media screen and (max-width:1023px) {
+    .input-group{
+      width:100%;
+    }
+  }
+</style>
 
 <script>
 import SK2P from './Previews/Skills2.vue'
