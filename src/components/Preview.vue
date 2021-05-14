@@ -1,11 +1,13 @@
 <template>
     <div>
-        <span style="margin-left:auto; margin-right:auto;display:block;width: max-content;">
+        <span style="margin-left:auto; margin-right:auto;display:block;width: max-content;text-align:center;" class="mb-3">
             Select Template
             <select v-model="template">
                 <option value="1">Template 1</option>
                 <option value="2">Template 2</option>
             </select>
+            <br>
+            You can drag/drop sections in box below to re-arrange them in your desired order
         </span>
         <div>
             <Template v-if="template == 1" :data="data" />
