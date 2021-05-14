@@ -56,7 +56,7 @@
         <tbody>
           <tr>
             <td>
-              <h4 style="margin-bottom:5px">PROFESSIONAL EXPERIENCE</h4>
+              <h4 style="margin-bottom:5px">EXPERIENCE</h4>
             </td>
           </tr>
           <tr v-for="(exp, ind) in data.exps" :key="ind">

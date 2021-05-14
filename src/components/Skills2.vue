@@ -36,13 +36,11 @@
         </div>
       </div>
     </div>
-    <div class="col-md-5">
+    <div class="col-md-6">
+      <SK2P :skills2="skill2"/>
+
       <div class="modal-header">
         <h5 class="modal-title">Print Instructions</h5>
-      </div>
-      <div class="modal-body">
-        <p>While printing with this skills type please check the print backgrounds checkbox in print modal</p>
-        <img src="../assets/printbackground.png" alt />
       </div>
     </div>
 
@@ -52,12 +50,17 @@
 
 
 <script>
+import SK2P from './Previews/Skills2.vue'
+
 export default {
   name: "Skills2",
   methods: {
     add: function () {
       this.skill2.name.push("");
     },
+  },
+  components:{
+    SK2P,
   },
   props: ["skill2"],
 };

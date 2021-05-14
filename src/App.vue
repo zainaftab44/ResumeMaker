@@ -63,44 +63,64 @@
             <div :class="[{ 'col-md-12': true }, { 'col-sm-12': true }]">
               <!-- { 'col-lg-4': (current !== 'Preview') }, { 'offset-lg-1': (current !== 'Preview') } -->
               <Profile v-if="current == 'Profile'" :profile="profile" />
-              <div v-else-if="current == 'Experience'" class="accordion" id="experiences">
-                <Experience
-                  v-for="(exp, i) in exps"
-                  :key="i"
-                  :exp="exp"
-                  @delete-row="delRow('exp', i)"
-                  @del-resp="delRes('exp', i, $e)"
-                />
+              <div v-else-if="current == 'Experience'" class="row accordion" id="experiences">
+                <div class="col-md-5">
+                  <Experience
+                    v-for="(exp, i) in exps"
+                    :key="i"
+                    :exp="exp"
+                    @delete-row="delRow('exp', i)"
+                    @del-resp="delRes('exp', i, $e)"
+                  />
+                </div>
+                <div class="col-md-6">
+                  <EXP :exps="exps"/>
+                </div>
               </div>
-              <div v-else-if="current == 'Education'" class="accordion" id="educations">
-                <Education
-                  v-for="(edu, i) in eds"
-                  :key="i"
-                  :edu="edu"
-                  @delete-row="delRow('ed', i)"
-                />
+              <div v-else-if="current == 'Education'" class="row accordion" id="educations">
+                <div class="col-md-5">
+                  <Education
+                    v-for="(edu, i) in eds"
+                    :key="i"
+                    :edu="edu"
+                    @delete-row="delRow('ed', i)"
+                  />
+                </div>
+                <div class="col-md-6">
+                  <EDP :eds="eds"/>
+                </div>
               </div>
-              <div v-else-if="current == 'Skills' && stype==1" class="accordion" id="skills">
-                <Skills
-                  v-for="(skill, i) in skills"
-                  :key="i"
-                  :skill="skill"
-                  @delete-row="delRow('ski', i)"
-                  @del-joined="delJoined('ski', i, $e)"
-                />
+              <div v-else-if="current == 'Skills' && stype==1" class="row accordion" id="skills">
+                <div class="col-md-5">
+                  <Skills
+                    v-for="(skill, i) in skills"
+                    :key="i"
+                    :skill="skill"
+                    @delete-row="delRow('ski', i)"
+                    @del-joined="delJoined('ski', i, $e)"
+                  />
+                </div>
+                <div class="col-md-6">
+                  <SK1P :skills="skills"/>
+                </div>
               </div>
-              <div v-else-if="current == 'Skills' && stype == 2">
+              <div class="row" v-else-if="current == 'Skills' && stype == 2">
                 <Skills2 :skill2="skills2" @del-joined="delJoined('sk2', i, $e)" />
               </div>
-              <div v-else-if="current == 'Projects'" class="accordion" id="projects">
-                <Projects
-                  v-for="(proj, i) in projs"
-                  :key="i"
-                  :proj="proj"
-                  @delete-row="delRow('proj', i)"
-                  @del-joined="delJoined('proj', i, $e)"
-                  @del-resp="delRes('proj', i, $e)"
-                />
+              <div v-else-if="current == 'Projects'" class="row accordion" id="projects">
+                <div class="col-md-5">
+                  <Projects
+                    v-for="(proj, i) in projs"
+                    :key="i"
+                    :proj="proj"
+                    @delete-row="delRow('proj', i)"
+                    @del-joined="delJoined('proj', i, $e)"
+                    @del-resp="delRes('proj', i, $e)"
+                  />
+                </div>
+                <div class="col-md-6">
+                  <PJP :projs="projs"/>
+                </div>
               </div>
               <!-- Data -->
               <Preview v-else-if="current == 'Preview'" :data="$data" />
@@ -119,7 +139,7 @@
                   <hr />
                 </span>
               </div>-->
-              <span class="col">
+              <span>
                 <br>
                 <button v-if="['Preview','Profile', 'Skills'].indexOf(current)==-1"  @click="add(current.toLowerCase().substring(0, 3))" class="btn btn-primary">Add {{ current[current.length-1]=='s'?current.substring(0,current.length-1):current }}</button>
                 <button v-else-if="current== 'Skills' && stype == 1" @click="add(current.toLowerCase().substring(0, 3))" class="btn btn-primary">Add {{ current[current.length-1]=='s'?current.substring(0,current.length-1):current }}</button>
@@ -127,7 +147,20 @@
               </span>
             </div>
           </div>
+          <span>
+            Press Ctrl+S for saving any time
+            <br />
+            Download to get backup and load from any device
+            <p v-if="current!=='Preview'" >Previews are displayed for convenience to check for typos or affirmation.</p>
+            <div class="row" v-if="current== 'Skills' && stype == 2">
+              <h5 class="modal-title">Print Instructions</h5>
+              <p>While printing with this skills type please check the print backgrounds checkbox in print modal</p>
+              <img style="max-width:400px" src="./assets/printbackground.png" alt="skills printing instructions" />
+            </div>
+          </span>
+
         </div>
+        
       </div>
     </div>
     <div
@@ -155,11 +188,6 @@
         </div>
       </div>
     </div>
-    <span style="position: absolute; right: 20px; top: 20px;color: white;text-align:right ">
-      Press Ctrl+S for saving any time
-      <br />
-      Download to get backup and load from any device
-    </span>
   </div>
 </template>
 
@@ -171,6 +199,11 @@ import Education from "./components/Education.vue";
 import Skills from "./components/Skills.vue";
 import Skills2 from "./components/Skills2.vue";
 import Projects from "./components/Projects.vue";
+import EXP from './components/Previews/Experience.vue'
+import EDP from './components/Previews/Education.vue'
+import SK1P from './components/Previews/Skills.vue'
+import PJP from './components/Previews/Project.vue'
+
 // import Certifications from "./components/Certifications.vue";
 // import $ from 'jquery';
 
@@ -184,7 +217,11 @@ export default {
     Education,
     Skills,
     Projects,
-    Skills2
+    Skills2,
+    EXP,
+    EDP,
+    SK1P,
+    PJP
     // Certifications,
   },
   data() {
