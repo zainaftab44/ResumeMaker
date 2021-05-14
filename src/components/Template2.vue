@@ -103,9 +103,11 @@
           </tr>
         </tbody>
       </table>
-      <div v-else-if="data.stype==2">
+      <div v-else-if="data.stype==2" style="max-width:100%">
         <h4 style="margin-bottom:5px;padding-bottom:5px">SKILLS</h4>
-        <span style="background-color:#bfbfbf; background-repeat:repeat;padding: 10px 15px;margin: 5px;border-radius: 5px;width: max-content;" class="skills2" v-for="skname in data.skills2.name" :key="skname">{{ skname }}</span>
+        <div style="flex-wrap: wrap;display: flex;">
+          <span style="background-color: lightgray; padding: 10px 15px;margin: 5px;border-radius: 5px;width: max-content;" class="skills2" v-for="skname in data.skills2.name" :key="skname">{{ skname }}</span>
+        </div>
       </div>
     </div>
     <div class="draggable-element" draggable="true" style="margin-top:10px">
