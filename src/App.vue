@@ -57,8 +57,8 @@
           </span>
         </nav>
       </div>
-      <div class="col">
-        <div :class="[{ 'container': current !== 'Preview' }, { 'container-fluid': current == 'Preview' }]">
+      <div class="col" v-if="current != 'Import'">
+        <div :class="[{ 'container': current !== 'Preview' }, { 'container-fluid': current == 'Preview' }]" >
           <div class="row mt-4">
             <div :class="[{ 'col-md-12': true }, { 'col-sm-12': true }]">
               <!-- { 'col-lg-4': (current !== 'Preview') }, { 'offset-lg-1': (current !== 'Preview') } -->
@@ -105,7 +105,7 @@
                 </div>
               </div>
               <div class="row" v-else-if="current == 'Skills' && stype == 2">
-                <Skills2 :skill2="skills2" @del-joined="delJoined('sk2', i, $e)" />
+                <Skills2 :skill2="skills2" @del-joined="delJoined('sk2', $e)" />
               </div>
               <div v-else-if="current == 'Projects'" class="row accordion" id="projects">
                 <div class="col-md-5">
@@ -163,6 +163,7 @@
         
       </div>
     </div>
+    <Import :authcode="authcode" v-if="current == 'Import'"/>
     <div
       class="modal"
       tabindex="-1"
@@ -199,6 +200,9 @@ import Education from "./components/Education.vue";
 import Skills from "./components/Skills.vue";
 import Skills2 from "./components/Skills2.vue";
 import Projects from "./components/Projects.vue";
+import Import from "./components/Import.vue";
+
+//Previews
 import EXP from './components/Previews/Experience.vue'
 import EDP from './components/Previews/Education.vue'
 import SK1P from './components/Previews/Skills.vue'
@@ -218,6 +222,7 @@ export default {
     Skills,
     Projects,
     Skills2,
+    Import,
     EXP,
     EDP,
     SK1P,
@@ -226,6 +231,7 @@ export default {
   },
   data() {
     return {
+      authcode:undefined,
       profile: {
         name: "",
         email: "",
@@ -246,7 +252,8 @@ export default {
         "Education",
         "Skills",
         "Projects",
-        "Preview"
+        "Preview",
+        // "Import"
         // "Certifications",
       ],
       stype: 1,
@@ -402,6 +409,7 @@ export default {
           this.skills[i].name.splice(j, 1);
           break;
         case 'sk2':
+          alert(type, i, j);
           this.skills2.name.splice(j, 1);
           break;
         case "proj":
@@ -421,6 +429,13 @@ export default {
     },
   },
   mounted() {
+    var ref = window.location.href;
+
+    if(ref.includes('linkedin')){
+      this.authcode=window.location.search.split('?code=')[1]
+      this.current='Import';
+      return;
+    }
     document.addEventListener('keydown', (e) => {
       if (e.ctrlKey && e.keyCode == 83) {
         e.preventDefault()
