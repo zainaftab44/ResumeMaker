@@ -347,6 +347,8 @@ export default {
         if (d.eds) this.eds = d.eds;
         if (d.skills) this.skills = d.skills;
         if (d.projs) this.projs = d.projs;
+        if (d.stype) this.stype = d.stype;
+        if (d.skills2) this.skills2 = d.skills2;
         // your code to consume the json                    
       }
       fr.readAsText(e.files[0]);
