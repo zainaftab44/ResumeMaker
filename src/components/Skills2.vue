@@ -12,12 +12,7 @@
           <div class="card-body">
             <div class="form-group row">
               <!-- <label for="end" class="col-md-6 col-form-label">Skills</label> -->
-              <div
-                class="col-md-3 mt-2 input-group"
-                @dragover="over(i)"
-                v-for="(res, i) in skill2.name"
-                :key="i"
-              >
+              <div class="col-md-3 mt-2 input-group" @dragover="over(i)" v-for="(res, i) in skill2.name" :key="i">
                 <span draggable="true" class="btn btn-primary" @dragstart="dragstart(i)" @dragend="dragend()" >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -33,18 +28,8 @@
                     />
                   </svg>
                 </span>
-                <input
-                  type="text"
-                  class="form-control"
-                  v-model="skill2.name[i]"
-                  placeholder="Skill Name"
-                />
-                <button
-                  class="btn btn-outline-danger"
-                  type="button"
-                  :title="'Delete skill ' + i"
-                  @click="del(i)"
-                >X</button>
+                <input type="text" class="form-control" v-model="skill2.name[i]" placeholder="Skill Name" />
+                <button class="btn btn-outline-danger" type="button" :title="'Delete skill ' + i" @click="del(i)" >X</button>
               </div>
             </div>
           </div>
