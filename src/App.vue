@@ -262,7 +262,6 @@ export default {
   },
   methods: {
     add: function(type) {
-      alert(type)
       switch (type) {
         case "exp":
           this.exps.push({
@@ -411,7 +410,6 @@ export default {
           this.skills[i].name.splice(j, 1);
           break;
         case 'sk2':
-          alert(type, i, j);
           this.skills2.name.splice(j, 1);
           break;
         case "proj":
