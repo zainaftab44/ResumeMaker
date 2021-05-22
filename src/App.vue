@@ -2,174 +2,104 @@
   <div id="app">
     <div class="row">
       <div class="col-lg-12 col-md-12 col-sm-12">
-        <nav
-          id="sidebarMenu"
-          style="height: 100%"
-          class="col-md-12 col-sm-12 bg-dark sidebar nav justify-content-center"
-        >
-          <span
-            :class="[
-              { 'nav-item': true },
-              { 'pt-2': true },
-            ]"
-            v-for="(item, i) in nav"
-            :key="i"
-          >
-            <a
-              class="nav-link"
-              href="#"
-              :class="[{ active: current === item }]"
-              @click.prevent="current = item"
-            >
+        <nav id="sidebarMenu" class="col nav bg-dark justify-content-center">
+          <span class="nav-item" v-for="(item, i) in nav" :key="i">
+            <a class="nav-link" :class="{ active: current == item }" @click.prevent="current = item">
               {{ item }}
               <span class="visually-hidden" v-if="current === item">(current)</span>
             </a>
-            <hr />
           </span>
-          <!-- <span class="nav-item pt-2">
-            <a href="#" class="nav-link" @click.prevent="preview">Preview</a>
-            <hr />
-          </span>-->
-          <span class="nav-item pt-2" v-if="current == 'Preview'">
+          <span class="nav-item" v-if="current == 'Preview'">
+            <a class="nav-link" @click.prevent="create">Generate</a>
+          </span>
+          <span class="nav-item">
+            <a class="nav-link" @click.prevent="download">Download</a>
+          </span>
+          <span class="nav-item">
+            <a class="nav-link" @click.prevent="save" id="save-nav">Save</a>
+          </span>
+          <span class="nav-item">
             <a
-              href="#"
-              class="nav-link"
-              @click.prevent="create"
-              data-toggle="modal"
-              data-target="#myModal"
-            >Generate</a>
-            <hr />
-          </span>
-          <span class="nav-item pt-2">
-            <a href="#" class="nav-link" @click.prevent="download">Download</a>
-          </span>
-          <span class="nav-item pt-2">
-            <a href="#" class="nav-link" @click.prevent="save" id="save-nav">Save</a>
-          </span>
-          <span class="nav-item pt-2">
-            <a
-              href="#"
               class="nav-link"
               data-bs-toggle="modal"
               data-bs-target="#loadresume"
-              id="load-nav"
+              @click.prevent="trigger"
             >Load</a>
           </span>
         </nav>
       </div>
-      <div class="col" v-if="current != 'Import'">
-        <div :class="[{ 'container': current !== 'Preview' }, { 'container-fluid': current == 'Preview' }]" >
-          <div class="row mt-4">
-            <div class="col-md-12 col-sm-12">
-              <!-- { 'col-lg-4': (current !== 'Preview') }, { 'offset-lg-1': (current !== 'Preview') } -->
-              <Profile v-if="current == 'Profile'" :profile="profile" />
-              <div v-else-if="current == 'Experience'" class="row accordion" id="experiences">
-                <div class="col-md-5">
-                  <Experience
-                    v-for="(exp, i) in exps"
-                    :key="i"
-                    :exp="exp"
-                    @delete-row="delRow('exp', i)"
-                    @del-resp="delRes('exp', i, $e)"
-                  />
-                </div>
-                <div class="col-md-6">
-                  <EXP :exps="exps"/>
-                </div>
-              </div>
-              <div v-else-if="current == 'Education'" class="row accordion" id="educations">
-                <div class="col-md-5">
-                  <Education
-                    v-for="(edu, i) in eds"
-                    :key="i"
-                    :edu="edu"
-                    @delete-row="delRow('ed', i)"
-                  />
-                </div>
-                <div class="col-md-6">
-                  <EDP :eds="eds"/>
-                </div>
-              </div>
-              <div v-else-if="current == 'Skills' && stype==1" class="row accordion" id="skills">
-                <div class="col-md-5">
-                  <Skills
-                    v-for="(skill, i) in skills"
-                    :key="i"
-                    :skill="skill"
-                    @delete-row="delRow('ski', i)"
-                  />
-                </div>
-                <div class="col-md-6">
-                  <SK1P :skills="skills"/>
-                </div>
-              </div>
-              <div class="row" v-else-if="current == 'Skills' && stype == 2">
-                <Skills2 :skill2="skills2" @del-joined="delJoined('sk2', $e)" />
-              </div>
-              <div v-else-if="current == 'Projects'" class="row accordion" id="projects">
-                <div class="col-md-5">
-                  <Projects
-                    v-for="(proj, i) in projs"
-                    :key="i"
-                    :proj="proj"
-                    @delete-row="delRow('proj', i)"
-                    @del-joined="delJoined('proj', i, $e)"
-                    @del-resp="delRes('proj', i, $e)"
-                  />
-                </div>
-                <div class="col-md-6">
-                  <PJP :projs="projs"/>
-                </div>
-              </div>
-              <!-- Data -->
-              <Preview v-else-if="current == 'Preview'" :data="$data" />
-
-              <!-- <div v-else-if="current == 'Certifications'">
-                <div class="accordion" id="certificates">
-                  <Certifications
-                    v-for="(cert, i) in certs"
-                    :key="i"
-                    :cert="cert"
-                    @delete-row="delRow('cer', i)"
-                  />
-                </div>
-                <span class="col">
-                  <button @click="add('cert')" class="btn btn-primary">Add Certification</button>
-                  <hr />
-                </span>
-              </div>-->
-              <span>
-                <br>
-                <button v-if="['Preview','Profile', 'Skills'].indexOf(current)==-1"  @click="add(current.toLowerCase().substring(0, 3))" class="btn btn-primary">Add {{ current[current.length-1]=='s'?current.substring(0,current.length-1):current }}</button>
-                <button v-else-if="current== 'Skills' && stype == 1" @click="add(current.toLowerCase().substring(0, 3))" class="btn btn-primary">Add {{ current[current.length-1]=='s'?current.substring(0,current.length-1):current }}</button>
-                <button v-if="current== 'Skills'" @click="changeskillstyle()" class="btn btn-primary" :style="[stype == 1?{'margin-left':'10px'}:null]">Change style</button>
-              </span>
-            </div>
+    </div>
+    <div class="container-fluid">
+      <div class="row mt-4">
+        <Profile v-if="current == 'Profile'" :profile="profile" />
+        <div v-else-if="current == 'Experience'" class="row">
+          <div class="col-md-5 accordion" id="experiences">
+            <Experience v-for="(ex, i) in exps" :key="i" :exp="ex" @delete-row="delRow('exp', i)" />
           </div>
-          <span>
-            Press Ctrl+S for saving any time
-            <br />
-            Download to get backup and load from any device
-            <p v-if="current!=='Preview'" >Previews are displayed for convenience to check for typos or affirmation.</p>
-            <div class="row" v-if="current== 'Skills' && stype == 2">
-              <h5 class="modal-title">Print Instructions</h5>
-              <p>While printing with this skills type please check the print backgrounds checkbox in print modal</p>
-              <img style="max-width:400px" src="./assets/printbackground.png" alt="skills printing instructions" />
-            </div>
-          </span>
-
+          <div class="col-md-6">
+            <EXP :exps="exps" />
+          </div>
         </div>
-        
+        <div v-else-if="current == 'Education'" class="row" id="educations">
+          <div class="col-md-5 accordion">
+            <Education v-for="(e, i) in eds" :key="i" :edu="e" @delete-row="delRow('ed', i)" />
+          </div>
+          <div class="col-md-6">
+            <EDP :eds="eds" />
+          </div>
+        </div>
+        <div v-else-if="current == 'Skills' && stype == 1" class="row" id="skills">
+          <div class="col-md-5 accordion">
+            <Skills v-for="(sk, i) in skills" :key="i" :skill="sk" @delete-row="delRow('ski', i)" />
+          </div>
+          <div class="col-md-6">
+            <SK1P :skills="skills" />
+          </div>
+        </div>
+        <div class="row" v-else-if="current == 'Skills' && stype == 2">
+          <Skills2 :skill2="skills2" />
+        </div>
+        <div v-else-if="current == 'Projects'" class="row" id="projects">
+          <div class="col-md-5 accordion">
+            <Projects v-for="(pr, i) in projs" :key="i" :proj="pr" @delete-row="delRow('proj', i)" />
+          </div>
+          <div class="col-md-6">
+            <PJP :projs="projs" />
+          </div>
+        </div>
+        <div v-else-if="current == 'Certifications'" class="row" id="certificates">
+          <div class="col-md-5 accordion">
+            <Certifications
+              v-for="(c, i) in certs"
+              :key="i"
+              :cert="c"
+              @delete-row="delRow('cer', i)"
+            />
+          </div>
+        </div>
+        <!-- Data -->
+        <Preview v-else-if="current == 'Preview'" :data="$data" />
+
+        <span class="ms-3">
+          <br />
+          <button v-if="addChk" @click="add(init)" class="btn btn-primary">Add {{ btnCurr }}</button>
+          <button v-if="isSkill" @click="changeskillstyle()" class="btn btn-primary ms-2">Toggle</button>
+        </span>
       </div>
     </div>
-    <Import :authcode="authcode" v-if="current == 'Import'"/>
-    <div
-      class="modal"
-      tabindex="-1"
-      aria-labelledby="loadresumeModal"
-      aria-hidden="true"
-      id="loadresume"
-    >
+
+    <span style="text-align:center">
+      <p>Press Ctrl+S for saving any time</p>
+      <p>Download to get backup and load from any device</p>
+      <p v-if="current != 'Preview'">Displayed previews to check for proofreading and are not final.</p>
+      <div class="row" v-if="current == 'Skills' && stype == 2">
+        <h5 class="modal-title">Print Instructions</h5>
+        <p>While printing with this skills type please check the print backgrounds checkbox in print modal</p>
+        <img style="max-width:400px" src="./assets/printbackground.png" alt="printing instructions" />
+      </div>
+    </span>
+    <!-- <Import :authcode="authcode" v-if="current == 'Import'" /> -->
+    <div class="modal" tabindex="-1" aria-hidden="true" id="loadresume">
       <div class="modal-dialog">
         <div class="modal-content">
           <div class="modal-header">Load Resume</div>
@@ -199,7 +129,7 @@ import Education from "./components/Education.vue";
 import Skills from "./components/Skills.vue";
 import Skills2 from "./components/Skills2.vue";
 import Projects from "./components/Projects.vue";
-import Import from "./components/Import.vue";
+// import Import from "./components/Import.vue";
 
 //Previews
 import EXP from './components/Previews/Experience.vue'
@@ -221,16 +151,20 @@ export default {
     Skills,
     Projects,
     Skills2,
-    Import,
     EXP,
     EDP,
     SK1P,
     PJP
     // Certifications,
   },
+  watch: {
+    current: function() {
+      document.title = this.current + ' - Resume Forge';
+    }
+  },
   data() {
     return {
-      authcode:undefined,
+      authcode: undefined,
       profile: {
         name: "",
         email: "",
@@ -323,7 +257,7 @@ export default {
       localStorage.data = JSON.stringify(this.$data);
     },
     save: function() {
-
+      document.getElementById('save-nav').innerHTML = "Saving"
       localStorage.setItem("profile", JSON.stringify(this.$data.profile));
       localStorage.setItem("experience", JSON.stringify(this.$data.exps));
       localStorage.setItem("education", JSON.stringify(this.$data.eds));
@@ -331,7 +265,9 @@ export default {
       localStorage.setItem("projects", JSON.stringify(this.$data.projs));
       localStorage.setItem("stype", JSON.stringify(this.$data.stype));
       localStorage.setItem("skills2", JSON.stringify(this.$data.skills2));
-
+      setTimeout(() => {
+        document.getElementById('save-nav').innerHTML = "Saved"
+      }, 200)
     },
     load: function() {
       let e = document.getElementById('resumefile')
@@ -428,19 +364,15 @@ export default {
   mounted() {
     var ref = window.location.href;
 
-    if(ref.includes('linkedin')){
-      this.authcode=window.location.search.split('?code=')[1]
-      this.current='Import';
+    if (ref.includes('linkedin')) {
+      this.authcode = window.location.search.split('?code=')[1]
+      this.current = 'Import';
       return;
     }
     document.addEventListener('keydown', (e) => {
       if (e.ctrlKey && e.keyCode == 83) {
         e.preventDefault()
-        document.getElementById('save-nav').innerHTML = "Saving"
         this.save()
-        setTimeout(() => {
-          document.getElementById('save-nav').innerHTML = "Saved"
-        }, 200)
       }
     })
 
@@ -487,6 +419,12 @@ export default {
       }
     }
   },
+  computed: {
+    init: function() { return this.current.toLowerCase().substring(0, 3) },
+    addChk: function() { return ['Preview', 'Profile', 'Skills'].indexOf(this.current) == -1 || (this.current == 'Skills' && this.stype == 1) },
+    btnCurr: function() { return this.current.replace(/s$/, '') },
+    isSkill: function() { return this.current == 'Skills' },
+  }
 };
 
 </script>
@@ -511,16 +449,24 @@ hr {
 .active {
   background: gray;
 }
-.btn-outline-danger{
-  max-width:20%;
+.btn-outline-danger {
+  max-width: 20%;
 }
-.accord-title{
+.accord-title {
   float: left;
   max-width: 100%;
   width: 75%;
 }
-.row{
+.row {
   margin-right: 0;
-  margin-left: 0
+  margin-left: 0;
+}
+.delete-btn {
+  height: 1.75rem;
+  margin: auto;
+  width: min-content !important;
+}
+.nav-link {
+  cursor: pointer;
 }
 </style>

@@ -73,7 +73,7 @@ export default {
     title: function() {
       return this.exp.title ? this.exp.title + (this.exp.company ? ", " + this.exp.company : "") : ""
     }
-  }
+  },
 };
 </script>
 
