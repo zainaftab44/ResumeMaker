@@ -60,7 +60,7 @@
       <div class="col" v-if="current != 'Import'">
         <div :class="[{ 'container': current !== 'Preview' }, { 'container-fluid': current == 'Preview' }]" >
           <div class="row mt-4">
-            <div :class="[{ 'col-md-12': true }, { 'col-sm-12': true }]">
+            <div class="col-md-12 col-sm-12">
               <!-- { 'col-lg-4': (current !== 'Preview') }, { 'offset-lg-1': (current !== 'Preview') } -->
               <Profile v-if="current == 'Profile'" :profile="profile" />
               <div v-else-if="current == 'Experience'" class="row accordion" id="experiences">
@@ -97,7 +97,6 @@
                     :key="i"
                     :skill="skill"
                     @delete-row="delRow('ski', i)"
-                    @del-joined="delJoined('ski', i, $e)"
                   />
                 </div>
                 <div class="col-md-6">
@@ -307,7 +306,6 @@ export default {
         default:
           break;
       }
-      // console.log(this.$refs);
     },
     changeskillstyle: function() {
       this.stype = this.stype == 1 ? 2 : 1;
@@ -340,7 +338,6 @@ export default {
       let fr = new FileReader();
       fr.onload = () => {
         let d = JSON.parse(fr.result);
-        console.log(d);
         if (d.profile) this.profile = d.profile;
         if (d.exps) this.exps = d.exps;
         if (d.eds) this.eds = d.eds;
@@ -513,5 +510,17 @@ hr {
 }
 .active {
   background: gray;
+}
+.btn-outline-danger{
+  max-width:20%;
+}
+.accord-title{
+  float: left;
+  max-width: 100%;
+  width: 75%;
+}
+.row{
+  margin-right: 0;
+  margin-left: 0
 }
 </style>

@@ -1,30 +1,14 @@
 <template>
-  <div style="text-align:left">
-    <h3>Honors &amp; Awards {{this.$vnode.key+1}}</h3>
-    <hr />
-    <div class="form-group">
-      <label for="inst" class="col-md-3 col-form-label">Title</label>
-      <div class="col">
-        <input type="text" class="form-control" v-model="awd.title" placeholder="Title" />
-      </div>
-    </div>
-    <div class="form-group">
-      <label for="deg" class="col-md-3 col-form-label">Awarded By</label>
-      <div class="col">
-        <input type="text" class="form-control" v-model="awd.degree" placeholder="Awarder" />
-      </div>
-    </div>
-    <div class="form-group">
-      <label for="date" class="col-md-3 col-form-label">Date</label>
-      <div class="col">
-        <input type="text" class="form-control" v-model="awd.date" placeholder="Jan 2020" />
-      </div>
-    </div>
-    <div class="form-group">
-      <label for="end" class="col-md-3 col-form-label">Summary</label>
-      <div class="col">
-        <input type="text" class="form-control" v-model="awd.summary" placeholder="Summary" />
-      </div>
+  <div class="accordion" style="text-align: justify">
+    <div class="card">
+      <AHead :def="'Award'" :title="title" :did="this.$vnode.key" @del="$emit('delete-row')" />
+      <ABody :title="title" :did="this.$vnode.key" :parent="'awards'">
+        <div class="card-body">
+          <Input label="Title" :val="awd.title" @input="awd.title = $event" />
+          <Input label="Date" :val="awd.date" @input="awd.date = $event" />
+          <Input label="Organization" :val="awd.organization" @input="awd.organization = $event" />
+        </div>
+      </ABody>
     </div>
   </div>
 </template>
@@ -32,8 +16,23 @@
 
 
 <script>
+import Input from './inner/Input.vue'
+import AHead from './inner/AccordionHeader.vue'
+import ABody from './inner/AccordionBody.vue'
+
 export default {
   name: "Awards",
+  components: { Input, AHead, ABody },
   props: ["awd"],
+  computed: {
+    title: function() {
+      return this.awd.title
+    }
+  }
+};
+</script>
+
+<script>
+export default {
 };
 </script>

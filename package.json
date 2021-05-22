@@ -1,6 +1,6 @@
 {
   "name": "resume_forge",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve",
@@ -11,10 +11,11 @@
     "axios": "^0.21.1",
     "core-js": "^3.6.5",
     "jquery": "^3.6.0",
-    "jspdf": "^2.1.1",
+    "jspdf": "^2.3.1",
     "netlify-lualatex": "^1.2.1",
     "path": "^0.12.7",
-    "vue": "^2.6.11"
+    "vue": "^2.6.11",
+    "vue-router": "^3.5.1"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "~4.5.0",
