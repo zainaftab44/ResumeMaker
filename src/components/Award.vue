@@ -21,18 +21,11 @@ import AHead from './inner/AccordionHeader.vue'
 import ABody from './inner/AccordionBody.vue'
 
 export default {
-  name: "Awards",
+  name: "Award",
   components: { Input, AHead, ABody },
   props: ["awd"],
   computed: {
-    title: function() {
-      return this.awd.title
-    }
+    title: function() { return this.awd.title }
   }
-};
-</script>
-
-<script>
-export default {
 };
 </script>

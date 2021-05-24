@@ -9,12 +9,12 @@
           <Input label="Link" :val="proj.link" @input="proj.link = $event" />
           <Input label="Start Date" :val="proj.start" @input="proj.start = $event" />
           <Input label="End Date" :val="proj.end" @input="proj.end = $event" />
-          <div class="form-group mb-2 mt-2">
+          <div class="form-group my-2">
             <label for="end" class="col-md-6 col-form-label">Tools &amp; Technologies</label>
             <button @click="add('tool')" class="col-md-1 btn btn-secondary">+</button>
           </div>
           <DInput :title="'Tools'" :items="proj" :sub="'tools'" :half="true" />
-          <div class="form-group mb-2 mt-2">
+          <div class="form-group my-2">
             <label for="end" class="col-md-6 col-form-label">Responsibilities</label>
             <button @click="add('resp')" class="col-md-1 btn btn-secondary">+</button>
           </div>

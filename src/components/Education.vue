@@ -29,7 +29,7 @@ export default {
   props: ["edu"],
   computed: {
     title: function() {
-      return (this.edu.degree + this.edu.major) == "" ? "" : this.edu.degree + " (" + this.edu.major + ") "
+      return this.edu.degree.concat(this.edu.major) == "" ? "" : `${this.edu.degree} (${this.edu.major})`
     }
   }
 };

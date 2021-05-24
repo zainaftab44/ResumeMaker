@@ -2,7 +2,7 @@
   <div id="app">
     <div class="row">
       <div class="col-lg-12 col-md-12 col-sm-12">
-        <nav id="sidebarMenu" class="col nav bg-dark justify-content-center">
+        <nav id="sidebarMenu" class="col nav bg-dark justify-content-center py-2">
           <span class="nav-item" v-for="(item, i) in nav" :key="i">
             <a class="nav-link" :class="{ active: current == item }" @click.prevent="current = item">
               {{ item }}
@@ -31,61 +31,33 @@
     </div>
     <div class="container-fluid">
       <div class="row mt-4">
-        <Profile v-if="current == 'Profile'" :profile="profile" />
-        <div v-else-if="current == 'Experience'" class="row">
-          <div class="col-md-5 accordion" id="experiences">
-            <Experience v-for="(ex, i) in exps" :key="i" :exp="ex" @delete-row="delRow('exp', i)" />
-          </div>
-          <div class="col-md-6">
-            <EXP :exps="exps" />
-          </div>
+        <div class="col-md-5 accordion px-5" :id="current.toLowerCase()">
+          <Profile v-if="current == 'Profile'" :profile="profile" />
+          <Experience v-else-if="current == 'Experience'" v-for="(ex, i) in exps" :key="i" :exp="ex" @delete-row="delRow(i)" />
+          <Education  v-else-if="current == 'Education'"  v-for="(e, i) in eds" :key="i" :edu="e" @delete-row="delRow(i)" />
+          <Skills v-else-if="current == 'Skills' && stype == 1" v-for="(sk, i) in skills" :key="i" :skill="sk" @delete-row="delRow(i)" />
+          <Skills2 v-else-if="current == 'Skills' && stype == 2" :skill2="skills2"/>
+          <Projects v-else-if="current == 'Projects'" v-for="(pr, i) in projs" :key="i" :proj="pr" @delete-row="delRow(i)" />
+          <Award v-else-if="current == 'Awards'" v-for="(awd, i) in awds" :key="i" :awd="awd" @delete-row="delRow(i)" />
+          <!-- <Certifications v-for="(c, i) in certs" :key="i" :cert="c" @delrow="delRow(i)"/> -->
         </div>
-        <div v-else-if="current == 'Education'" class="row" id="educations">
-          <div class="col-md-5 accordion">
-            <Education v-for="(e, i) in eds" :key="i" :edu="e" @delete-row="delRow('ed', i)" />
-          </div>
-          <div class="col-md-6">
-            <EDP :eds="eds" />
-          </div>
+        <div class="col-md-6">
+          <PP v-if="current == 'Profile'" :profile="profile" />
+          <EXP v-else-if="current == 'Experience'" :exps="exps" />
+          <EDP  v-else-if="current == 'Education'"  :eds="eds" />
+          <SK1P v-else-if="current == 'Skills' && stype == 1" :skills="skills" />
+          <PJP v-else-if="current == 'Projects'" :projs="projs" />
+          <AWD v-else-if="current == 'Awards'" :awds="awds" />
         </div>
-        <div v-else-if="current == 'Skills' && stype == 1" class="row" id="skills">
-          <div class="col-md-5 accordion">
-            <Skills v-for="(sk, i) in skills" :key="i" :skill="sk" @delete-row="delRow('ski', i)" />
-          </div>
-          <div class="col-md-6">
-            <SK1P :skills="skills" />
-          </div>
-        </div>
-        <div class="row" v-else-if="current == 'Skills' && stype == 2">
-          <Skills2 :skill2="skills2" />
-        </div>
-        <div v-else-if="current == 'Projects'" class="row" id="projects">
-          <div class="col-md-5 accordion">
-            <Projects v-for="(pr, i) in projs" :key="i" :proj="pr" @delete-row="delRow('proj', i)" />
-          </div>
-          <div class="col-md-6">
-            <PJP :projs="projs" />
-          </div>
-        </div>
-        <div v-else-if="current == 'Certifications'" class="row" id="certificates">
-          <div class="col-md-5 accordion">
-            <Certifications
-              v-for="(c, i) in certs"
-              :key="i"
-              :cert="c"
-              @delete-row="delRow('cer', i)"
-            />
-          </div>
-        </div>
-        <!-- Data -->
-        <Preview v-else-if="current == 'Preview'" :data="$data" />
-
-        <span class="ms-3">
-          <br />
-          <button v-if="addChk" @click="add(init)" class="btn btn-primary">Add {{ btnCurr }}</button>
-          <button v-if="isSkill" @click="changeskillstyle()" class="btn btn-primary ms-2">Toggle</button>
-        </span>
       </div>
+
+      <Preview v-if="current == 'Preview'" :data="$data" />
+
+      <span class="ms-3">
+        <br />
+        <button v-if="addChk" @click="add()" class="btn btn-primary">Add {{ btnCurr }}</button>
+        <button v-if="isSkill" @click="changeskillstyle()" class="btn btn-primary ms-2">Toggle</button>
+      </span>
     </div>
 
     <span style="text-align:center">
@@ -129,16 +101,17 @@ import Education from "./components/Education.vue";
 import Skills from "./components/Skills.vue";
 import Skills2 from "./components/Skills2.vue";
 import Projects from "./components/Projects.vue";
+import Award from "./components/Award.vue";
+// import Certifications from "./components/Certifications.vue";
 // import Import from "./components/Import.vue";
 
 //Previews
+import PP from "./components/Previews/Profile.vue"
 import EXP from './components/Previews/Experience.vue'
 import EDP from './components/Previews/Education.vue'
 import SK1P from './components/Previews/Skills.vue'
 import PJP from './components/Previews/Project.vue'
-
-// import Certifications from "./components/Certifications.vue";
-// import $ from 'jquery';
+import AWD from './components/Previews/Award.vue'
 
 
 export default {
@@ -150,12 +123,15 @@ export default {
     Education,
     Skills,
     Projects,
+    Award,
     Skills2,
+    PP,
     EXP,
     EDP,
     SK1P,
-    PJP
-    // Certifications,
+    PJP,
+    AWD,
+       // Certifications,
   },
   watch: {
     current: function() {
@@ -178,6 +154,7 @@ export default {
       skills: [],
       projs: [],
       skills2: { name: [] },
+      awds :[],
       // certs: [],
       nav: [
         "Profile",
@@ -185,58 +162,35 @@ export default {
         "Education",
         "Skills",
         "Projects",
-        "Preview",
-        // "Import"
         // "Certifications",
+        // "Awards",
+        "Preview",
       ],
       stype: 1,
       current: "Profile",
     };
   },
   methods: {
-    add: function(type) {
-      switch (type) {
-        case "exp":
-          this.exps.push({
-            company: "",
-            location: "",
-            title: "",
-            start: "",
-            end: "",
-            resp: [],
-          });
+    add: function() {
+      switch (this.current) {
+        case "Experience":
+          this.exps.push({company: "", location: "", title: "", start: "", end: "", resp: []});
           break;
-        case "edu":
-          this.eds.push({
-            institute: "",
-            degree: "",
-            major: "",
-            locations: "",
-            start: "",
-            end: "",
-          });
+        case "Education":
+          this.eds.push({institute: "", degree: "", major: "", locations: "", start: "", end: ""});
           break;
-        case "ski":
+        case "Skills":
           this.skills.push({ type: "", name: [] });
           break;
-        // case "skill2":
-        //   this.skills2.push({ name: [] });
-        //   break;
-        case "pro":
-          this.projs.push({
-            title: "",
-            desc: "",
-            link: "",
-            start: "",
-            end: "",
-            tools: [],
-            resp: [],
-          });
+        case "Projects":
+          this.projs.push({ title: "", desc: "", link: "", start: "", end: "", tools: [],resp: [],});
           break;
         // case "cert":
         //   this.certs.push({ institute: "", title: "", link: "", date: "" });
         // break;
-
+        case 'Awards':
+          this.awds.push({title:"", date:"", organization:""})
+          break;
         default:
           break;
       }
@@ -265,6 +219,7 @@ export default {
       localStorage.setItem("projects", JSON.stringify(this.$data.projs));
       localStorage.setItem("stype", JSON.stringify(this.$data.stype));
       localStorage.setItem("skills2", JSON.stringify(this.$data.skills2));
+      localStorage.setItem("awds", JSON.stringify(this.$data.awds));
       setTimeout(() => {
         document.getElementById('save-nav').innerHTML = "Saved"
       }, 200)
@@ -281,6 +236,7 @@ export default {
         if (d.projs) this.projs = d.projs;
         if (d.stype) this.stype = d.stype;
         if (d.skills2) this.skills2 = d.skills2;
+        if (d.awds) this.awds = d.awds;
         // your code to consume the json                    
       }
       fr.readAsText(e.files[0]);
@@ -315,21 +271,21 @@ export default {
       }
 
     },
-    delRow: function(type, i) {
-      switch (type) {
-        case "exp":
+    delRow: function(i) {
+      switch (this.current) {
+        case "Experience":
           this.exps.splice(i, 1);
           break;
-        case "ed":
+        case "Education":
           this.eds.splice(i, 1);
           break;
-        case "ski":
+        case "Skills":
           this.skills.splice(i, 1);
           break;
-        case "proj":
+        case "Projects":
           this.projs.splice(i, 1);
           break;
-        case "cer":
+        case "Certificates":
           this.certs.splice(i, 1);
           break;
 
@@ -337,38 +293,10 @@ export default {
           break;
       }
     },
-    delJoined: function(type, i, j) {
-      switch (type) {
-        case "ski":
-          this.skills[i].name.splice(j, 1);
-          break;
-        case 'sk2':
-          this.skills2.name.splice(j, 1);
-          break;
-        case "proj":
-          this.projs[i].tools.splice(j, 1);
-          break;
-      }
-    },
-    delRes: function(type, i, j) {
-      switch (type) {
-        case "exp":
-          this.exps[i].resp.splice(j, 1);
-          break;
-        case "proj":
-          this.projs[i].resp.splice(j, 1);
-          break;
-      }
-    },
   },
   mounted() {
     var ref = window.location.href;
 
-    if (ref.includes('linkedin')) {
-      this.authcode = window.location.search.split('?code=')[1]
-      this.current = 'Import';
-      return;
-    }
     document.addEventListener('keydown', (e) => {
       if (e.ctrlKey && e.keyCode == 83) {
         e.preventDefault()
@@ -406,6 +334,10 @@ export default {
         this.skills2 = JSON.parse(localStorage.getItem('skills2'));
         found = 1;
       }
+      if (localStorage.getItem('awds')) {
+        this.awds = JSON.parse(localStorage.getItem('awds'));
+        found = 1;
+      }
 
       if (found == 0) {
         if (localStorage.data) {
@@ -420,7 +352,7 @@ export default {
     }
   },
   computed: {
-    init: function() { return this.current.toLowerCase().substring(0, 3) },
+    init: function() { return this.current=='Awards'?'awd':this.current.toLowerCase().substring(0, 3)  },
     addChk: function() { return ['Preview', 'Profile', 'Skills'].indexOf(this.current) == -1 || (this.current == 'Skills' && this.stype == 1) },
     btnCurr: function() { return this.current.replace(/s$/, '') },
     isSkill: function() { return this.current == 'Skills' },
@@ -468,5 +400,14 @@ hr {
 }
 .nav-link {
   cursor: pointer;
+}
+
+
+@media print {
+  * {
+     font-family: "Courier New";
+     font-size: 6pt;
+  }
+  /* You can add additional styles here which you need */
 }
 </style>
