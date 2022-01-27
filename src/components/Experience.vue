@@ -1,7 +1,7 @@
 <template>
   <div class="accordion-item" style="text-align: justify">
     <div class="card">
-      <AHead :def="'Experience'" :title="title" :did="this.$vnode.key" @del="$emit('delete-row')" />
+      <AHead :def="'Experience'" :title="title" :did="this.$vnode.key" @del="$emit('delete-row')" @move="passToParent" />
       <ABody :title="title" :did="this.$vnode.key" :parent="'experiences'">
         <div class="card-body">
           <Input label="Job Title" :val="exp.title" @input="exp.title = $event" />
@@ -36,6 +36,11 @@ export default {
   methods: {
     add: function() {
       this.exp.resp.push("");
+    },
+    passToParent: function(value){
+      console.log("passing to parent ",value)
+      console.log("current index ",this.$vnode.key)
+      this.$emit('move-row',this.$vnode.key,value)
     }
   },
   computed: {

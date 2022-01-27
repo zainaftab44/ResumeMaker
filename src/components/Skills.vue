@@ -1,7 +1,7 @@
 <template>
   <div class="accordion">
     <div class="card">
-      <AHead :def="'Skill'" :title="skill.type" :did="this.$vnode.key" @del="$emit('delete-row')" />
+      <AHead :def="'Skill'" :title="skill.type" :did="this.$vnode.key" @del="$emit('delete-row')" @move="passToParent"   />
       <ABody :title="skill.type" :did="this.$vnode.key" :parent="'skills'">
         <Input label="Skill Type" :val="skill.type" @input="skill.type = $event" />
         <div class="form-group">
@@ -33,6 +33,9 @@ export default {
   methods: {
     add: function() {
       this.skill.name.push("");
+    },
+    passToParent: function(value){
+      this.$emit('move-row',this.$vnode.key,value)
     },
   },
   props: ["skill"],

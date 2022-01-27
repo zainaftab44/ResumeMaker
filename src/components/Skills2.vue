@@ -1,6 +1,5 @@
 <template>
-  <div class="row">
-    <div class="col-md-5" style="text-align: justify">
+  <div class="accordion">
       <div class="card">
         <div class="card-header border-success bg-transparent" :id="'headingsk2'">
           <h3>
@@ -13,10 +12,6 @@
             <DInput :title="'Skill'" :items="skill2" :sub="'name'" :half="true" />
           </div>
         </div>
-      </div>
-    </div>
-    <div class="col-md-6">
-      <SK2P :skills2="skill2" />
     </div>
   </div>
 </template>
@@ -24,7 +19,6 @@
 
 <script>
 import DInput from './inner/DraggableInput.vue'
-import SK2P from './Previews/Skills2.vue'
 
 export default {
   name: "Skills2",
@@ -33,10 +27,7 @@ export default {
       this.skill2.name.push("");
     },
   },
-  components: {
-    SK2P,
-    DInput
-  },
+  components: {DInput},
   props: ["skill2"],
 };
 </script>

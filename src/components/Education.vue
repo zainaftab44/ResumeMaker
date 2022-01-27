@@ -1,7 +1,7 @@
 <template>
   <div class="accordion" style="text-align: justify">
     <div class="card">
-      <AHead :def="'Education'" :title="title" :did="this.$vnode.key" @del="$emit('delete-row')" />
+      <AHead :def="'Education'" :title="title" :did="this.$vnode.key" @del="$emit('delete-row')" @move="passToParent"  />
       <ABody :title="title" :did="this.$vnode.key" :parent="'educations'">
         <div class="card-body">
           <Input label="Institute" :val="edu.institute" @input="edu.institute = $event" />
@@ -27,6 +27,11 @@ export default {
   name: "Education",
   components: { Input, AHead, ABody },
   props: ["edu"],
+  methods: {
+    passToParent: function(value){
+      this.$emit('move-row',this.$vnode.key,value)
+    }
+  },
   computed: {
     title: function() {
       return this.edu.degree.concat(this.edu.major) == "" ? "" : `${this.edu.degree} (${this.edu.major})`

@@ -1,7 +1,7 @@
 <template>
   <div class="accordion" style="text-align: justify">
     <div class="card">
-      <AHead :def="'Project'" :title="title" :did="this.$vnode.key" @del="$emit('delete-row')" />
+      <AHead :def="'Project'" :title="title" :did="this.$vnode.key" @del="$emit('delete-row')"  @move="passToParent" />
       <ABody :title="title" :did="this.$vnode.key" :parent="'projects'">
         <div class="card-body">
           <Input label="Project Title" :val="proj.title" @input="proj.title = $event" />
@@ -49,7 +49,10 @@ export default {
         default:
           break;
       }
-    }
+    },
+    passToParent: function(value){
+      this.$emit('move-row',this.$vnode.key,value)
+    },
   },
   computed: {
     title: function() {

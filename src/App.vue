@@ -33,12 +33,12 @@
       <div class="row mt-4">
         <div class="col-md-5 accordion px-5" :id="current.toLowerCase()">
           <Profile v-if="current == 'Profile'" :profile="profile" />
-          <Experience v-else-if="current == 'Experience'" v-for="(ex, i) in exps" :key="i" :exp="ex" @delete-row="delRow(i)" />
-          <Education  v-else-if="current == 'Education'"  v-for="(e, i) in eds" :key="i" :edu="e" @delete-row="delRow(i)" />
-          <Skills v-else-if="current == 'Skills' && stype == 1" v-for="(sk, i) in skills" :key="i" :skill="sk" @delete-row="delRow(i)" />
+          <Experience v-else-if="current == 'Experience'" v-for="(ex, i) in exps" :key="i" :exp="ex" @delete-row="delRow(i)" @move-row="moveRow" />
+          <Education  v-else-if="current == 'Education'"  v-for="(e, i) in eds" :key="i" :edu="e" @delete-row="delRow(i)" @move-row="moveRow" />
+          <Skills v-else-if="current == 'Skills' && stype == 1" v-for="(sk, i) in skills" :key="i" :skill="sk" @delete-row="delRow(i)" @move-row="moveRow" />
           <Skills2 v-else-if="current == 'Skills' && stype == 2" :skill2="skills2"/>
-          <Projects v-else-if="current == 'Projects'" v-for="(pr, i) in projs" :key="i" :proj="pr" @delete-row="delRow(i)" />
-          <Award v-else-if="current == 'Awards'" v-for="(awd, i) in awds" :key="i" :awd="awd" @delete-row="delRow(i)" />
+          <Projects v-else-if="current == 'Projects'" v-for="(pr, i) in projs" :key="i" :proj="pr" @delete-row="delRow(i)" @move-row="moveRow" />
+          <Award v-else-if="current == 'Awards'" v-for="(awd, i) in awds" :key="i" :awd="awd" @delete-row="delRow(i)" @move-row="moveRow" />
           <!-- <Certifications v-for="(c, i) in certs" :key="i" :cert="c" @delrow="delRow(i)"/> -->
         </div>
         <div class="col-md-6">
@@ -46,6 +46,7 @@
           <EXP v-else-if="current == 'Experience'" :exps="exps" />
           <EDP  v-else-if="current == 'Education'"  :eds="eds" />
           <SK1P v-else-if="current == 'Skills' && stype == 1" :skills="skills" />
+          <SK2P v-else-if="current == 'Skills' && stype == 2" :skills2="skills2" />
           <PJP v-else-if="current == 'Projects'" :projs="projs" />
           <AWD v-else-if="current == 'Awards'" :awds="awds" />
         </div>
@@ -55,10 +56,10 @@
 
       <span class="ms-3">
         <br />
-        <button v-if="addChk" @click="add()" class="btn btn-primary">Add {{ btnCurr }}</button>
         <button v-if="isSkill" @click="changeskillstyle()" class="btn btn-primary ms-2">Toggle</button>
       </span>
     </div>
+        <button style="position:fixed; bottom: 50px;right:50px" v-if="addChk" @click="add()" class="btn btn-primary">Add {{ btnCurr }}</button>
 
     <span style="text-align:center">
       <p>Press Ctrl+S for saving any time</p>
@@ -110,8 +111,11 @@ import PP from "./components/Previews/Profile.vue"
 import EXP from './components/Previews/Experience.vue'
 import EDP from './components/Previews/Education.vue'
 import SK1P from './components/Previews/Skills.vue'
+import SK2P from './components/Previews/Skills2.vue'
 import PJP from './components/Previews/Project.vue'
 import AWD from './components/Previews/Award.vue'
+
+import Vue from 'vue'
 
 
 export default {
@@ -129,6 +133,7 @@ export default {
     EXP,
     EDP,
     SK1P,
+    SK2P,
     PJP,
     AWD,
        // Certifications,
@@ -174,22 +179,22 @@ export default {
     add: function() {
       switch (this.current) {
         case "Experience":
-          this.exps.push({company: "", location: "", title: "", start: "", end: "", resp: []});
+          this.exps.unshift({company: "", location: "", title: "", start: "", end: "", resp: []});
           break;
         case "Education":
-          this.eds.push({institute: "", degree: "", major: "", locations: "", start: "", end: ""});
+          this.eds.unshift({institute: "", degree: "", major: "", locations: "", start: "", end: ""});
           break;
         case "Skills":
-          this.skills.push({ type: "", name: [] });
+          this.skills.unshift({ type: "", name: [] });
           break;
         case "Projects":
-          this.projs.push({ title: "", desc: "", link: "", start: "", end: "", tools: [],resp: [],});
+          this.projs.unshift({ title: "", desc: "", link: "", start: "", end: "", tools: [],resp: [],});
           break;
         // case "cert":
         //   this.certs.push({ institute: "", title: "", link: "", date: "" });
         // break;
         case 'Awards':
-          this.awds.push({title:"", date:"", organization:""})
+          this.awds.unshift({title:"", date:"", organization:""})
           break;
         default:
           break;
@@ -287,6 +292,49 @@ export default {
           break;
         case "Certificates":
           this.certs.splice(i, 1);
+          break;
+
+        default:
+          break;
+      }
+    },
+    moveRow: function(i,change) {
+      console.log("in move row method app.vue",i,change)
+      switch (this.current) {
+        case "Experience":
+          if(i+change>=this.exps.length || i+change<0)
+            break;
+          let exp = this.exps[i]
+          Vue.set(this.exps, i, this.exps[i+change])
+          Vue.set(this.exps, i+change, exp)
+          break;
+        case "Education":
+          if(i+change>=this.eds.length || i+change<0)
+            break;
+          let ed = this.eds[i]
+          Vue.set(this.eds, i, this.eds[i+change])
+          Vue.set(this.eds, i+change,ed)
+          break;
+        case "Skills":
+          if(i+change>=this.skills.length || i+change<0)
+            break;
+          let skill = this.skills[i]
+          Vue.set(this.skills, i, this.skills[i+change])
+          Vue.set(this.skills, i+change, skill)
+          break;
+        case "Projects":
+          if(i+change>=this.projs.length || i+change<0)
+            break;
+          let proj = this.projs[i]
+          Vue.set(this.projs, i, this.projs[i+change])
+          Vue.set(this.projs, i+change, proj)
+          break;
+        case "Certificates":
+          if(i+change>=this.certs.length || i+change<0)
+            break;
+          let cert = this.certs[i]
+          Vue.set(this.certs, i, this.certs[i+change])
+          Vue.set(this.certs, i+change, cert)
           break;
 
         default:
