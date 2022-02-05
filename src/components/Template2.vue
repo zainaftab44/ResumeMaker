@@ -198,6 +198,7 @@ export default {
     // available: function (type) {},
   },
   mounted() {
+
     (function() {
       var id_ = 'preview';
       var rows_ = document.querySelectorAll('#' + id_ + '> .draggable-element');
@@ -218,8 +219,14 @@ export default {
       }
       function handleDrop(e) {
         if (current.classList[0] == "draggable-element") {
-          dragSrcEl_.innerHTML = current.innerHTML;
-          current.innerHTML = e.dataTransfer.getData('text/html')
+          if(navigator.userAgent.toLowerCase().includes("firefox")){
+            dragSrcEl_.innerHTML = current.innerHTML;
+            current.innerHTML = e.dataTransfer.getData('text/html')
+          }else{
+            let inner = current.innerHTML
+            current.innerHTML = e.target.innerHTML
+            dragSrcEl_.innerHTML  =inner
+          }
         }
       }
 
@@ -229,7 +236,7 @@ export default {
         row.addEventListener('dragend', handleDrop, false);
       });
 
-    })()
+    })();
   }
 };
 </script>

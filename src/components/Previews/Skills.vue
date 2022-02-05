@@ -3,7 +3,7 @@
         <tbody>
             <tr>
                 <td>
-                    <h4 style="margin-bottom:5px">SKILLS</h4>
+                    <h4 style="margin-bottom:5px;padding-bottom:5px">SKILLS</h4>
                 </td>
             </tr>
             <tr>
