@@ -1,8 +1,8 @@
 <template>
-  <div class="accordion-item" style="text-align: justify">
+  <div class="accordion-item">
     <div class="card">
       <AHead :def="'Experience'" :title="title" :did="this.$vnode.key" @del="$emit('delete-row')" @move="passToParent" />
-      <ABody :title="title" :did="this.$vnode.key" :parent="'experiences'">
+      <ABody :title="title" :did="this.$vnode.key" :parent="'experience'">
         <div class="card-body">
           <Input label="Job Title" :val="exp.title" @input="exp.title = $event" />
           <Input label="Company" :val="exp.company" @input="exp.company = $event" />
@@ -12,7 +12,7 @@
           <div class="form-group">
             <label for="end" class="col-md-6 col-form-label">Responsibilities</label>
             <button @click="add" class="col-md-1 btn btn-secondary">+</button>
-            <DInput :title="'Experience'" :items="exp" :sub="'resp'" />
+            <DInput :title="'Responsibility'" :items="exp" :sub="'resp'" />
           </div>
         </div>
       </ABody>
@@ -38,8 +38,6 @@ export default {
       this.exp.resp.push("");
     },
     passToParent: function(value){
-      console.log("passing to parent ",value)
-      console.log("current index ",this.$vnode.key)
       this.$emit('move-row',this.$vnode.key,value)
     }
   },

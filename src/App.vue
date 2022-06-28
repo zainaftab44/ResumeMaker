@@ -33,39 +33,40 @@
       <div class="row mt-4">
         <div class="col-md-5 accordion px-5" :id="current.toLowerCase()">
           <Profile v-if="current == 'Profile'" :profile="profile" />
-          <Experience v-else-if="current == 'Experience'" v-for="(ex, i) in exps" :key="i" :exp="ex" @delete-row="delRow(i)" @move-row="moveRow" />
+          <Experience v-else-if="current == 'Experience'" v-for="(exp, i) in exps" :key="i" :exp="exp" @delete-row="delRow(i)" @move-row="moveRow" />
           <Education  v-else-if="current == 'Education'"  v-for="(e, i) in eds" :key="i" :edu="e" @delete-row="delRow(i)" @move-row="moveRow" />
-          <Skills v-else-if="current == 'Skills' && stype == 1" v-for="(sk, i) in skills" :key="i" :skill="sk" @delete-row="delRow(i)" @move-row="moveRow" />
-          <Skills2 v-else-if="current == 'Skills' && stype == 2" :skill2="skills2"/>
+          <Skills v-else-if="current == 'Skills' && styles.skills == 1" v-for="(sk, i) in skills" :key="i" :skill="sk" @delete-row="delRow(i)" @move-row="moveRow" />
+          <Skills2 v-else-if="current == 'Skills' && styles.skills == 2" :skill2="skills2"/>
           <Projects v-else-if="current == 'Projects'" v-for="(pr, i) in projs" :key="i" :proj="pr" @delete-row="delRow(i)" @move-row="moveRow" />
           <Award v-else-if="current == 'Awards'" v-for="(awd, i) in awds" :key="i" :awd="awd" @delete-row="delRow(i)" @move-row="moveRow" />
           <!-- <Certifications v-for="(c, i) in certs" :key="i" :cert="c" @delrow="delRow(i)"/> -->
         </div>
         <div class="col-md-6">
-          <PP v-if="current == 'Profile'" :profile="profile" />
+          <PP v-if="current == 'Profile' && styles.profile == 1" :profile="profile" />
+          <PP2 v-if="current == 'Profile' && styles.profile == 2" :profile="profile" />
           <EXP v-else-if="current == 'Experience'" :exps="exps" />
           <EDP  v-else-if="current == 'Education'"  :eds="eds" />
-          <SK1P v-else-if="current == 'Skills' && stype == 1" :skills="skills" />
-          <SK2P v-else-if="current == 'Skills' && stype == 2" :skills2="skills2" />
+          <SK1P v-else-if="current == 'Skills' && styles.skills == 1" :skills="skills" />
+          <SK2P v-else-if="current == 'Skills' && styles.skills == 2" :skills2="skills2" />
           <PJP v-else-if="current == 'Projects'" :projs="projs" />
           <AWD v-else-if="current == 'Awards'" :awds="awds" />
         </div>
       </div>
 
-      <Preview v-if="current == 'Preview'" :data="$data" />
+      <Preview v-if="current == 'Preview'" :maindata="$data" />
 
       <span class="ms-3">
         <br />
-        <button v-if="isSkill" @click="changeskillstyle()" class="btn btn-primary ms-2">Toggle</button>
+        <button v-if="canChangeStyle" @click="changestyle()" class="btn btn-primary ms-2">Toggle</button>
       </span>
     </div>
         <button style="position:fixed; bottom: 50px;right:50px" v-if="addChk" @click="add()" class="btn btn-primary">Add {{ btnCurr }}</button>
 
-    <span style="text-align:center">
+    <span class="text-center">
       <p>Press Ctrl+S for saving any time</p>
       <p>Download to get backup and load from any device</p>
       <p v-if="current != 'Preview'">Displayed previews to check for proofreading and are not final.</p>
-      <div class="row" v-if="current == 'Skills' && stype == 2">
+      <div class="row" v-if="current == 'Skills' && styles.skills == 2">
         <h5 class="modal-title">Print Instructions</h5>
         <p>While printing with this skills type please check the print backgrounds checkbox in print modal</p>
         <img style="max-width:400px" src="./assets/printbackground.png" alt="printing instructions" />
@@ -108,6 +109,7 @@ import Award from "./components/Award.vue";
 
 //Previews
 import PP from "./components/Previews/Profile.vue"
+import PP2 from "./components/Previews/Profile2.vue"
 import EXP from './components/Previews/Experience.vue'
 import EDP from './components/Previews/Education.vue'
 import SK1P from './components/Previews/Skills.vue'
@@ -130,6 +132,7 @@ export default {
     Award,
     Skills2,
     PP,
+    PP2,
     EXP,
     EDP,
     SK1P,
@@ -171,8 +174,14 @@ export default {
         // "Awards",
         "Preview",
       ],
-      stype: 1,
       current: "Profile",
+      styles:{
+        profile:1,
+        skills:1
+      },
+      settings:{
+        font:"Avantgarde"
+      }
     };
   },
   methods: {
@@ -200,12 +209,19 @@ export default {
           break;
       }
     },
-    changeskillstyle: function() {
-      this.stype = this.stype == 1 ? 2 : 1;
+    changestyle: function() {
+      switch (this.current) {
+        case "Profile":
+          this.styles.profile = this.styles.profile == 1 ? 2 : 1;
+          break;
+        case "Skills":
+          this.styles.skills = this.styles.skills == 1 ? 2 : 1;
+      }
     },
     create: function() {
+      // href='https://fonts.googleapis.com/css?family=Roboto'
       var source =
-        "<html><head><link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet'><style>body {font-family: 'Roboto';} @page {size: A4 portrait;} page[size='A4'] {  width: 21cm;  height: 29.7cm; } page[size='A4'][layout='landscape'] {  width: 29.7cm; height: 21cm;  } page{background:#fff;display:block;margin:0 auto;margin-bottom:.5cm; } .preview>*{text-align:justify!important;line-height:1.2!important}.preview>small{text-decoration:none!important;color:grey!important}.preview>.sub-color{color:grey!important}.preview>h4{margin-top:1.5em!important;margin-bottom:.5em!important}.preview>body{size:7in 9.25in!important;margin:27mm 16mm 27mm 16mm!important}li:before{content:'\\2014\\a0\\a0'}li{list-style:none!important}.pr-2{padding-right:5dp!important}</style></head><body><div class='preview'>" +
+        `<html><head><link rel='stylesheet'><style>body {font-family: '${this.settings.font}';} @page {size: A4 portrait;} page[size='A4'] {  width: 21cm;  height: 29.7cm; } page[size='A4'][layout='landscape'] {  width: 29.7cm; height: 21cm;  } page{background:#fff;display:block;margin:0 auto;margin-bottom:.5cm; } .preview>*{text-align:justify!important;line-height:1.2!important}.preview>small{text-decoration:none!important;color:grey!important}.preview>.sub-color{color:grey!important}.preview>h4{margin-top:1.5em!important;margin-bottom:.5em!important}.preview>body{size:7in 9.25in!important;margin:27mm 16mm 27mm 16mm!important}li:before{content:'\\2014\\a0\\a0'}li{list-style:none!important}.pr-2{padding-right:5dp!important}</style></head><body><div class='preview'>` +
         "<page size='A4'>" +
         window.document.getElementsByClassName("preview")[0].innerHTML +
         "</page>" +
@@ -222,7 +238,7 @@ export default {
       localStorage.setItem("education", JSON.stringify(this.$data.eds));
       localStorage.setItem("skills", JSON.stringify(this.$data.skills));
       localStorage.setItem("projects", JSON.stringify(this.$data.projs));
-      localStorage.setItem("stype", JSON.stringify(this.$data.stype));
+      localStorage.setItem("styles", JSON.stringify(this.$data.styles));
       localStorage.setItem("skills2", JSON.stringify(this.$data.skills2));
       localStorage.setItem("awds", JSON.stringify(this.$data.awds));
       setTimeout(() => {
@@ -239,7 +255,7 @@ export default {
         if (d.eds) this.eds = d.eds;
         if (d.skills) this.skills = d.skills;
         if (d.projs) this.projs = d.projs;
-        if (d.stype) this.stype = d.stype;
+        if (d.styles) this.styles = d.styles;
         if (d.skills2) this.skills2 = d.skills2;
         if (d.awds) this.awds = d.awds;
         // your code to consume the json                    
@@ -374,8 +390,12 @@ export default {
         this.projs = JSON.parse(localStorage.getItem('projects'));
         found = 1;
       }
-      if (localStorage.getItem('stype')) {
-        this.stype = JSON.parse(localStorage.getItem('stype'));
+      if (localStorage.getItem('styles')) {
+        this.styles = JSON.parse(localStorage.getItem('styles'));
+        found = 1;
+      }
+      if (!localStorage.getItem('styles') && localStorage.getItem('stype')) {
+        this.styles.skills = JSON.parse(localStorage.getItem('stype'));
         found = 1;
       }
       if (localStorage.getItem('skills2')) {
@@ -401,9 +421,9 @@ export default {
   },
   computed: {
     init: function() { return this.current=='Awards'?'awd':this.current.toLowerCase().substring(0, 3)  },
-    addChk: function() { return ['Preview', 'Profile', 'Skills'].indexOf(this.current) == -1 || (this.current == 'Skills' && this.stype == 1) },
+    addChk: function() { return ['Preview', 'Profile', 'Skills'].indexOf(this.current) == -1 || (this.current == 'Skills' && this.styles.skills == 1) },
     btnCurr: function() { return this.current.replace(/s$/, '') },
-    isSkill: function() { return this.current == 'Skills' },
+    canChangeStyle: function() { return ['Skills','Profile'].includes(this.current) },
   }
 };
 

@@ -1,5 +1,8 @@
 import Vue from 'vue'
 import App from './App.vue'
+import './assets/bootstrap.min.css';
+import './assets/styles.css';
+
 
 Vue.config.productionTip = true
 

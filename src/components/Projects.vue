@@ -1,11 +1,11 @@
 <template>
-  <div class="accordion" style="text-align: justify">
+  <div class="accordion">
     <div class="card">
       <AHead :def="'Project'" :title="title" :did="this.$vnode.key" @del="$emit('delete-row')"  @move="passToParent" />
-      <ABody :title="title" :did="this.$vnode.key" :parent="'projects'">
+      <ABody :title="title" :did="this.$vnode.key" :parent="'project'">
         <div class="card-body">
-          <Input label="Project Title" :val="proj.title" @input="proj.title = $event" />
-          <TArea label="Description" :val="proj.desc" @input="proj.desc = $event" />
+          <Input label="Title" :val="proj.title" @input="proj.title = $event" />
+          <TArea label="Summary" :val="proj.desc" @input="proj.desc = $event" />
           <Input label="Link" :val="proj.link" @input="proj.link = $event" />
           <Input label="Start Date" :val="proj.start" @input="proj.start = $event" />
           <Input label="End Date" :val="proj.end" @input="proj.end = $event" />

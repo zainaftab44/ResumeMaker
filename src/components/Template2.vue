@@ -1,5 +1,5 @@
 <template>
-  <div id="preview" class="preview" style="width:70%; margin: 0 auto;text-align: justify; border: solid 1px;border-padding: 3px;min-height: 29.7cm;">
+  <div id="preview" class="preview preview-box" >
     <table style="width: 100%">
       <tbody>
         <tr>
@@ -80,7 +80,7 @@
       </table>
     </div>
     <div class="draggable-element" draggable="true" style="margin-top:10px">
-      <table v-if="data.stype==1 && data.skills.length">
+      <table v-if="data.styles.skills==1 && data.skills.length">
         <tbody>
           <tr>
             <td>
@@ -103,7 +103,7 @@
           </tr>
         </tbody>
       </table>
-      <div v-else-if="data.stype==2" style="max-width:100%">
+      <div v-else-if="data.styles.skills==2" style="max-width:100%">
         <h4 style="margin-bottom:5px;padding-bottom:5px">SKILLS</h4>
         <div style="flex-wrap: wrap;display: flex;">
           <span style="background-color: lightgray; padding: 10px 15px;margin: 5px;border-radius: 5px;width: max-content;" class="skills2" v-for="skname in data.skills2.name" :key="skname">{{ skname }}</span>

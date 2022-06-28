@@ -1,17 +1,17 @@
 <template>
-  <div id="preview" class="preview" style="width:70%; margin: 0 auto;text-align: justify; border: solid 1px;border-padding: 3px;min-height: 29.7cm;">
+  <div id="preview" class="preview preview-box">
     <PProf :profile="data.profile" />
     <div class="draggable-element" draggable="true" v-if="data.exps.length">
       <PEXP v-if="data.exps.length" :exps="data.exps" />
     </div>
-    <div class="draggable-element" draggable="true" style="margin-top:10px">
-      <PSKILL1 v-if="data.stype == 1 && data.skills.length" :skills="data.skills" />
-      <PSKILL2 v-else-if="data.stype == 2" :skills2="data.skills2" />
+    <div class="draggable-element mt-3" draggable="true" >
+      <PSKILL1 v-if="data.styles.skills == 1 && data.skills.length" :skills="data.skills" />
+      <PSKILL2 v-else-if="data.styles.skills == 2" :skills2="data.skills2" />
     </div>
-    <div class="draggable-element" draggable="true" style="margin-top:10px">
+    <div class="draggable-element mt-3" draggable="true" >
       <PEDU  v-if="data.eds.length"  :eds="data.eds" />
     </div>
-    <div class="draggable-element" draggable="true" style="margin-top:10px">
+    <div class="draggable-element mt-3" draggable="true" >
       <PProj v-if="data.projs.length" :projs="data.projs" />
     </div>
   </div>
@@ -90,33 +90,6 @@ export default {
 
 
 <style>
-.preview {
-  user-select: none;
-  -moz-user-select: none;
-  -khtml-user-select: none;
-  -webkit-user-select: none;
-  -o-user-select: none;
-}
-
-.preview > * {
-  text-align: justify !important;
-  line-height: 1.2 !important;
-}
-.preview > small {
-  text-decoration: none !important;
-  color: #808080 !important;
-}
-.preview > .sub-color {
-  color: #808080 !important;
-}
-.preview > h4 {
-  margin-top: 1.5em !important;
-  margin-bottom: 0.5em !important;
-}
-.preview > body {
-  size: 7in 9.25in !important;
-  margin: 27mm 16mm 27mm 16mm !important;
-}
 
 li:before {
   content: "\2014\a0\a0";

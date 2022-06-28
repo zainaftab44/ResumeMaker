@@ -10,7 +10,7 @@
                 </svg>
             </span>
             <input type="text" class="form-control" v-model="items[sub][i]" :placeholder="'Enter ' + title" />
-            <button class="btn btn-outline-danger" type="button" :title="'Remove ' + title" @click="del(i)" >X</button>
+            <button class="btn btn-outline-danger" type="button" :title="'Remove ' + title" @click="del(i)" >x</button>
         </div>
     </div>
 </template>

@@ -1,6 +1,11 @@
 <template>
     <span>
-        <h1 style="margin-bottom:0">{{ profile.name }}</h1>
+        <h1 style="margin-bottom:0">
+            {{ profile.name }}
+            <small v-if="profile.title">
+                | {{profile.title}}
+            </small>
+        </h1>
         <table style="width: 100%">
             <tr style="width: 100%">
                 <td style="max-width: 60%; flex-basis: 0px; flex-grow: 1">

@@ -1,14 +1,8 @@
 <template>
-    <div class="form-group">
-        <label :for="label" class="col-form-label">{{ label }}</label>
+    <div class="row mb-3">
+        <label :for="label" class="col-md-2 col-sm-2 col-form-label">{{ label }}</label>
         <div class="col">
-            <input
-                type="text"
-                class="form-control"
-                :value="val"
-                @input="handle($event)"
-                :placeholder="'Enter ' + label.toLowerCase()"
-            />
+            <input type="text" class="form-control" :value="val" @input="handle($event)" :placeholder="'Enter ' + label.toLowerCase()"/>
         </div>
     </div>
 </template>

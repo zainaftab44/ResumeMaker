@@ -1,6 +1,6 @@
 <template>
-    <div class="form-group">
-        <label for="label" class="col-md-3 col-form-label">{{ label }}</label>
+    <div class="row mb-3">
+        <label for="label" class="col-md-2 col-sm-2 col-form-label">{{ label }}</label>
         <div class="col">
             <textarea
                 class="form-control"
