@@ -1,7 +1,7 @@
 <template>
   <div class="accordion" style="text-align: justify">
     <div class="card">
-      <AHead :def="'Award'" :title="title" :did="this.$vnode.key" @del="$emit('delete-row')" />
+      <AHead :def="'Award'" :title="this.title" :did="this.$vnode.key" @del="$emit('delete-row')" />
       <ABody :title="title" :did="this.$vnode.key" :parent="'awards'">
         <div class="card-body">
           <Input label="Title" :val="awd.title" @input="awd.title = $event" />

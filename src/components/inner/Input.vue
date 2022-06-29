@@ -1,27 +1,25 @@
 <template>
-    <div class="row mb-3">
-        <label :for="label" class="col-md-2 col-sm-2 col-form-label">{{ label }}</label>
-        <div class="col">
-            <input type="text" class="form-control" :value="val" @input="handle($event)" :placeholder="'Enter ' + label.toLowerCase()"/>
-        </div>
+    <div class="row form-floating mb-3">
+        <input type="text" class="form-control" :value="val" @input="handle($event)" :placeholder="label"/>
+        <label :for="label" class="col-form-label">{{ label }}</label>
     </div>
 </template>
 
 
 <script>
 export default {
-    name: "Input",
-    props: ['label', 'val'],
-    data() {
-        return {
-            content: this.val
-        }
+  name: "Input",
+  props: ["label", "val"],
+  data() {
+    return {
+      content: this.val,
+    };
+  },
+  methods: {
+    handle(e) {
+      this.content = e.target.value;
+      this.$emit("input", this.content);
     },
-    methods: {
-        handle(e) {
-            this.content = e.target.value
-            this.$emit('input', this.content)
-        }
-    }
-}
+  },
+};
 </script>

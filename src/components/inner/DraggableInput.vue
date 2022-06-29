@@ -1,5 +1,5 @@
 <template>
-    <div class="form-group row">
+    <div class="row">
         <div :class="[{'col-md-3 mt-2 input-group':true},{'skill-name':half==true}]" @dragover="over(i)" v-for="(res, i) in items[sub]" :key="i" >
             <span draggable="true" class="btn btn-primary" @dragstart="dragstart(i)" @dragend="dragend()">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrows-move" viewBox="0 0 16 16">

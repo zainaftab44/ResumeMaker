@@ -1,47 +1,54 @@
 <template>
   <div id="app">
     <div class="row">
-      <div class="col-lg-12 col-md-12 col-sm-12">
-        <nav id="sidebarMenu" class="col nav bg-dark justify-content-center py-2">
-          <span class="nav-item" v-for="(item, i) in nav" :key="i">
-            <a class="nav-link" :class="{ active: current == item }" @click.prevent="current = item">
-              {{ item }}
-              <span class="visually-hidden" v-if="current === item">(current)</span>
-            </a>
-          </span>
-          <span class="nav-item" v-if="current == 'Preview'">
-            <a class="nav-link" @click.prevent="create">Generate</a>
-          </span>
-          <span class="nav-item">
-            <a class="nav-link" @click.prevent="download">Download</a>
-          </span>
-          <span class="nav-item">
-            <a class="nav-link" @click.prevent="save" id="save-nav">Save</a>
-          </span>
-          <span class="nav-item">
-            <a
-              class="nav-link"
-              data-bs-toggle="modal"
-              data-bs-target="#loadresume"
-              @click.prevent="trigger"
-            >Load</a>
-          </span>
-        </nav>
-      </div>
+      <nav class="navbar navbar-dark navbar-expand-lg bg-dark p-2">
+        <div class="container-fluid">
+          <a class="navbar-brand" href="#">
+            <img src="./assets/logo.svg" alt="" style="width: 150px;" />
+          </a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+              <li class="nav-item" v-for="(item, i) in nav" :key="i">
+                <a class="nav-link" :class="{ active: current == item }" @click.prevent="current = item">
+                  {{ item }}
+                  <!-- <span class="visually-hidden" v-if="current === item">(current)</span> -->
+                </a>
+              </li>
+              <li class="nav-item" v-if="current == 'Preview'">
+                <a class="nav-link" @click.prevent="create">Generate</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" @click.prevent="download">Backup</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" @click.prevent="save" id="save-nav">Save</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" data-bs-toggle="modal" data-bs-target="#loadresume">Load</a>
+                 <!-- @click.prevent="trigger" -->
+              </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
     </div>
     <div class="container-fluid">
       <div class="row mt-4">
-        <div class="col-md-5 accordion px-5" :id="current.toLowerCase()">
+        <div class="col-lg-6 col-md-12 accordion px-5" :id="current.toLowerCase()">
           <Profile v-if="current == 'Profile'" :profile="profile" />
           <Experience v-else-if="current == 'Experience'" v-for="(exp, i) in exps" :key="i" :exp="exp" @delete-row="delRow(i)" @move-row="moveRow" />
           <Education  v-else-if="current == 'Education'"  v-for="(e, i) in eds" :key="i" :edu="e" @delete-row="delRow(i)" @move-row="moveRow" />
           <Skills v-else-if="current == 'Skills' && styles.skills == 1" v-for="(sk, i) in skills" :key="i" :skill="sk" @delete-row="delRow(i)" @move-row="moveRow" />
           <Skills2 v-else-if="current == 'Skills' && styles.skills == 2" :skill2="skills2"/>
           <Projects v-else-if="current == 'Projects'" v-for="(pr, i) in projs" :key="i" :proj="pr" @delete-row="delRow(i)" @move-row="moveRow" />
-          <Award v-else-if="current == 'Awards'" v-for="(awd, i) in awds" :key="i" :awd="awd" @delete-row="delRow(i)" @move-row="moveRow" />
+          <!-- <Award v-else-if="current == 'Awards'" v-for="(awd, i) in awds" :key="i" :awd="awd" @delete-row="delRow(i)" @move-row="moveRow" /> -->
           <!-- <Certifications v-for="(c, i) in certs" :key="i" :cert="c" @delrow="delRow(i)"/> -->
+          <button v-if="addChk" @click="add()" class="btn btn-primary mt-4">Add {{ btnCurr }}</button>
         </div>
-        <div class="col-md-6">
+        <div class="col-lg-6 col-md-12">
           <PP v-if="current == 'Profile' && styles.profile == 1" :profile="profile" />
           <PP2 v-if="current == 'Profile' && styles.profile == 2" :profile="profile" />
           <EXP v-else-if="current == 'Experience'" :exps="exps" />
@@ -49,7 +56,7 @@
           <SK1P v-else-if="current == 'Skills' && styles.skills == 1" :skills="skills" />
           <SK2P v-else-if="current == 'Skills' && styles.skills == 2" :skills2="skills2" />
           <PJP v-else-if="current == 'Projects'" :projs="projs" />
-          <AWD v-else-if="current == 'Awards'" :awds="awds" />
+          <!-- <AWD v-else-if="current == 'Awards'" :awds="awds" /> -->
         </div>
       </div>
 
@@ -60,11 +67,11 @@
         <button v-if="canChangeStyle" @click="changestyle()" class="btn btn-primary ms-2">Toggle</button>
       </span>
     </div>
-        <button style="position:fixed; bottom: 50px;right:50px" v-if="addChk" @click="add()" class="btn btn-primary">Add {{ btnCurr }}</button>
 
     <span class="text-center">
-      <p>Press Ctrl+S for saving any time</p>
-      <p>Download to get backup and load from any device</p>
+      <p>
+        Press Ctrl+S for saving any time<br>
+        Download to get backup and load from any device</p>
       <p v-if="current != 'Preview'">Displayed previews to check for proofreading and are not final.</p>
       <div class="row" v-if="current == 'Skills' && styles.skills == 2">
         <h5 class="modal-title">Print Instructions</h5>
@@ -72,7 +79,6 @@
         <img style="max-width:400px" src="./assets/printbackground.png" alt="printing instructions" />
       </div>
     </span>
-    <!-- <Import :authcode="authcode" v-if="current == 'Import'" /> -->
     <div class="modal" tabindex="-1" aria-hidden="true" id="loadresume">
       <div class="modal-dialog">
         <div class="modal-content">
@@ -82,12 +88,7 @@
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-            <button
-              type="button"
-              class="btn btn-primary"
-              @click.prevent="load"
-              data-bs-dismiss="modal"
-            >Load</button>
+            <button type="button" class="btn btn-primary" @click.prevent="load" data-bs-dismiss="modal">Load</button>
           </div>
         </div>
       </div>
@@ -103,7 +104,7 @@ import Education from "./components/Education.vue";
 import Skills from "./components/Skills.vue";
 import Skills2 from "./components/Skills2.vue";
 import Projects from "./components/Projects.vue";
-import Award from "./components/Award.vue";
+// import Award from "./components/Award.vue";
 // import Certifications from "./components/Certifications.vue";
 // import Import from "./components/Import.vue";
 
@@ -115,7 +116,7 @@ import EDP from './components/Previews/Education.vue'
 import SK1P from './components/Previews/Skills.vue'
 import SK2P from './components/Previews/Skills2.vue'
 import PJP from './components/Previews/Project.vue'
-import AWD from './components/Previews/Award.vue'
+// import AWD from './components/Previews/Award.vue'
 
 import Vue from 'vue'
 
@@ -129,7 +130,7 @@ export default {
     Education,
     Skills,
     Projects,
-    Award,
+    // Award,
     Skills2,
     PP,
     PP2,
@@ -138,7 +139,7 @@ export default {
     SK1P,
     SK2P,
     PJP,
-    AWD,
+    // AWD,
        // Certifications,
   },
   watch: {
@@ -430,18 +431,18 @@ export default {
 </script>
 <style>
 #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
+  font-family: 'Segoe UI', Tahoma, Verdana, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: justify;
 }
-.nav-link {
-  color: aliceblue;
-}
-a:hover {
+  /* .nav-link {
+    color: aliceblue;
+  } */
+/* a:hover {
   background: gray;
   color: antiquewhite;
-}
+} */
 hr {
   margin-top: 0.2em;
   margin-bottom: 0.2rem;
@@ -457,10 +458,6 @@ hr {
   max-width: 100%;
   width: 75%;
 }
-.row {
-  margin-right: 0;
-  margin-left: 0;
-}
 .delete-btn {
   height: 1.75rem;
   margin: auto;
@@ -469,13 +466,7 @@ hr {
 .nav-link {
   cursor: pointer;
 }
-
-
-@media print {
-  * {
-     font-family: "Courier New";
-     font-size: 6pt;
-  }
-  /* You can add additional styles here which you need */
+.navbar-nav> li::before{
+  content:"" !important;
 }
 </style>
