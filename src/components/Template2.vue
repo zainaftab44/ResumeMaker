@@ -1,56 +1,6 @@
 <template>
   <div id="preview" class="preview preview-box" >
-    <table style="width: 100%">
-      <tbody>
-        <tr>
-          <td>
-            <h1>{{ data.profile.name }}</h1>
-          </td>
-        </tr>
-        <tr>
-          <table style="width: 100%">
-            <tr style="width: 100%">
-              <td style="max-width: 60%; flex-basis: 0px; flex-grow: 1">
-                <small v-if="data.profile.address">
-                  {{ data.profile.address }}
-                  <br />
-                </small>
-                <small v-if="data.profile.phone">
-                  {{ data.profile.phone }}
-                  <br />
-                </small>
-                <small v-if="data.profile.email">
-                  {{ data.profile.email }}
-                  <br />
-                </small>
-              </td>
-              <td valign="top" style="width: auto;text-align:end">
-                <small v-if="data.profile.website">
-                  {{ data.profile.website }}
-                  <br />
-                </small>
-                <small v-if="data.profile.github">
-                  {{ data.profile.github }}
-                  <br />
-                </small>
-                <small v-if="data.profile.linkedin">
-                  {{ data.profile.linkedin }}
-                  <br />
-                </small>
-              </td>
-            </tr>
-          </table>
-        </tr>
-        <tr style="margin-top:10px" v-if="data.profile.summary">
-          <td>
-            <h4 style="margin-bottom:5px">SUMMARY</h4>
-          </td>
-        </tr>
-        <tr>
-          <td>{{ data.profile.summary }}</td>
-        </tr>
-      </tbody>
-    </table>
+    <PProf :profile="data.profile" />
     <div class="draggable-element" draggable="true" style="margin-top:10px">
       <table v-if="data.exps.length" style="width:100%">
         <tbody>
@@ -190,10 +140,14 @@
   
   
 <script>
+import PProf from "./Previews/Profile2.vue"
 
 export default {
   name: "Template2",
   props: ["data"],
+  components: {
+    PProf
+  },
   methods: {
     // available: function (type) {},
   },

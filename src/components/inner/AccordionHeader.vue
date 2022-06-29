@@ -1,5 +1,5 @@
 <template>
-   <div class ="card-header " id="`${def.toLowerCase()}-${did}`">
+   <div class ="card-header " :id="`${def.toLowerCase()}-${did}`">
         <div class="row"> 
             <div class="col-lg-2 col-md-2 col-sm-2">
                 <div class="btn-group">

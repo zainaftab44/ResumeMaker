@@ -57,15 +57,16 @@
           <SK2P v-else-if="current == 'Skills' && styles.skills == 2" :skills2="skills2" />
           <PJP v-else-if="current == 'Projects'" :projs="projs" />
           <!-- <AWD v-else-if="current == 'Awards'" :awds="awds" /> -->
+          <span class="ms-3">
+            <br />
+            <button v-if="canChangeStyle" @click="changestyle()" class="btn btn-primary ms-2">Toggle</button>
+          </span>
         </div>
       </div>
 
       <Preview v-if="current == 'Preview'" :maindata="$data" />
 
-      <span class="ms-3">
-        <br />
-        <button v-if="canChangeStyle" @click="changestyle()" class="btn btn-primary ms-2">Toggle</button>
-      </span>
+
     </div>
 
     <span class="text-center">
@@ -152,6 +153,7 @@ export default {
       authcode: undefined,
       profile: {
         name: "",
+        title:"",
         email: "",
         phone: "",
         address: "",
