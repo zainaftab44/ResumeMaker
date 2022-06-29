@@ -15,8 +15,8 @@
 </template>
 
 <script>
-import Input from "./inner/Input.vue"
-import TArea from "./inner/TextArea.vue"
+import Input from "../inner/Input.vue"
+import TArea from "../inner/TextArea.vue"
 
 export default {
 	name: "Profile",

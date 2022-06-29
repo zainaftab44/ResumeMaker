@@ -22,8 +22,8 @@
 </template>
 
 <script>
-import Template from "./Template.vue"
-import Template2 from "./Template2.vue"
+import Template from "../templates/Template.vue"
+import Template2 from "../templates/Template2.vue"
 export default {
 	name: "Preview",
 	props: ["maindata"],

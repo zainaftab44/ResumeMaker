@@ -19,13 +19,13 @@
 
 <script>
 //Previews
-import PProf from "./Previews/Profile.vue"
-import PEXP from "./Previews/Experience.vue"
-import PEDU from "./Previews/Education.vue"
-import PSKILL1 from "./Previews/Skills.vue"
-import PSKILL2 from "./Previews/Skills2.vue"
-import PProj from "./Previews/Project.vue"
-// import AWD from './Previews/Award.vue'
+import PProf from "../previews/profile/First.vue"
+import PEXP from "../previews/Experience.vue"
+import PEDU from "../previews/Education.vue"
+import PSKILL1 from "../previews/Skills.vue"
+import PSKILL2 from "../previews/Skills2.vue"
+import PProj from "../previews/Project.vue"
+// import AWD from './previews/Award.vue'
 
 export default {
 	name: "Template",

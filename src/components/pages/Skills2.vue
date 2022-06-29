@@ -17,7 +17,7 @@
 </template>
 
 <script>
-import DInput from "./inner/DraggableInput.vue"
+import DInput from "../inner/DraggableInput.vue"
 
 export default {
 	name: "Skills2",

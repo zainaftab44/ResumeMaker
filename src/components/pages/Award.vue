@@ -16,9 +16,9 @@
 
 
 <script>
-import Input from './inner/Input.vue'
-import AHead from './inner/AccordionHeader.vue'
-import ABody from './inner/AccordionBody.vue'
+import Input from '../inner/Input.vue'
+import AHead from '../inner/AccordionHeader.vue'
+import ABody from '../inner/AccordionBody.vue'
 
 export default {
   name: "Award",

@@ -140,7 +140,7 @@
   
   
 <script>
-import PProf from "./Previews/Profile2.vue"
+import PProf from "../previews/profile/Second.vue"
 
 export default {
   name: "Template2",

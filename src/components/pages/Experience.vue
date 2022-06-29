@@ -24,10 +24,10 @@
 
 <script>
 
-import DInput from './inner/DraggableInput.vue'
-import Input from './inner/Input.vue'
-import AHead from './inner/AccordionHeader.vue'
-import ABody from './inner/AccordionBody.vue'
+import DInput from '../inner/DraggableInput.vue'
+import Input from '../inner/Input.vue'
+import AHead from '../inner/AccordionHeader.vue'
+import ABody from '../inner/AccordionBody.vue'
 
 export default {
   name: "Experience",

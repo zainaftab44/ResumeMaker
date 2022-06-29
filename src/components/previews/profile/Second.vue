@@ -45,10 +45,11 @@
 						<h3 style="margin-bottom: 5px">SUMMARY</h3>
 						{{ profile.summary }}
 					</div>
+		<hr />
+
 				</td>
 			</tr>
 		</table>
-		<hr />
 	</div>
 </template>
 

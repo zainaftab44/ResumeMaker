@@ -96,26 +96,26 @@
 </template>
 
 <script>
-import Preview from "./components/Preview.vue"
-import Profile from "./components/Profile.vue"
-import Experience from "./components/Experience.vue"
-import Education from "./components/Education.vue"
-import Skills from "./components/Skills.vue"
-import Skills2 from "./components/Skills2.vue"
-import Projects from "./components/Projects.vue"
+import Preview from "./components/pages/Preview.vue"
+import Profile from "./components/pages/Profile.vue"
+import Experience from "./components/pages/Experience.vue"
+import Education from "./components/pages/Education.vue"
+import Skills from "./components/pages/Skills.vue"
+import Skills2 from "./components/pages/Skills2.vue"
+import Projects from "./components/pages/Projects.vue"
 // import Award from "./components/Award.vue";
 // import Certifications from "./components/Certifications.vue";
 // import Import from "./components/Import.vue";
 
 //Previews
-import PP from "./components/Previews/Profile.vue"
-import PP2 from "./components/Previews/Profile2.vue"
-import EXP from "./components/Previews/Experience.vue"
-import EDP from "./components/Previews/Education.vue"
-import SK1P from "./components/Previews/Skills.vue"
-import SK2P from "./components/Previews/Skills2.vue"
-import PJP from "./components/Previews/Project.vue"
-// import AWD from './components/Previews/Award.vue'
+import PP from "./components/previews/profile/First.vue"
+import PP2 from "./components/previews/profile/Second.vue"
+import EXP from "./components/previews/Experience.vue"
+import EDP from "./components/previews/Education.vue"
+import SK1P from "./components/previews/Skills.vue"
+import SK2P from "./components/previews/Skills2.vue"
+import PJP from "./components/previews/Project.vue"
+// import AWD from './components/previews/Award.vue'
 
 import Vue from "vue"
 
