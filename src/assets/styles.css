@@ -56,10 +56,19 @@
     font-size: 1rem;
 }
 
-.accordion{
+.accordion {
     text-align: justify
 }
 
-.navbar-collapse{
+.navbar-collapse {
     flex-grow: 0;
+}
+
+
+.skills2 {
+    background-color: lightgray;
+    padding: 10px 15px;
+    margin: 5px;
+    border-radius: 5px;
+    width: max-content;
 }
