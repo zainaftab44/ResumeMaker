@@ -6,15 +6,19 @@
 		<h5>
 			{{ profile.title }}
 		</h5>
-		{{ profile.address }} | {{ profile.phone }} | {{ profile.email }}
-		{{ profile.website }}
-		{{ profile.github }}
-		{{ profile.linkedin }}
+		<hr>
+		{{ profile.address }} <br>
+		{{ profile.phone }} <br>
+		{{ profile.email }} <br>
+		{{ profile.website }} <br>
+		{{ profile.github }} <br>
+		{{ profile.linkedin }} <br>
+		<hr>
 		<div v-if="profile.summary">
 			<h3 style="margin-bottom: 5px">SUMMARY</h3>
 			{{ profile.summary }}
 		</div>
-		<hr />
+		<hr>
 	</div>
 </template>
 

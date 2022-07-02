@@ -1,30 +1,39 @@
 <template>
 	<div id="preview" class="preview preview-box">
-		<PProf :profile="data.profile" />
-		<div class="draggable-element" draggable="true" v-if="data.exps.length">
-			<PEXP v-if="data.exps.length" :exps="data.exps" />
-		</div>
-		<div class="draggable-element mt-3" draggable="true">
-			<PSKILL1 v-if="data.styles.skills == 1 && data.skills.length" :skills="data.skills" />
-			<PSKILL2 v-else-if="data.styles.skills == 2" :skills2="data.skills2" />
-		</div>
-		<div class="draggable-element mt-3" draggable="true">
-			<PEDU v-if="data.eds.length" :eds="data.eds" />
-		</div>
-		<div class="draggable-element mt-3" draggable="true">
-			<PProj v-if="data.projs.length" :projs="data.projs" />
+		<div class="row" style="text-align:start !important">
+			<div style="max-width:30%">
+				<PProf :profile="data.profile" />
+				<div class="draggable-element mt-3" v-if="data.styles.skills == 2" draggable="true">
+					<PSKILL2 :skills2="data.skills2" />
+				</div>
+				<div class="draggable-element mt-3" draggable="true">
+					<PEDU v-if="data.eds.length" :eds="data.eds" />
+				</div>
+			</div>
+			<div style="width:70%; border-left:1px solid">
+				<div class="draggable-element" draggable="true" v-if="data.exps.length">
+					<PEXP v-if="data.exps.length" :exps="data.exps" />
+				</div>
+				<div class="draggable-element mt-3" v-if="data.styles.skills == 1 && data.skills.length" draggable="true">
+					<PSKILL1 :skills="data.skills" />
+					<!-- <PSKILL2 v-else-if="data.styles.skills == 2" :skills2="data.skills2" /> -->
+				</div>
+				<div class="draggable-element mt-3" draggable="true">
+					<PProj v-if="data.projs.length" :projs="data.projs" />
+				</div>
+			</div>
 		</div>
 	</div>
 </template>
 
 <script>
 //Previews
-import PProf from "../previews/profile/First.vue"
-import PEXP from "../previews/Experience.vue"
-import PEDU from "../previews/Education.vue"
-import PSKILL1 from "../previews/Skills.vue"
-import PSKILL2 from "../previews/Skills2.vue"
-import PProj from "../previews/Project.vue"
+import PProf from "../../previews/profile/Third.vue"
+import PEXP from "../../previews/Experience.vue"
+import PEDU from "../../previews/Education.vue"
+import PSKILL1 from "../../previews/Skills.vue"
+import PSKILL2 from "../../previews/Skills2.vue"
+import PProj from "../../previews/Project.vue"
 // import AWD from './previews/Award.vue'
 
 export default {
@@ -39,9 +48,8 @@ export default {
 		PProj,
 		// AWD,
 	},
-	methods: {},
 	mounted() {
-		(function() {
+		(function () {
 			var id_ = "preview"
 			var rows_ = document.querySelectorAll("#" + id_ + "> .draggable-element")
 			var dragSrcEl_ = null
@@ -70,7 +78,7 @@ export default {
 				}
 			}
 
-			;[].forEach.call(rows_, function(row) {
+			;[].forEach.call(rows_, function (row) {
 				row.addEventListener("dragstart", handleDragStart, false)
 				row.addEventListener("dragover", handleDragOver, false)
 				row.addEventListener("dragend", handleDrop, false)
@@ -84,9 +92,11 @@ export default {
 li:before {
 	content: "\2014\a0\a0";
 }
+
 li {
 	list-style: none !important;
 }
+
 .pr-2 {
 	padding-right: 5dp !important;
 }

@@ -10,7 +10,7 @@
 <p class=ContactCxSpLast><span lang=EN-US>tanmaysnaik@yahoo.in</span></p>
 <p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
 <div style='border:none;border-bottom:solid windowtext 1.0pt;padding:0cm 0cm 5.0pt 0cm'><div style='border:none;border-bottom:solid windowtext 1.0pt;padding:0cm 0cm 1.0pt 0cm'>
-<p class=MsoNormalCxSpFirst align=center style='text-align:center;border:none;
+<p class=MsoNormalCxSpFirst align=center style='2;border:none;
 padding:0cm'><span lang=EN-US style='font-family:\"Georgia\",serif;color:#666666'>&nbsp;</span></p>
 </div>
 <p class=MsoNormalCxSpMiddle><b><span lang=EN-US style='font-family:\"Georgia\",serif;

@@ -45,7 +45,10 @@
 					<Projects v-else-if="current == 'Projects'" v-for="(pr, i) in projs" :key="i" :proj="pr" @delete-row="delRow(i)" @move-row="moveRow" />
 					<!-- <Award v-else-if="current == 'Awards'" v-for="(awd, i) in awds" :key="i" :awd="awd" @delete-row="delRow(i)" @move-row="moveRow" /> -->
 					<!-- <Certifications v-for="(c, i) in certs" :key="i" :cert="c" @delrow="delRow(i)"/> -->
-					<button v-if="addChk" @click="add()" class="btn btn-primary mt-4">Add {{ btnCurr }}</button>
+					<div class="input-group mt-4">
+						<button v-if="addChk" @click="add()" class="btn btn-primary">Add {{ btnCurr }}</button>
+						<button v-if="canChangeStyle" @click="changestyle()" class="btn btn-info">Toggle</button>
+					</div>
 				</div>
 				<div class="col-lg-6 col-md-12">
 					<PP v-if="current == 'Profile' && styles.profile == 1" :profile="profile" />
@@ -56,10 +59,6 @@
 					<SK2P v-else-if="current == 'Skills' && styles.skills == 2" :skills2="skills2" />
 					<PJP v-else-if="current == 'Projects'" :projs="projs" />
 					<!-- <AWD v-else-if="current == 'Awards'" :awds="awds" /> -->
-					<span class="ms-3">
-						<br />
-						<button v-if="canChangeStyle" @click="changestyle()" class="btn btn-primary ms-2">Toggle</button>
-					</span>
 				</div>
 			</div>
 
@@ -141,7 +140,7 @@ export default {
 		// Certifications,
 	},
 	watch: {
-		current: function() {
+		current: function () {
 			document.title = this.current + " - Resume Forge"
 		},
 	},
@@ -186,18 +185,19 @@ export default {
 		}
 	},
 	methods: {
-		add: function() {
+		add: function () {
 			this.getArrayRef().unshift(this.getEmpty())
 		},
-		changestyle: function() {
+		changestyle: function () {
 			this.styles[this.current.toLowerCase()] = this.styles[this.current.toLowerCase()] == 1 ? 2 : 1
 		},
-		create: function() {
-			var source =
-				`<html><head><link rel='stylesheet' href='./assets/bootstrap.min.css'/><style>body {font-family: '${this.settings.font}';} @page {size: A4 portrait;} page[size='A4'] {  width: 21cm;  height: 29.7cm; } page[size='A4'][layout='landscape'] {  width: 29.7cm; height: 21cm;  } page{background:#fff;display:block;margin:0 auto;margin-bottom:.5cm; } .preview>*{text-align:justify!important;line-height:1.2!important}.preview>small{text-decoration:none!important;color:grey!important}.preview>.sub-color{color:grey!important}.preview>h4{margin-top:1.5em!important;margin-bottom:.5em!important}.preview>body{size:7in 9.25in!important;margin:27mm 16mm 27mm 16mm!important}li:before{content:'\\2014\\a0\\a0'}li{list-style:none!important}.pr-2{padding-right:5dp!important}</style></head><body><div class='preview'>` +
-				"<page size='A4'>" +
+		create: function () {
+			// <html><head><link rel='stylesheet' href='./assets/bootstrap.min.css' media='print'/>
+			var source =`<html> ${window.document.head.outerHTML.substring(0,window.document.head.outerHTML.length-"</head>".length)}
+				<style>body {font-family: '${this.settings.font}';} @page {size: A4 portrait;} page[size='A4'] {  width: 21cm;  height: 29.7cm; } page[size='A4'][layout='landscape'] {  width: 29.7cm; height: 21cm;  } page{background:#fff;display:block;margin:0 auto;margin-bottom:.5cm; } .preview>*{text-align:justify!important;line-height:1.2!important}.preview>small{text-decoration:none!important;color:grey!important}.preview>.sub-color{color:grey!important}.preview>h4{margin-top:1.5em!important;margin-bottom:.5em!important}.preview>body{size:7in 9.25in!important;margin:27mm 16mm 27mm 16mm!important}li:before{content:'\\2014\\a0\\a0'}li{list-style:none!important}.pr-2{padding-right:5dp!important}</style></head><body><div class='preview'>` +
+				// "<page size='A4'>" +
 				window.document.getElementsByClassName("preview")[0].innerHTML +
-				"</page>" +
+				// "</page>" +
 				"</div><script>window.print();<" +
 				"/script></body></html>"
 			var tab = window.open("/")
@@ -205,7 +205,7 @@ export default {
 			// localStorage.data = JSON.stringify(this.$data)
 			this.save()
 		},
-		save: function() {
+		save: function () {
 			document.getElementById("save-nav").innerHTML = "Saving"
 			localStorage.setItem("profile", JSON.stringify(this.$data.profile))
 			localStorage.setItem("experience", JSON.stringify(this.$data.exps))
@@ -217,7 +217,7 @@ export default {
 			localStorage.setItem("awds", JSON.stringify(this.$data.awds))
 			document.getElementById("save-nav").innerHTML = "Saved"
 		},
-		load: function() {
+		load: function () {
 			let e = document.getElementById("resumefile")
 			let fr = new FileReader()
 			fr.onload = () => {
@@ -258,10 +258,10 @@ export default {
 				document.body.removeChild(a)
 			}
 		},
-		delRow: function(i) {
+		delRow: function (i) {
 			this.getArrayRef().splice(i, 1)
 		},
-		moveRow: function(i, change) {
+		moveRow: function (i, change) {
 			if (i + change >= 0) {
 				if (i + change >= this.getArrayRef().length) return
 				let exp = this.getArrayRef()[i]
@@ -356,16 +356,16 @@ export default {
 		}
 	},
 	computed: {
-		init: function() {
+		init: function () {
 			return this.current == "Awards" ? "awd" : this.current.toLowerCase().substring(0, 3)
 		},
-		addChk: function() {
+		addChk: function () {
 			return !/Preview|Profile|Skills/.test(this.current) || (this.current == "Skills" && this.styles.skills == 1)
 		},
-		btnCurr: function() {
+		btnCurr: function () {
 			return this.current.replace(/s$/, "")
 		},
-		canChangeStyle: function() {
+		canChangeStyle: function () {
 			return ["Skills", "Profile"].includes(this.current)
 		},
 		emptyskill() {
@@ -390,6 +390,7 @@ export default {
 	-moz-osx-font-smoothing: grayscale;
 	text-align: justify;
 }
+
 /* .nav-link {
     color: aliceblue;
   } */
@@ -401,28 +402,35 @@ hr {
 	margin-top: 0.2em;
 	margin-bottom: 0.2rem;
 }
+
 .active {
 	background: gray;
 }
+
 .btn-outline-danger {
 	max-width: 20%;
 }
+
 .accord-title {
 	float: left;
 	max-width: 100%;
 	width: 75%;
 }
+
 .delete-btn {
 	height: 1.75rem;
 	margin: auto;
 	width: min-content !important;
 }
+
 .nav-link {
 	cursor: pointer;
 }
-.navbar-nav > li::before {
+
+.navbar-nav>li::before {
 	content: "" !important;
 }
+
 li:before {
 	content: "\2014\a0\a0";
 }

@@ -4,11 +4,11 @@
       <AHead :def="'Skill'" :title="skill.type" :did="this.$vnode.key" @del="$emit('delete-row')" @move="passToParent" />
       <ABody :title="skill.type" :did="this.$vnode.key" :parent="'skills'">
         <Input label="Skill Type" :val="skill.type" @input="skill.type = $event" />
-        <div class="form-group">
+        <div class="input-group">
           <label for="end" class="col-md-6 col-form-label">Skills</label>
           <button @click="add" class="col-md-1 btn btn-secondary">+</button>
-          <DInput :title="'Skill'" :items="skill" :sub="'name'" :half="true" />
         </div>
+        <DInput :title="'Skill'" :items="skill" :sub="'name'" :half="true" />
       </ABody>
     </div>
   </div>

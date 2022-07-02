@@ -9,11 +9,11 @@
           <Input label="Location" :val="exp.location" @input="exp.location = $event" />
           <Input label="Start Date" :val="exp.start" @input="exp.start = $event" />
           <Input label="End Date" :val="exp.end" @input="exp.end = $event" />
-          <div class="form-group">
-            <label for="end" class="col-md-6 col-form-label">Responsibilities</label>
+          <div class="input-group">
+            <label for="end" class="col col-form-label">Responsibilities</label>
             <button @click="add" class="col-md-1 btn btn-secondary">+</button>
-            <DInput :title="'Responsibility'" :items="exp" :sub="'resp'" />
           </div>
+          <DInput :title="'Responsibility'" :items="exp" :sub="'resp'" />
         </div>
       </ABody>
     </div>
@@ -34,16 +34,16 @@ export default {
   components: { DInput, Input, AHead, ABody },
   props: ["exp"],
   methods: {
-    add: function() {
+    add: function () {
       this.exp.resp.push("");
     },
-    passToParent: function(value){
-      this.$emit('move-row',this.$vnode.key,value)
+    passToParent: function (value) {
+      this.$emit('move-row', this.$vnode.key, value)
     }
   },
   computed: {
-    title: function() {
-      return `${this.exp.title}${this.exp.title && this.exp.company?', ':''}${this.exp.company}`
+    title: function () {
+      return `${this.exp.title}${this.exp.title && this.exp.company ? ', ' : ''}${this.exp.company}`
     }
   },
 };
