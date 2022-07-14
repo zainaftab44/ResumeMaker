@@ -155,7 +155,7 @@ export default {
 
     (function() {
       var id_ = 'preview';
-      var rows_ = document.querySelectorAll('#' + id_ + '> .draggable-element');
+      var rows_ = document.querySelectorAll('#' + id_ + ' .draggable-element');
       var dragSrcEl_ = null;
       var current = null;
 

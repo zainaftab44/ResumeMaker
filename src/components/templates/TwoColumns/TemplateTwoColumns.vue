@@ -10,7 +10,7 @@
 					<PEDU v-if="data.eds.length" :eds="data.eds" />
 				</div>
 			</div>
-			<div style="width:70%; border-left:1px solid">
+			<div style="width:70%; border-left:1px">
 				<div class="draggable-element" draggable="true" v-if="data.exps.length">
 					<PEXP v-if="data.exps.length" :exps="data.exps" />
 				</div>
@@ -51,7 +51,7 @@ export default {
 	mounted() {
 		(function () {
 			var id_ = "preview"
-			var rows_ = document.querySelectorAll("#" + id_ + "> .draggable-element")
+			var rows_ = document.querySelectorAll("#" + id_ + " .draggable-element")
 			var dragSrcEl_ = null
 			var current = null
 
