@@ -1,7 +1,7 @@
 <template>
 	<div id="preview" class="preview preview-box">
 		<div class="row" style="text-align:start !important">
-			<div style="max-width:30%">
+			<div style="width:7cm">
 				<PProf :profile="data.profile" />
 				<div class="draggable-element mt-3" v-if="data.styles.skills == 2" draggable="true">
 					<PSKILL2 :skills2="data.skills2" />
@@ -10,7 +10,7 @@
 					<PEDU v-if="data.eds.length" :eds="data.eds" />
 				</div>
 			</div>
-			<div style="width:70%; border-left:1px">
+			<div style="width:12cm; border-left:1px solid">
 				<div class="draggable-element" draggable="true" v-if="data.exps.length">
 					<PEXP v-if="data.exps.length" :exps="data.exps" />
 				</div>
@@ -78,7 +78,7 @@ export default {
 				}
 			}
 
-			;[].forEach.call(rows_, function (row) {
+			[].forEach.call(rows_, function (row) {
 				row.addEventListener("dragstart", handleDragStart, false)
 				row.addEventListener("dragover", handleDragOver, false)
 				row.addEventListener("dragend", handleDrop, false)
@@ -89,15 +89,52 @@ export default {
 </script>
 
 <style>
+.preview>.sub-color,
+.preview>small {
+	color: grey !important
+}
+
+ul {
+	margin: 0 !important
+}
+
+.preview {
+	user-select: none;
+	-moz-user-select: none;
+	-khtml-user-select: none;
+	-webkit-user-select: none;
+	-o-user-select: none
+}
+
+.preview>* {
+	text-align: justify !important;
+	line-height: 1.2 !important
+}
+
+.preview>small {
+	text-decoration: none !important
+}
+
+.preview>h4 {
+	margin-top: 1.5em !important;
+	margin-bottom: .5em !important
+}
+
+.preview>body {
+	size: 7in 9.25in !important;
+	margin: 27mm 16mm !important
+}
+
 li:before {
-	content: "\2014\a0\a0";
+	content: "\2014\a0\a0"
 }
 
 li {
-	list-style: none !important;
+	list-style: none !important
 }
 
 .pr-2 {
-	padding-right: 5dp !important;
+	padding-right: 5dp !important
 }
+
 </style>

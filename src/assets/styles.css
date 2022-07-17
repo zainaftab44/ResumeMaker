@@ -34,18 +34,25 @@
     margin-bottom: 0.5em !important;
 }
 
-.preview>body {
+/* .preview>body {
     size: 7in 9.25in !important;
     margin: 27mm 16mm 27mm 16mm !important;
-}
+} */
 
 .preview-box {
-    width: 70%;
-    margin: 0 auto;
     text-align: justify;
     border: solid 1px;
     padding: 3px;
-    min-height: 29.7cm;
+    font-size: 12pt !important;
+    width: 21cm;
+    font-size:10pt !important
+}
+.preview {
+    font-size:10pt
+}
+
+.preview-box h2 {
+    font-size: 14pt !important;
 }
 
 .accordion-header {

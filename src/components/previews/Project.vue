@@ -1,18 +1,19 @@
 <template>
-	<table v-if="projs.length">
+	<table>
 		<tbody>
 			<tr>
 				<td>
-					<h4 style="margin-bottom:5px">Projects</h4>
+					<h4 role="heading" style="margin-bottom:5px">Projects</h4>
 				</td>
 			</tr>
 			<tr v-for="(proj, l) in projs" :key="l">
 				<td>
-					<small v-if="proj.start">{{ proj.start.toUpperCase() }}</small>
-					<small v-if="proj.start && proj.end">&ndash;</small>
-					<small v-if="proj.end">{{ proj.end.toUpperCase() }}</small>
+					<i>
+						{{ date(proj.start, proj.end) }}
+					</i>
 					<br />
-					<strong v-if="proj.title">
+					<strong style="font-size:14pt" v-if="proj.title">
+						<!-- <strong v-if="proj.title"> -->
 						{{ proj.title }}
 						<br />
 					</strong>
@@ -40,5 +41,10 @@
 export default {
 	name: "PJP",
 	props: ["projs"],
+	methods: {
+		date: (s, e) => {
+			return s.toUpperCase().trim() + (s.trim().length == 0 || e.trim().length == 0 ? "" : " – ") + e.toUpperCase().trim()
+		}
+	},
 }
 </script>

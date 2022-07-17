@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import axios from "axios";
+import axios from "axios"
 
 export default {
     name:"Import",
@@ -23,7 +23,7 @@ export default {
         if(this.token.length==0)
             setTimeout(()=>{
                 console.log(this.authcode)
-                let linkedin = localStorage.getItem('linkedin');
+                let linkedin = localStorage.getItem('linkedin')
                 if(linkedin){
                     if(linkedin.expiry > (new Date()).getTime())
                         this.token = linkedin.token
@@ -37,21 +37,21 @@ export default {
                         'client_id':this.clientid,
                         'client_secret':this.client_secret,
                         'redirect_uri':document.location.href.split('?')[0]
-                    };
+                    }
                     axios.post("https://www.linkedin.com/oauth/v2/accessToken",options)
                     .then((data)=>{
                         if(Object.keys(data).includes('access_token')){
-                            this.token = data.access_token;
+                            this.token = data.access_token
                             data.expiry=(new Date()).getTime() + data.expires,
                             localStorage.setItem("linkedin",data)
                         }
                     })
                 }
-            },2000);
+            },2000)
         else{
             axios.get('https://api.linkedin.com/v2/me',{headers:{'Authorization': 'Bearer '+this.token}})
             .then((data)=>{
-                console.log(data);
+                console.log(data)
             })
         }
     }

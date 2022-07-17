@@ -1,13 +1,33 @@
 <template>
 	<div class="row" style="max-width:100%">
-		<h4 style="margin-bottom:5px;padding-bottom:5px">SKILLS</h4>
-		<div style="flex-wrap: wrap;display: flex;">
-			<span style="background-color: lightgray; padding: 10px 15px;margin: 5px;border-radius: 5px;width: max-content;" v-for="skname in skills2.name" :key="skname">
+		<h4  role="heading" style="margin-bottom:5px;padding-bottom:5px">SKILLS</h4>
+		<ul class="skills" role="list">
+			<li class="skill-item" role="listitem" :title="skname" v-for="skname in skills2.name" :key="skname">
 				{{ skname }}
-			</span>
-		</div>
+			</li>
+		</ul>
 	</div>
 </template>
+
+<style>
+.skills {
+	flex-wrap: wrap;
+	display: flex;
+}
+
+.skill-item {
+	background-color: lightgray;
+	padding: 10px 10px;
+	margin: 5px;
+	border-radius: 5px;
+	width: fit-content;
+	font-size: 10pt;
+}
+
+.skills li::before {
+	content: "";
+}
+</style>
 
 <script>
 export default {

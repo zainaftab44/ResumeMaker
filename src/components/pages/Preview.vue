@@ -1,5 +1,5 @@
 <template>
-	<div>
+	<div class="row">
 		<span class="mb-3 center-align-text">
 			Select Template
 			<select v-model="template">
@@ -16,11 +16,11 @@
 			You can drag/drop sections in box below to re-arrange them in your desired order
 		</span>
 		<div v-bind:style="fontClass">
-			<Template v-if="template == 1" :data="maindata" />
-			<Template2 v-else-if="template == 2" :data="maindata" />
-			<!-- <page size='A4' layout="landscape"> -->
-				<TemplateTwoColumns v-if="template == 3" :data="maindata" />
-			<!-- </page> -->
+			<page size='A4' style="height: auto;">
+				<Template v-if="template == 1" :data="maindata" />
+				<Template2 v-else-if="template == 2" :data="maindata" />
+				<TemplateTwoColumns v-else-if="template == 3" :data="maindata" />
+			</page>
 		</div>
 	</div>
 </template>
@@ -39,7 +39,7 @@ export default {
 	},
 	data() {
 		return {
-			template: 1,
+			template: 3,
 			font: "Arial",
 			fonts: [
 				"Arial",
@@ -98,5 +98,5 @@ page {
 	display: block;
 	margin: 0 auto;
 	margin-bottom: .5cm;
-}	
+}
 </style>

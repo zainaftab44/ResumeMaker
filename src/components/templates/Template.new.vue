@@ -59,6 +59,7 @@ style='font:7.0pt \"Times New Roman\"'> </span></span><span lang=EN-US>Algorithm
 line-height:115%;font-family:\"Wingdings 2\";color:#244A58;letter-spacing:3.0pt'>å<span
 style='font:7.0pt \"Times New Roman\"'> </span></span><span lang=EN-US>IIT-B Certified Linux programmer</span></p>
 </div>
+</div>
   </div>
 </template>
 
@@ -74,39 +75,39 @@ export default {
   },
   mounted() {
     (function() {
-      var id_ = 'preview';
-      var rows_ = document.querySelectorAll('#' + id_ + '> .draggable-element');
-      var dragSrcEl_ = null;
-      var current = null;
+      var id_ = 'preview'
+      var rows_ = document.querySelectorAll('#' + id_ + '> .draggable-element')
+      var dragSrcEl_ = null
+      var current = null
 
       function handleDragStart(e) {
-        e.dataTransfer.effectAllowed = 'move';
-        e.dataTransfer.setData('text/html', e.target.innerHTML);
-        e.dataTransfer.dropEffect = "move";
-        dragSrcEl_ = e.target;
+        e.dataTransfer.effectAllowed = 'move'
+        e.dataTransfer.setData('text/html', e.target.innerHTML)
+        e.dataTransfer.dropEffect = "move"
+        dragSrcEl_ = e.target
 
       }
 
       function handleDragOver(e) {
         if (typeof e.target.closest == "function")
-          current = e.target.closest(".draggable-element");
+          current = e.target.closest(".draggable-element")
       }
       function handleDrop(e) {
         if (current.classList[0] == "draggable-element") {
-          dragSrcEl_.innerHTML = current.innerHTML;
+          dragSrcEl_.innerHTML = current.innerHTML
           current.innerHTML = e.dataTransfer.getData('text/html')
         }
       }
 
       [].forEach.call(rows_, function(row) {
-        row.addEventListener('dragstart', handleDragStart, false);
-        row.addEventListener('dragover', handleDragOver, false);
-        row.addEventListener('dragend', handleDrop, false);
-      });
+        row.addEventListener('dragstart', handleDragStart, false)
+        row.addEventListener('dragover', handleDragOver, false)
+        row.addEventListener('dragend', handleDrop, false)
+      })
 
     })()
   }
-};
+}
 </script>
 
 

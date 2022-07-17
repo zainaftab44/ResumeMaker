@@ -32,12 +32,12 @@ export default {
   components: { DInput, Input, AHead, ABody },
   methods: {
     add: function() {
-      this.skill.name.push("");
+      this.skill.name.push("")
     },
     passToParent: function(value){
       this.$emit('move-row',this.$vnode.key,value)
     },
   },
   props: ["skill"],
-};
+}
 </script>

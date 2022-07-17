@@ -37,5 +37,5 @@ export default {
       return this.edu.degree.concat(this.edu.major) == "" ? "" : `${this.edu.degree} (${this.edu.major})`
     }
   }
-};
+}
 </script>

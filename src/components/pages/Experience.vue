@@ -35,7 +35,7 @@ export default {
   props: ["exp"],
   methods: {
     add: function () {
-      this.exp.resp.push("");
+      this.exp.resp.push("")
     },
     passToParent: function (value) {
       this.$emit('move-row', this.$vnode.key, value)
@@ -46,7 +46,7 @@ export default {
       return `${this.exp.title}${this.exp.title && this.exp.company ? ', ' : ''}${this.exp.company}`
     }
   },
-};
+}
 </script>
 
 <style>

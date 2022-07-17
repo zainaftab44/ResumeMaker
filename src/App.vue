@@ -1,5 +1,5 @@
 <template>
-	<div id="app">
+	<div id="app" class="container-fluid">
 		<div class="row">
 			<nav class="navbar navbar-dark navbar-expand-lg bg-dark p-2">
 				<div class="container-fluid">
@@ -34,38 +34,38 @@
 				</div>
 			</nav>
 		</div>
-		<div class="container-fluid">
-			<div class="row mt-4">
-				<div class="col-lg-6 col-md-12 accordion px-5" :id="current.toLowerCase()">
-					<Profile v-if="current == 'Profile'" :profile="profile" />
-					<Experience v-else-if="current == 'Experience'" v-for="(exp, i) in exps" :key="i" :exp="exp" @delete-row="delRow(i)" @move-row="moveRow" />
-					<Education v-else-if="current == 'Education'" v-for="(e, i) in eds" :key="i" :edu="e" @delete-row="delRow(i)" @move-row="moveRow" />
-					<Skills v-else-if="current == 'Skills' && styles.skills == 1" v-for="(sk, i) in skills" :key="i" :skill="sk" @delete-row="delRow(i)" @move-row="moveRow" />
-					<Skills2 v-else-if="current == 'Skills' && styles.skills == 2" :skill2="skills2" />
-					<Projects v-else-if="current == 'Projects'" v-for="(pr, i) in projs" :key="i" :proj="pr" @delete-row="delRow(i)" @move-row="moveRow" />
-					<!-- <Award v-else-if="current == 'Awards'" v-for="(awd, i) in awds" :key="i" :awd="awd" @delete-row="delRow(i)" @move-row="moveRow" /> -->
-					<!-- <Certifications v-for="(c, i) in certs" :key="i" :cert="c" @delrow="delRow(i)"/> -->
-					<div class="input-group mt-4">
-						<button v-if="addChk" @click="add()" class="btn btn-primary">Add {{ btnCurr }}</button>
-						<button v-if="canChangeStyle" @click="changestyle()" class="btn btn-info">Toggle</button>
-					</div>
-				</div>
-				<div class="col-lg-6 col-md-12">
-					<PP v-if="current == 'Profile' && styles.profile == 1" :profile="profile" />
-					<PP2 v-if="current == 'Profile' && styles.profile == 2" :profile="profile" />
-					<EXP v-else-if="current == 'Experience'" :exps="exps" />
-					<EDP v-else-if="current == 'Education'" :eds="eds" />
-					<SK1P v-else-if="current == 'Skills' && styles.skills == 1" :skills="skills" />
-					<SK2P v-else-if="current == 'Skills' && styles.skills == 2" :skills2="skills2" />
-					<PJP v-else-if="current == 'Projects'" :projs="projs" />
-					<!-- <AWD v-else-if="current == 'Awards'" :awds="awds" /> -->
+		<!-- <div class="container-fluid"> -->
+		<div class="row mt-4" v-if="current !== 'Preview'">
+			<div class="col-lg-6 col-md-12 accordion px-5" :id="current.toLowerCase()">
+				<Profile v-if="current == 'Profile'" :profile="profile" />
+				<Experience v-else-if="current == 'Experience'" v-for="(exp, i) in exps" :key="i" :exp="exp" @delete-row="delRow(i)" @move-row="moveRow" />
+				<Education v-else-if="current == 'Education'" v-for="(e, i) in eds" :key="i" :edu="e" @delete-row="delRow(i)" @move-row="moveRow" />
+				<Skills v-else-if="current == 'Skills' && styles.skills == 1" v-for="(sk, i) in skills" :key="i" :skill="sk" @delete-row="delRow(i)" @move-row="moveRow" />
+				<Skills2 v-else-if="current == 'Skills' && styles.skills == 2" :skill2="skills2" />
+				<Projects v-else-if="current == 'Projects'" v-for="(pr, i) in projs" :key="i" :proj="pr" @delete-row="delRow(i)" @move-row="moveRow" />
+				<!-- <Award v-else-if="current == 'Awards'" v-for="(awd, i) in awds" :key="i" :awd="awd" @delete-row="delRow(i)" @move-row="moveRow" /> -->
+				<!-- <Certifications v-for="(c, i) in certs" :key="i" :cert="c" @delrow="delRow(i)"/> -->
+				<div class="input-group mt-4">
+					<button v-if="addChk" @click="add()" class="btn btn-primary">Add {{ btnCurr }}</button>
+					<button v-if="canChangeStyle" @click="changestyle()" class="btn btn-info">Toggle</button>
 				</div>
 			</div>
-
-			<Preview v-if="current == 'Preview'" :maindata="$data" />
+			<div class="col-lg-6 col-md-12">
+				<PP v-if="current == 'Profile' && styles.profile == 1" :profile="profile" />
+				<PP2 v-if="current == 'Profile' && styles.profile == 2" :profile="profile" />
+				<EXP v-else-if="current == 'Experience'" :exps="exps" />
+				<EDP v-else-if="current == 'Education'" :eds="eds" />
+				<SK1P v-else-if="current == 'Skills' && styles.skills == 1" :skills="skills" />
+				<SK2P v-else-if="current == 'Skills' && styles.skills == 2" :skills2="skills2" />
+				<PJP v-else-if="current == 'Projects'" :projs="projs" />
+				<!-- <AWD v-else-if="current == 'Awards'" :awds="awds" /> -->
+			</div>
 		</div>
 
-		<span class="text-center">
+		<Preview v-else :maindata="$data" />
+		<!-- </div> -->
+
+		<div class="text-center">
 			<p>
 				Press Ctrl+S for saving any time<br />
 				Download to get backup and load from any device
@@ -76,7 +76,7 @@
 				<p>While printing with this skills type please check the print backgrounds checkbox in print modal</p>
 				<img style="max-width:400px" src="./assets/printbackground.png" alt="printing instructions" />
 			</div>
-		</span>
+		</div>
 		<div class="modal" tabindex="-1" aria-hidden="true" id="loadresume">
 			<div class="modal-dialog">
 				<div class="modal-content">
@@ -102,9 +102,9 @@ import Education from "./components/pages/Education.vue"
 import Skills from "./components/pages/Skills.vue"
 import Skills2 from "./components/pages/Skills2.vue"
 import Projects from "./components/pages/Projects.vue"
-// import Award from "./components/Award.vue";
-// import Certifications from "./components/Certifications.vue";
-// import Import from "./components/Import.vue";
+// import Award from "./components/Award.vue"
+// import Certifications from "./components/Certifications.vue"
+// import Import from "./components/Import.vue"
 
 //Previews
 import PP from "./components/previews/profile/First.vue"
@@ -193,13 +193,14 @@ export default {
 		},
 		create: function () {
 			// <html><head><link rel='stylesheet' href='./assets/bootstrap.min.css' media='print'/>
-			var source =`<html> ${window.document.head.outerHTML.substring(0,window.document.head.outerHTML.length-"</head>".length)}
-				<style>body {font-family: '${this.settings.font}';} @page {size: A4 portrait;} page[size='A4'] {  width: 21cm;  height: 29.7cm; } page[size='A4'][layout='landscape'] {  width: 29.7cm; height: 21cm;  } page{background:#fff;display:block;margin:0 auto;margin-bottom:.5cm; } .preview>*{text-align:justify!important;line-height:1.2!important}.preview>small{text-decoration:none!important;color:grey!important}.preview>.sub-color{color:grey!important}.preview>h4{margin-top:1.5em!important;margin-bottom:.5em!important}.preview>body{size:7in 9.25in!important;margin:27mm 16mm 27mm 16mm!important}li:before{content:'\\2014\\a0\\a0'}li{list-style:none!important}.pr-2{padding-right:5dp!important}</style></head><body><div class='preview'>` +
+			var source = `<html> ${window.document.head.outerHTML}<body>
+				<style>body {font-family: '${this.settings.font}'} @page {size: A4 portrait} page[size='A4'] {  width: 21cm;  height: 29.7cm } page[size='A4'][layout='landscape'] {  width: 29.7cm; height: 21cm  } page{background:'#fff;display:block;margin:0 auto;margin-bottom:.5cm; }</style>
+				<style>.preview>.sub-color,.preview>small{color:grey!important}ul{margin:0!important}.preview{user-select:none;-moz-user-select:none;-khtml-user-select:none;-webkit-user-select:none;-o-user-select:none}.preview>*{text-align:justify!important;line-height:1.2!important}.preview>small{text-decoration:none!important}.preview>h4{margin-top:1.5em!important;margin-bottom:.5em!important}.preview>body{size:7in 9.25in!important;margin:27mm 16mm!important}li:before{content:'\\2014\\a0\\a0'}li{list-style:none!important}.pr-2{padding-right:5dp!important}</style>
+				<div class='preview'>` +
 				// "<page size='A4'>" +
 				window.document.getElementsByClassName("preview")[0].innerHTML +
 				// "</page>" +
-				"</div><script>window.print();<" +
-				"/script></body></html>"
+				"</div><script>window.print()<\/script></body></html>"
 			var tab = window.open("/")
 			tab.document.write(source)
 			// localStorage.data = JSON.stringify(this.$data)

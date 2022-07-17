@@ -1,12 +1,12 @@
 <template>
 	<div id="preview" class="preview preview-box">
 		<PProf :profile="data.profile" />
-		<div class="draggable-element" draggable="true" v-if="data.exps.length">
-			<PEXP v-if="data.exps.length" :exps="data.exps" />
-		</div>
 		<div class="draggable-element mt-3" draggable="true">
 			<PSKILL1 v-if="data.styles.skills == 1 && data.skills.length" :skills="data.skills" />
 			<PSKILL2 v-else-if="data.styles.skills == 2" :skills2="data.skills2" />
+		</div>
+		<div class="draggable-element" draggable="true" v-if="data.exps.length">
+			<PEXP v-if="data.exps.length" :exps="data.exps" />
 		</div>
 		<div class="draggable-element mt-3" draggable="true">
 			<PEDU v-if="data.eds.length" :eds="data.eds" />
@@ -70,7 +70,7 @@ export default {
 				}
 			}
 
-			;[].forEach.call(rows_, function(row) {
+			[].forEach.call(rows_, function(row) {
 				row.addEventListener("dragstart", handleDragStart, false)
 				row.addEventListener("dragover", handleDragOver, false)
 				row.addEventListener("dragend", handleDrop, false)

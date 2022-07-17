@@ -27,5 +27,5 @@ export default {
   computed: {
     title: function() { return this.awd.title }
   }
-};
+}
 </script>

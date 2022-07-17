@@ -74,5 +74,5 @@
 export default {
   name: "Certification",
   props: ["cert"],
-};
+}
 </script>

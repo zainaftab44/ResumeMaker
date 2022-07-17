@@ -1,12 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
+
   <head>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width,initial-scale=1.0" />
     <link rel="icon" href="<%= BASE_URL %>favicon.ico" />
     <title>Resume Forge</title>
-    <!-- <link
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.0/font/bootstrap-icons.css"/>
+  <!-- <link
       rel="stylesheet"
       href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
       integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
@@ -21,11 +23,7 @@
     /> -->
 
     <!-- JS, Popper.js, and jQuery -->
-    <script
-      src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
-      integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
-      crossorigin="anonymous"
-    ></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
     <!-- <script
       src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
       integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
@@ -41,93 +39,74 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"></script>
     <!-- <script async src="https://www.googletagmanager.com/gtag/js?id=G-7V89K90ZXG"></script> -->
   </head>
+
   <body>
     <noscript>
-      <strong>
-        We're sorry but <%= htmlWebpackPlugin.options.title %> doesn't work
-        properly without JavaScript enabled. Please enable it to continue.
-      </strong>
+      <strong> We're sorry but <%= htmlWebpackPlugin.options.title %> doesn't work properly without JavaScript enabled. Please enable it to continue. </strong>
     </noscript>
-    <!-- <div class="container-fluid">
-      <div class="row" style="background-color: rgb(11, 52, 90);">
-        <div class="col m-3 mt-5 text-center">
-          
-        </div>
+    <div class="container-fluid">
+      <div class="row">
+        <div id="app"></div>
       </div>
-    </div> -->
-    <div id="app"></div>
-
-
-    <footer class="footer">
-      <div class="container">
-        <div class="row row-30">
-          <div class="col-md-4 col-xl-5">
-            <div class="pr-xl-4">
-              <a class="brand" href="#"><img class="brand-logo-light" src="logo.svg" alt="" width="140" height="37" /></a>
-              <p></p>
-              <!-- Rights-->
-              <p class="rights">
-                <span>© </span><span class="copyright-year">2020</span>
-                <span>Resume Forge</span> &ndash;By
-                <span>Zain Aftab.</span>
-                <br />
-                <span>All Rights Reserved.</span>
-              </p>
+      <div class="row">
+        <footer class="footer">
+          <div class="row">
+            <div class="col-md-4 col-xl-5">
+              <div class="pr-xl-4">
+                <a class="brand" href="#"><img class="brand-logo-light" src="logo.svg" alt="" width="140" height="37" /></a>
+                <p></p>
+                <!-- Rights-->
+                <p class="rights">
+                  <span>© </span><span class="copyright-year">2020</span> <span>Resume Forge</span> &ndash;By
+                  <span>Zain Aftab.</span>
+                  <br />
+                  <span>All Rights Reserved.</span>
+                </p>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <h5><strong>Contact</strong></h5>
+              <dl class="contact-list">
+                <dt>Address:</dt>
+                <dd>Lahore Pakistan</dd>
+              </dl>
+              <dl class="contact-list">
+                <dt>Email:</dt>
+                <dd>
+                  <a href="mailto:zainaftab44@gmail.com">zainaftab44@gmail.com</a>
+                </dd>
+              </dl>
+            </div>
+            <div class="col-md-4 col-xl-3">
+              <h5><strong>Links</strong></h5>
+              <ul class="nav-list">
+                <li><a href="https://zainaftab.netlify.app">About</a></li>
+                <li><a href="https://www.github.com/zainaftab44">Projects</a></li>
+                <li><a href="https://toppersdaily.blogspot.com">Blog</a></li>
+                <li>
+                  <a href="https://www.linkedin.com/in/zainaftab">Contact</a>
+                </li>
+              </ul>
             </div>
           </div>
-          <div class="col-md-4">
-            <h5><strong>Contact</strong></h5>
-            <dl class="contact-list">
-              <dt>Address:</dt>
-              <dd>Lahore Pakistan</dd>
-            </dl>
-            <dl class="contact-list">
-              <dt>Email:</dt>
-              <dd>
-                <a href="mailto:zainaftab44@gmail.com">zainaftab44@gmail.com</a>
-              </dd>
-            </dl>
+          <div class="row no-gutters social-container">
+            <a class="anchor-tag col social-inner" href="https://www.facebook.com/zkingleo2009">
+              <span>Facebook</span>
+            </a>
+            <a class="anchor-tag col social-inner" href="https://www.twitter.com/zkingleo2009">
+              <span>Twitter</span>
+            </a>
+            <a class="anchor-tag col social-inner" href="https://www.linkedin.com/in/zainaftab">
+              <span>LinkedIn</span>
+            </a>
+            <a class="anchor-tag col social-inner" href="https://www.youtube.com/user/1zainaftab">
+              <span>Youtube</span>
+            </a>
           </div>
-          <div class="col-md-4 col-xl-3">
-            <h5><strong>Links</strong></h5>
-            <ul class="nav-list">
-              <li><a href="https://zainaftab.netlify.app">About</a></li>
-              <li><a href="https://www.github.com/zainaftab44">Projects</a></li>
-              <li><a href="https://toppersdaily.blogspot.com">Blog</a></li>
-              <li>
-                <a href="https://www.linkedin.com/in/zainaftab">Contact</a>
-              </li>
-            </ul>
-          </div>
-        </div>
+        </footer>
       </div>
-      <div class="row no-gutters social-container">
-        <a
-          class="anchor-tag col social-inner"
-          href="https://www.facebook.com/zkingleo2009"
-        >
-          <span>Facebook</span>
-        </a>
-        <a
-          class="anchor-tag col social-inner"
-          href="https://www.twitter.com/zkingleo2009"
-        >
-          <span>Twitter</span>
-        </a>
-        <a
-          class="anchor-tag col social-inner"
-          href="https://www.linkedin.com/in/zainaftab"
-        >
-          <span>LinkedIn</span>
-        </a>
-        <a
-          class="anchor-tag col social-inner"
-          href="https://www.youtube.com/user/1zainaftab"
-        >
-          <span>Youtube</span>
-        </a>
-      </div>
-    </footer>
+    </div>
+
     <style>
       /* footer {
         bottom: 0;
@@ -140,37 +119,48 @@
         padding-top: 20px;
         position: absolute;
       } */
-      #app{min-height: 80%;}
-      html,body{height: 100%;max-width: 100%;}
+/* 
+      html,
+      body {
+        height: 100%;
+        max-width: 100%;
+      } */
+
       footer {
         background-color: rgb(11, 52, 90);
         color: rgb(100 198 214);
         padding-top: 20px;
         margin-top: 20px;
       }
-      body {
+
+      /* body {
         width: 100%;
         min-height: 100%;
         margin: 0 auto -272px;
-      }
+      } */
+
       .anchor-tag {
         color: white;
         width: 100%;
         height: 100%;
       }
-      .anchor-tag > span {
+
+      .anchor-tag>span {
         color: white;
         width: 100%;
         height: 100%;
       }
-      .nav-list > li > a {
+
+      .nav-list>li>a {
         color: white;
       }
+
       .anchor-tag:hover {
         background-color: transparent;
         text-decoration-line: none;
         text-decoration-color: aliceblue;
       }
+
       .social-inner {
         border: solid 1px;
         color: white;
@@ -179,16 +169,18 @@
         padding-top: 20px;
         padding-bottom: 20px;
       }
+
       dd {
         color: white;
       }
-      dd > a {
+
+      dd>a {
         color: white;
       }
 
-      @media print{
+      @media print {
         .skills2 {
-          background-color:#999;
+          background-color: #999;
         }
       }
     </style>
@@ -203,4 +195,5 @@
       gtag('config', 'G-7V89K90ZXG');
     </script> -->
   </body>
+
 </html>

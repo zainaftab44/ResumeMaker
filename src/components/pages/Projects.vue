@@ -40,14 +40,14 @@ export default {
     add: function (type) {
       switch (type) {
         case "resp":
-          this.proj.resp.push("");
-          break;
+          this.proj.resp.push("")
+          break
         case "tool":
-          this.proj.tools.push("");
-          break;
+          this.proj.tools.push("")
+          break
 
         default:
-          break;
+          break
       }
     },
     passToParent: function (value) {
@@ -59,5 +59,5 @@ export default {
       return this.proj.title ? this.proj.title : ""
     }
   }
-};
+}
 </script>

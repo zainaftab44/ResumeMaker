@@ -3,7 +3,7 @@
 		<tbody>
 			<tr>
 				<td>
-					<h4 style="margin-bottom:5px">EDUCATION</h4>
+					<h2 style="margin-bottom:5px" class="h5">EDUCATION</h2>
 				</td>
 			</tr>
 			<tr v-for="(ed, k) in eds" :key="k">
