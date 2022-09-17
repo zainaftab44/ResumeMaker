@@ -1,6 +1,6 @@
 <template>
 	<div>
-		<table style="width: 90%; margin: 0 auto">
+		<table style="width: 90%; margin: 0 auto;">
 			<tr style="text-align: center">
 				<td colspan="2">
 					<h1 style="margin-bottom: 0">
@@ -42,10 +42,10 @@
 			<tr style="text-align: center">
 				<td colspan="2">
 					<div v-if="profile.summary">
-						<h3 style="margin-bottom: 5px">SUMMARY</h3>
+						<h3 class="headding">SUMMARY</h3>
 						{{ profile.summary }}
 					</div>
-		<hr />
+					<hr />
 
 				</td>
 			</tr>

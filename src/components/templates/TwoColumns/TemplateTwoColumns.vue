@@ -10,7 +10,7 @@
 					<PEDU v-if="data.eds.length" :eds="data.eds" />
 				</div>
 			</div>
-			<div style="width:12cm; border-left:1px solid">
+			<div class="col" style="width:auto; border-left:1px solid">
 				<div class="draggable-element" draggable="true" v-if="data.exps.length">
 					<PEXP v-if="data.exps.length" :exps="data.exps" />
 				</div>

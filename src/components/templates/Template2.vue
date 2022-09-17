@@ -2,135 +2,18 @@
   <div id="preview" class="preview preview-box">
     <PProf :profile="data.profile" />
     <div class="draggable-element" draggable="true" style="margin-top:10px">
-      <table v-if="data.styles.skills == 1 && data.skills.length">
-        <tbody>
-          <tr>
-            <td>
-              <h4 style="margin-bottom:5px">SKILLS</h4>
-            </td>
-          </tr>
-          <tr>
-            <td>
-              <table>
-                <tbody>
-                  <tr v-for="(skill, j) in data.skills" :key="j">
-                    <td class="pr-2">
-                      <strong>{{ skill.type + ": " }}</strong>
-                    </td>
-                    <td v-if="skill.name.join('').length">{{ skill.name.join(", ") }}</td>
-                  </tr>
-                </tbody>
-              </table>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-      <div v-else-if="data.styles.skills == 2" style="max-width:100%">
-        <h4 style="margin-bottom:5px;padding-bottom:5px">SKILLS</h4>
-        <div style="flex-wrap: wrap;display: flex;">
-          <span style="background-color: lightgray; padding: 10px 15px;margin: 5px;border-radius: 5px;width: max-content;" class="skills2" v-for="skname in data.skills2.name"
-                :key="skname">{{ skname }}</span>
-        </div>
-      </div>
+      <PSKILL1 v-if="data.styles.skills == 1 && data.skills.length" :skills="data.skills" />
+      <PSKILL2 v-else-if="data.styles.skills == 2" :skills2="data.skills2" />
     </div>
     <div class="draggable-element" draggable="true" style="margin-top:10px">
-      <table v-if="data.exps.length" style="width:100%">
-        <tbody>
-          <tr>
-            <td>
-              <h4 style="margin-bottom:5px">EXPERIENCE</h4>
-            </td>
-          </tr>
-          <tr v-for="(exp, ind) in data.exps" :key="ind">
-            <td>
-              <strong v-if="exp.title.length">{{ exp.title.toUpperCase() }}</strong>
-              <span style="float:right">
-                <small v-if="exp.start.length">{{ exp.start.toUpperCase() }}</small>
-                <small v-if="exp.end && exp.start">&ndash;</small>
-                <small v-if="exp.end">{{ exp.end.toUpperCase() }}</small>
-              </span>
-              <br />
-              <span v-if="exp.company.length">{{ exp.company.toUpperCase() }}</span>
-              <span v-if="exp.company.length && exp.location.length">,</span>
-              <span v-if="exp.location.length">{{ exp.location.toUpperCase() }}</span>
-              <ul style="margin-top:5px;margin-bottom:5px" v-if="exp.resp.join('')">
-                <li v-for="(res, i) in exp.resp" :key="i" style="padding-left: 1.4em; text-indent: -1.55em;">{{ res }}</li>
-              </ul>
-            </td>
-          </tr>
-        </tbody>
-      </table>
+      <PEXP v-if="data.exps.length" :exps="data.exps" />
     </div>
 
     <div class="draggable-element" draggable="true" style="margin-top:10px">
-      <table v-if="data.eds.length" style="width:100%">
-        <tbody>
-          <tr>
-            <td>
-              <h4 style="margin-bottom:5px">EDUCATION</h4>
-            </td>
-          </tr>
-          <tr v-for="(ed, k) in data.eds" :key="k">
-            <td>
-              <span style="float:right">
-                <small v-if="ed.start">{{ ed.start.toUpperCase() }}</small>
-                <small v-if="ed.end && ed.start">&ndash;</small>
-                <small v-if="ed.end">{{ ed.end.toUpperCase() }}</small>
-              </span>
-              <!-- <br v-if="ed.end || ed.start" /> -->
-              <strong v-if="ed.institute">{{ ed.institute }}</strong>
-              <br />
-              {{ ed.location }}
-              <br v-if="ed.location" />
-              <span class="degree" v-if="ed.major || ed.degree">
-                <span v-if="ed.degree">{{ ed.degree }}</span>
-                <span v-if="ed.degree.length + ed.major.length > 50">
-                  <br />
-                </span>
-                <span v-if="ed.major">({{ ed.major }})</span>
-              </span>
-              <br />
-              <br />
-            </td>
-          </tr>
-        </tbody>
-      </table>
+      <PEDU v-if="data.eds.length" :eds="data.eds" />
     </div>
     <div class="draggable-element" draggable="true" style="margin-top:10px">
-      <table v-if="data.projs.length">
-        <tbody>
-          <tr>
-            <td>
-              <h4 style="margin-bottom:5px">Projects</h4>
-            </td>
-          </tr>
-          <tr v-for="(proj, l) in data.projs" :key="l">
-            <td style="margin-bottom:5px">
-              <strong v-if="proj.title">{{ proj.title }}</strong>
-              <span style="float:right">
-                <small v-if="proj.start">{{ proj.start.toUpperCase() }}</small>
-                <small v-if="proj.start && proj.end">&ndash;</small>
-                <small v-if="proj.end">{{ proj.end.toUpperCase() }}</small>
-              </span>
-              <br />
-              <span v-if="proj.link">
-                <a :href="proj.link" :title="proj.link">{{ proj.link }}</a>
-              </span>
-              <span v-if="proj.desc">
-                <br v-if="proj.link" />
-                <span :title="proj.desc">{{ proj.desc }}</span>
-              </span>
-              <ul style="margin-top:5px;margin-bottom:5px" v-if="proj.resp.join('').length || proj.tools.join('').length">
-                <li v-for="(res, m) in proj.resp" :key="m" style="padding-left: 1.4em; text-indent: -1.55em;">{{ res }}</li>
-                <li v-if="proj.tools.join('')" style="padding-left: 1.4em; text-indent: -1.55em;">
-                  <strong>Technologies:</strong>
-                  {{ proj.tools.join(", ") }}
-                </li>
-              </ul>
-            </td>
-          </tr>
-        </tbody>
-      </table>
+      <PProj v-if="data.projs.length" :projs="data.projs" />
     </div>
   </div>
 </template>
@@ -140,12 +23,23 @@
   
 <script>
 import PProf from "../previews/profile/Second.vue"
+import PEXP from "../previews/Experience.vue"
+import PEDU from "../previews/Education.vue"
+import PSKILL1 from "../previews/Skills.vue"
+import PSKILL2 from "../previews/Skills2.vue"
+import PProj from "../previews/Project.vue"
+
 
 export default {
   name: "Template2",
   props: ["data"],
   components: {
-    PProf
+    PProf,
+    PEXP,
+    PEDU,
+    PSKILL1,
+    PSKILL2,
+    PProj
   },
   methods: {
     // available: function (type) {},

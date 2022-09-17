@@ -80,14 +80,3 @@ export default {
 }
 </script>
 
-<style>
-li:before {
-	content: "\2014\a0\a0";
-}
-li {
-	list-style: none !important;
-}
-.pr-2 {
-	padding-right: 5dp !important;
-}
-</style>

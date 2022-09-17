@@ -6,6 +6,11 @@
 					<a class="navbar-brand" href="#">
 						<img src="./assets/logo.svg" alt="" style="width: 150px;" />
 					</a>
+					<div class="input-group">
+						<button v-if="addChk" @click="add()" class="btn btn-primary">Add {{   btnCurr   }}</button>
+						<button v-if="canChangeStyle" @click="changestyle()" class="btn btn-info">Toggle Style</button>
+						<a v-if="current == 'Preview'" class="btn btn-primary" @click.prevent="create">Generate</a>
+					</div>
 					<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-label="Toggle navigation">
 						<span class="navbar-toggler-icon"></span>
 					</button>
@@ -13,11 +18,10 @@
 						<ul class="navbar-nav me-auto mb-2 mb-lg-0">
 							<li class="nav-item" v-for="(item, i) in nav" :key="i">
 								<a class="nav-link" :class="{ active: current == item }" @click.prevent="current = item">
-									{{ item }}
+									{{  item  }}
 								</a>
 							</li>
-							<li class="nav-item" v-if="current == 'Preview'">
-								<a class="nav-link" @click.prevent="create">Generate</a>
+							<li class="nav-item" >
 							</li>
 							<li class="nav-item">
 								<a class="nav-link" @click.prevent="download">Backup</a>
@@ -38,15 +42,15 @@
 		<div class="row mt-4" v-if="current !== 'Preview'">
 			<div class="col-lg-6 col-md-12 accordion px-5" :id="current.toLowerCase()">
 				<Profile v-if="current == 'Profile'" :profile="profile" />
-				<Experience v-else-if="current == 'Experience'" v-for="(exp, i) in exps" :key="i" :exp="exp" @delete-row="delRow(i)" @move-row="moveRow" />
-				<Education v-else-if="current == 'Education'" v-for="(e, i) in eds" :key="i" :edu="e" @delete-row="delRow(i)" @move-row="moveRow" />
-				<Skills v-else-if="current == 'Skills' && styles.skills == 1" v-for="(sk, i) in skills" :key="i" :skill="sk" @delete-row="delRow(i)" @move-row="moveRow" />
+				<Experience v-else-if="current == 'Experience'" v-for="(exp, exi) in exps" :key="exi" :exp="exp" @delete-row="delRow(exi)" @move-row="moveRow" />
+				<Education v-else-if="current == 'Education'" v-for="(e, edi) in eds" :key="edi" :edu="e" @delete-row="delRow(edi)" @move-row="moveRow" />
+				<Skills v-else-if="current == 'Skills' && styles.skills == 1" v-for="(sk, ski) in skills" :key="ski" :skill="sk" @delete-row="delRow(ski)" @move-row="moveRow" />
 				<Skills2 v-else-if="current == 'Skills' && styles.skills == 2" :skill2="skills2" />
-				<Projects v-else-if="current == 'Projects'" v-for="(pr, i) in projs" :key="i" :proj="pr" @delete-row="delRow(i)" @move-row="moveRow" />
+				<Projects v-else-if="current == 'Projects'" v-for="(pr, pri) in projs" :key="pri" :proj="pr" @delete-row="delRow(pri)" @move-row="moveRow" />
 				<!-- <Award v-else-if="current == 'Awards'" v-for="(awd, i) in awds" :key="i" :awd="awd" @delete-row="delRow(i)" @move-row="moveRow" /> -->
 				<!-- <Certifications v-for="(c, i) in certs" :key="i" :cert="c" @delrow="delRow(i)"/> -->
 				<div class="input-group mt-4">
-					<button v-if="addChk" @click="add()" class="btn btn-primary">Add {{ btnCurr }}</button>
+					<button v-if="addChk" @click="add()" class="btn btn-primary">Add {{  btnCurr  }}</button>
 					<button v-if="canChangeStyle" @click="changestyle()" class="btn btn-info">Toggle</button>
 				</div>
 			</div>
@@ -392,13 +396,6 @@ export default {
 	text-align: justify;
 }
 
-/* .nav-link {
-    color: aliceblue;
-  } */
-/* a:hover {
-  background: gray;
-  color: antiquewhite;
-} */
 hr {
 	margin-top: 0.2em;
 	margin-bottom: 0.2rem;
@@ -430,9 +427,5 @@ hr {
 
 .navbar-nav>li::before {
 	content: "" !important;
-}
-
-li:before {
-	content: "\2014\a0\a0";
 }
 </style>

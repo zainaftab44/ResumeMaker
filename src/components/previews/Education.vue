@@ -3,30 +3,24 @@
 		<tbody>
 			<tr>
 				<td>
-					<h2 style="margin-bottom:5px" class="h5">EDUCATION</h2>
+					<h4 role="heading" style="margin-bottom:5px">EDUCATION</h4>
 				</td>
 			</tr>
 			<tr v-for="(ed, k) in eds" :key="k">
 				<td>
-					<br />
-					<small v-if="ed.start">{{ ed.start.toUpperCase() }}</small>
-					<small v-if="ed.end && ed.start">&ndash;</small>
-					<small v-if="ed.end">{{ ed.end.toUpperCase() }}</small>
+					<i style="font-size:10pt">
+						{{ date(ed.start, ed.end) }}
+					</i>
 					<br v-if="ed.end || ed.start" />
-					<strong v-if="ed.institute">
-						{{ ed.institute }}
-					</strong>
-					<br />
-					{{ ed.location }}
-					<br v-if="ed.location" />
-					<span class="degree" v-if="ed.major || ed.degree">
+					<strong  class="degree headding" v-if="ed.major || ed.degree">
 						<span v-if="ed.degree">{{ ed.degree }}</span>
-						<span v-if="ed.degree.length + ed.major.length > 50">
-							<br />
-						</span>
+						<br v-if="ed.degree.length + ed.major.length > 50" />
 						<span v-if="ed.major">({{ ed.major }})</span>
-					</span>
-					<br />
+					</strong>
+					<br v-if="ed.institute" />
+					{{ ed.institute }}
+					<br v-if="ed.location" />
+					{{ ed.location }}
 				</td>
 			</tr>
 		</tbody>
@@ -37,5 +31,10 @@
 export default {
 	name: "EDP",
 	props: ["eds"],
+	methods: {
+		date: (s, e) => {
+			return s.toUpperCase().trim() + (s.trim().length == 0 || e.trim().length == 0 ? "" : " – ") + e.toUpperCase().trim()
+		}
+	},
 }
 </script>

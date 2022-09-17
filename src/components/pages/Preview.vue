@@ -26,6 +26,7 @@
 </template>
 
 <script>
+import { match } from "assert"
 import Template from "../templates/Template.vue"
 import Template2 from "../templates/Template2.vue"
 import TemplateTwoColumns from "../templates/TwoColumns/TemplateTwoColumns.vue"
@@ -41,38 +42,56 @@ export default {
 		return {
 			template: 3,
 			font: "Arial",
-			fonts: [
-				"Arial",
-				"Helvetica",
-				"Verdana",
-				"Trebuchet MS",
-				"Gill Sans",
-				"Noto Sans",
-				"Avantgarde",
-				"Optima",
-				"Arial Narrow",
-				"sans-serif",
-				"Times",
-				"Didot",
-				"Georgia",
-				"Palatino",
-				"Bookman",
-				"New Century Schoolbook",
-				"American Typewriter",
-				"serif",
-				"Comic Sans MS",
-				"Apple Chancery",
-				"Bradley Hand",
-				"Brush Script MT",
-				"Snell Roundhand",
-				"URW Chancery L",
-				"cursive",
+			arial: [],
+			cursive: [
+				"Comic Sans",
 			],
+			sansSerif: [
+				"Arial",
+				"Calibri",
+				"Arial Narrow",
+				"Times New Roman",
+			],
+			monospace: [
+				"Courier New",
+				"Mangal",
+				"MS Gothic",
+				"Meiryo UI"
+			],
+			normal: [
+				"DaunPenh",
+				"DotumChe",
+				"Dotum",
+				"Gautami",
+				"Gungsuh",
+				"BatangChe",
+				"Browallia New",
+				"KaiTi",
+				"MingLiU",
+				"Narkisim",
+				"NSimSun",
+				"SimSun",
+				"Sylfaen",
+
+			]
 		}
 	},
 	computed: {
+		fonts: function () {
+			return this.cursive
+				.concat(this.normal)
+				.concat(this.sansSerif)
+				.concat(this.monospace)
+				.sort()
+		},
+		fontType: function () {
+			let font = this.maindata.settings.font
+			return this.normal.includes(font) ? " "
+				: (this.cursive.includes(font) ? ", cursive "
+					: (this.monospace.includes(font) ? ",monospace" : ",sans-serif "))
+		},
 		fontClass: function () {
-			return { "font-family": `${this.maindata.settings.font} !important` }
+			return { "font-family": `${this.maindata.settings.font.toLowerCase()} ${this.fontType} !important` }
 		},
 	},
 }

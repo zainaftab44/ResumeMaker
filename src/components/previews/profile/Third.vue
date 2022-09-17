@@ -1,7 +1,7 @@
 <template>
 	<div style="font-size:10pt">
 		<h1 style="margin-bottom: 0">{{ profile.name }}</h1>
-		<h4>{{ profile.title }}</h4>
+		<h3>{{ profile.title }}</h3>
 		<i class="bi bi-geo"></i> {{ profile.address }} <br>
 		<i class="bi bi-telephone"></i> {{ profile.phone }} <br>
 		<i class="bi bi-envelope"></i> {{ profile.email }} <br>
@@ -10,7 +10,7 @@
 		<i class="bi bi-linkedin"></i> {{ profile.linkedin.split("/")[profile.linkedin.split("/").length-1] }} <br>
 		<hr>
 		<div v-if="profile.summary">
-			<h4 style="margin-bottom: 5px">SUMMARY</h4>
+			<h4 class="headding">SUMMARY</h4>
 			{{ profile.summary }}
 		</div>
 		<hr>
