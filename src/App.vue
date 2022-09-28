@@ -42,11 +42,11 @@
 		<div class="row mt-4" v-if="current !== 'Preview'">
 			<div class="col-lg-6 col-md-12 accordion px-5" :id="current.toLowerCase()">
 				<Profile v-if="current == 'Profile'" :profile="profile" />
-				<Experience v-else-if="current == 'Experience'" v-for="(exp, exi) in exps" :key="exi" :exp="exp" @delete-row="delRow(exi)" @move-row="moveRow" />
-				<Education v-else-if="current == 'Education'" v-for="(e, edi) in eds" :key="edi" :edu="e" @delete-row="delRow(edi)" @move-row="moveRow" />
-				<Skills v-else-if="current == 'Skills' && styles.skills == 1" v-for="(sk, ski) in skills" :key="ski" :skill="sk" @delete-row="delRow(ski)" @move-row="moveRow" />
+				<Experience v-else-if="current == 'Experience'" v-for="(exp, i) in exps" :key="i" :exp="exp" @delete-row="delRow(i)" @move-row="moveRow" />
+				<Education v-else-if="current == 'Education'" v-for="(e, i) in eds" :key="i" :edu="e" @delete-row="delRow(i)" @move-row="moveRow" />
+				<Skills v-else-if="current == 'Skills' && styles.skills == 1" v-for="(sk, i) in skills" :key="i" :skill="sk" @delete-row="delRow(i)" @move-row="moveRow" />
 				<Skills2 v-else-if="current == 'Skills' && styles.skills == 2" :skill2="skills2" />
-				<Projects v-else-if="current == 'Projects'" v-for="(pr, pri) in projs" :key="pri" :proj="pr" @delete-row="delRow(pri)" @move-row="moveRow" />
+				<Projects v-else-if="current == 'Projects'" v-for="(pr, i) in projs" :key="i" :proj="pr" @delete-row="delRow(i)" @move-row="moveRow" />
 				<!-- <Award v-else-if="current == 'Awards'" v-for="(awd, i) in awds" :key="i" :awd="awd" @delete-row="delRow(i)" @move-row="moveRow" /> -->
 				<!-- <Certifications v-for="(c, i) in certs" :key="i" :cert="c" @delrow="delRow(i)"/> -->
 				<div class="input-group mt-4">
@@ -289,13 +289,13 @@ export default {
 		getEmpty() {
 			switch (this.current) {
 				case "Experience":
-					return this.emptyexperience
+					return  { company: "", location: "", title: "", start: "", end: "", resp: [] }
 				case "Education":
-					return this.emptyeducation
+					return { institute: "", degree: "", major: "", locations: "", start: "", end: "" }
 				case "Skills":
-					return this.emptyskill
+					return { type: "", name: [] }
 				case "Projects":
-					return this.emptyproject
+					return { title: "", desc: "", link: "", start: "", end: "", tools: [], resp: [] }
 			}
 		},
 	},
@@ -372,18 +372,6 @@ export default {
 		},
 		canChangeStyle: function () {
 			return ["Skills", "Profile"].includes(this.current)
-		},
-		emptyskill() {
-			return { type: "", name: [] }
-		},
-		emptyexperience() {
-			return { company: "", location: "", title: "", start: "", end: "", resp: [] }
-		},
-		emptyproject() {
-			return { title: "", desc: "", link: "", start: "", end: "", tools: [], resp: [] }
-		},
-		emptyeducation() {
-			return { institute: "", degree: "", major: "", locations: "", start: "", end: "" }
 		},
 	},
 }
