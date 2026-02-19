@@ -115,11 +115,12 @@ export default {
 page[size='A4'] {
 	width: 21cm;
 	height: 29.7cm;
-	padding: 1.5cm 2cm;
 	margin: 0 auto 20px;
 	background: white;
 	box-shadow: 0 0 10px rgba(0,0,0,0.1);
 	display: block;
+	overflow: hidden;
+	position: relative;
 }
 
 page[size='A4'][layout='landscape'] {

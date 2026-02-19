@@ -1,25 +1,29 @@
 <template>
-  <div id="preview" class="preview preview-box">
+  <div id="preview" class="preview preview-box" :style="{
+    userSelect: 'none',
+    webkitUserSelect: 'none',
+    mozUserSelect: 'none',
+    msUserSelect: 'none',
+    textAlign: 'justify !important',
+    lineHeight: '1.2 !important'
+  }">
     <PProf :profile="data.profile" />
     <div class="draggable-element" draggable="true" style="margin-top:10px">
       <PSKILL1 v-if="data.styles.skills == 1 && data.skills.length" :skills="data.skills" />
       <PSKILL2 v-else-if="data.styles.skills == 2" :skills2="data.skills2" />
     </div>
     <div class="draggable-element" draggable="true" style="margin-top:10px">
-      <PEXP v-if="data.exps.length" :exps="data.exps" />
+      <PEXP v-if="data.exps.length" :exps="data.exps" bullet="»" bulletColor="#808080" />
     </div>
 
     <div class="draggable-element" draggable="true" style="margin-top:10px">
       <PEDU v-if="data.eds.length" :eds="data.eds" />
     </div>
     <div class="draggable-element" draggable="true" style="margin-top:10px">
-      <PProj v-if="data.projs.length" :projs="data.projs" />
+      <PProj v-if="data.projs.length" :projs="data.projs" bullet="»" bulletColor="#808080" />
     </div>
   </div>
 </template>
-  
-  
-  
   
 <script>
 import PProf from "../previews/profile/Second.vue"
@@ -87,54 +91,3 @@ export default {
   }
 }
 </script>
-  
-  
-<style>
-ul {
-  margin: 0 !important;
-}
-
-.preview {
-  user-select: none;
-  -moz-user-select: none;
-  -khtml-user-select: none;
-  -webkit-user-select: none;
-  -o-user-select: none;
-}
-
-.preview>* {
-  text-align: justify !important;
-  line-height: 1.2 !important;
-}
-
-.preview>small {
-  text-decoration: none !important;
-  color: #808080 !important;
-}
-
-.preview>.sub-color {
-  color: #808080 !important;
-}
-
-.preview>h4 {
-  margin-top: 1.5em !important;
-  margin-bottom: 0.5em !important;
-}
-
-.preview>body {
-  size: 7in 9.25in !important;
-  margin: 27mm 16mm 27mm 16mm !important;
-}
-
-li:before {
-  content: "\2014\a0\a0";
-}
-
-li {
-  list-style: none !important;
-}
-
-.pr-2 {
-  padding-right: 5dp !important;
-}
-</style>

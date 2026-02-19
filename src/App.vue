@@ -180,19 +180,32 @@ export default {
 			this.styles[this.current.toLowerCase()] = this.styles[this.current.toLowerCase()] == 1 ? 2 : 1
 		},
 		create: function () {
-			// Improved print functionality with better CSS handling
+			// Improved print functionality with reliable style capturing
 			const previewElement = window.document.querySelector(".preview-container")
 			if (!previewElement) {
 				alert("Preview not found. Please try again.")
 				return
 			}
+			// Capture all current document styles and external links
+			let stylesExternal = ""
+			document.querySelectorAll("link[rel='stylesheet'], style").forEach(tag => {
+				stylesExternal += tag.outerHTML
+			})
+
+			// Capture all current document head content (styles, links, etc.) excluding scripts
+			const headContent = document.head.cloneNode(true)
+			headContent.querySelectorAll("script").forEach(s => s.remove())
+			const styles = headContent.innerHTML
 
 			const source = `<!DOCTYPE html>
 <html>
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<base href="${window.location.origin}${window.location.pathname}">
 	<title>Resume - ${this.profile.name || 'Preview'}</title>
+	${stylesExternal}
+	${styles}
 	<style>
 		* {
 			margin: 0;
@@ -203,8 +216,10 @@ export default {
 		body {
 			font-family: '${this.settings.font}', Arial, sans-serif;
 			line-height: 1.6;
-			color: #333;
+			color: #333;	
 			background: #fff;
+			margin: 0;
+			padding: 0;
 		}
 		
 		@page {
@@ -212,86 +227,24 @@ export default {
 			margin: 0;
 		}
 		
+		.preview-container {
+			width: 21cm;
+			height: auto;
+			margin: 0 auto;
+			background: white;
+			overflow: hidden;
+		}
+			
+		/* Force color printing */
+		* {
+			-webkit-print-color-adjust: exact !important;
+			print-color-adjust: exact !important;
+			color-adjust: exact !important;
+		}
+
 		@media print {
-			body {
-				margin: 0;
-				padding: 0;
-			}
-			
-			.preview-container {
-				width: 21cm;
-				min-height: 29.7cm;
-				margin: 0;
-				padding: 1.5cm 2cm;
-				page-break-after: always;
-			}
-			
-			.no-print {
-				display: none !important;
-			}
-			
-			* {
-				-webkit-print-color-adjust: exact !important;
-				print-color-adjust: exact !important;
-				color-adjust: exact !important;
-			}
-		}
-		
-		@media screen {
-			.preview-container {
-				width: 21cm;
-				min-height: 29.7cm;
-				margin: 20px auto;
-				padding: 1.5cm 2cm;
-				background: white;
-				box-shadow: 0 0 10px rgba(0,0,0,0.1);
-			}
-		}
-		
-		/* Preserve all original styles */
-		.preview > * {
-			text-align: justify !important;
-			line-height: 1.4 !important;
-		}
-		
-		.preview small {
-			color: #666 !important;
-		}
-		
-		.preview .sub-color {
-			color: #666 !important;
-		}
-		
-		.preview h4 {
-			margin-top: 1.2em !important;
-			margin-bottom: 0.4em !important;
-			page-break-after: avoid;
-		}
-		
-		.preview h1, .preview h2, .preview h3 {
-			page-break-after: avoid;
-		}
-		
-		ul {
-			margin: 0 !important;
-			padding-left: 20px;
-		}
-		
-		li {
-			list-style: none !important;
-			page-break-inside: avoid;
-		}
-		
-		li:before {
-			content: "\\2014\\a0\\a0";
-		}
-		
-		table {
-			page-break-inside: avoid;
-		}
-		
-		.draggable-element {
-			page-break-inside: avoid;
+			body { margin: 0; }
+			.preview-container { box-shadow: none; }
 		}
 	</style>
 </head>
@@ -300,9 +253,10 @@ export default {
 		${previewElement.innerHTML}
 	</div>
 	<script>
-		// Auto-print when loaded
 		window.onload = function() {
-			window.print();
+			setTimeout(() => {
+				window.print();
+			}, 1000);
 		};
 	<\/script>
 </body>

@@ -1,18 +1,25 @@
 <template>
-	<div id="preview" class="preview preview-box">
+	<div id="preview" class="preview preview-box" :style="{
+		userSelect: 'none',
+		webkitUserSelect: 'none',
+		mozUserSelect: 'none',
+		msUserSelect: 'none',
+		textAlign: 'justify',
+		lineHeight: '1.2'
+	}">
 		<PProf :profile="data.profile" />
-		<div class="draggable-element mt-3" draggable="true">
+		<div class="draggable-element mt-3" draggable="true" :style="{ marginTop: '1rem !important' }">
 			<PSKILL1 v-if="data.styles.skills == 1 && data.skills.length" :skills="data.skills" />
 			<PSKILL2 v-else-if="data.styles.skills == 2" :skills2="data.skills2" />
 		</div>
-		<div class="draggable-element" draggable="true" v-if="data.exps.length">
-			<PEXP v-if="data.exps.length" :exps="data.exps" />
+		<div class="draggable-element" draggable="true" v-if="data.exps.length" :style="{ marginBottom: '15px' }">
+			<PEXP v-if="data.exps.length" :exps="data.exps" bullet="»" bulletColor="#808080" />
 		</div>
-		<div class="draggable-element mt-3" draggable="true">
+		<div class="draggable-element mt-3" draggable="true" :style="{ marginTop: '1rem !important' }">
 			<PEDU v-if="data.eds.length" :eds="data.eds" />
 		</div>
-		<div class="draggable-element mt-3" draggable="true">
-			<PProj v-if="data.projs.length" :projs="data.projs" />
+		<div class="draggable-element mt-3" draggable="true" :style="{ marginTop: '1rem !important' }">
+			<PProj v-if="data.projs.length" :projs="data.projs" bullet="»" bulletColor="#808080" />
 		</div>
 	</div>
 </template>
