@@ -1,169 +1,66 @@
 <template>
-	<div id="preview" class="preview preview-box template5" :style="{ fontFamily: 'inherit', margin: 0 }">
-		<div class="container-fluid" :style="{ padding: 0 }">
-			<div class="row" :style="{ margin: 0, minHeight: 'calc(29.7cm - 3cm)' }">
-				<!-- Left Sidebar -->
-				<div class="col-4 sidebar" :style="{
-					background: 'linear-gradient(180deg, #16a085 0%, #1abc9c 100%)',
-					color: 'white',
-					padding: '40px 25px',
-					minHeight: '100%',
-					webkitPrintColorAdjust: 'exact',
-					printColorAdjust: 'exact'
-				}">
-					<div class="profile-section" :style="{
-						marginBottom: '30px',
-						paddingBottom: '20px',
-						borderBottom: '2px solid rgba(255,255,255,0.3)'
-					}">
-						<h1 class="name" :style="{
-							fontSize: '26pt',
-							fontWeight: 'bold',
-							margin: '0 0 10px 0',
-							lineHeight: 1.2,
-							textTransform: 'uppercase',
-							letterSpacing: '1px'
-						}">{{ data.profile.name }}</h1>
-						<h4 class="title" :style="{
-							fontSize: '13pt',
-							margin: 0,
-							fontWeight: '300',
-							opacity: '0.95'
-						}">{{ data.profile.title }}</h4>
-					</div>
+	<div id="preview" class="preview preview-box template5">
+		<div class="main-container">
+			<!-- Left Sidebar -->
+			<div class="sidebar">
+				<div class="profile-section">
+					<h1 class="name">{{ data.profile.name }}</h1>
+					<h4 class="title">{{ data.profile.title }}</h4>
+				</div>
 
-					<div class="contact-section" :style="{ marginBottom: '25px' }">
-						<h5 class="sidebar-title" :style="{
-							fontSize: '12pt',
-							fontWeight: 'bold',
-							margin: '25px 0 15px 0',
-							letterSpacing: '1px',
-							textTransform: 'uppercase',
-							borderBottom: '2px solid rgba(255,255,255,0.3)',
-							paddingBottom: '8px'
-						}">CONTACT</h5>
-						<div class="contact-item" v-if="data.profile.email" :style="{ marginBottom: '15px', fontSize: '9pt', lineHeight: 1.4 }">
-							<strong :style="{ display: 'block', fontSize: '8pt', textTransform: 'uppercase', letterSpacing: '0.5px', opacity: 0.8, marginBottom: '3px' }">Email</strong>{{ data.profile.email }}
-						</div>
-						<div class="contact-item" v-if="data.profile.phone" :style="{ marginBottom: '15px', fontSize: '9pt', lineHeight: 1.4 }">
-							<strong :style="{ display: 'block', fontSize: '8pt', textTransform: 'uppercase', letterSpacing: '0.5px', opacity: 0.8, marginBottom: '3px' }">Phone</strong>{{ data.profile.phone }}
-						</div>
-						<div class="contact-item" v-if="data.profile.address" :style="{ marginBottom: '15px', fontSize: '9pt', lineHeight: 1.4 }">
-							<strong :style="{ display: 'block', fontSize: '8pt', textTransform: 'uppercase', letterSpacing: '0.5px', opacity: 0.8, marginBottom: '3px' }">Address</strong>{{ data.profile.address }}
-						</div>
-						<div class="contact-item" v-if="data.profile.website" :style="{ marginBottom: '15px', fontSize: '9pt', lineHeight: 1.4 }">
-							<strong :style="{ display: 'block', fontSize: '8pt', textTransform: 'uppercase', letterSpacing: '0.5px', opacity: 0.8, marginBottom: '3px' }">Website</strong>{{ data.profile.website }}
-						</div>
-						<div class="contact-item" v-if="data.profile.linkedin" :style="{ marginBottom: '15px', fontSize: '9pt', lineHeight: 1.4 }">
-							<strong :style="{ display: 'block', fontSize: '8pt', textTransform: 'uppercase', letterSpacing: '0.5px', opacity: 0.8, marginBottom: '3px' }">LinkedIn</strong>{{ data.profile.linkedin }}
-						</div>
-						<div class="contact-item" v-if="data.profile.github" :style="{ marginBottom: '15px', fontSize: '9pt', lineHeight: 1.4 }">
-							<strong :style="{ display: 'block', fontSize: '8pt', textTransform: 'uppercase', letterSpacing: '0.5px', opacity: 0.8, marginBottom: '3px' }">GitHub</strong>{{ data.profile.github }}
-						</div>
+				<div class="contact-section">
+					<h5 class="sidebar-title">CONTACT</h5>
+					<div class="contact-item" v-if="data.profile.email">
+						<strong>Email</strong><br>{{ data.profile.email }}
 					</div>
-
-					<!-- Skills in sidebar -->
-					<div class="draggable-element" draggable="true" v-if="data.styles.skills == 1 && data.skills.length" :style="{ marginBottom: '15px' }">
-						<PSKILL1 :skills="data.skills" />
+					<div class="contact-item" v-if="data.profile.phone">
+						<strong>Phone</strong><br>{{ data.profile.phone }}
 					</div>
-					<div class="draggable-element" draggable="true" v-if="data.styles.skills == 2" :style="{ marginBottom: '15px' }">
-						<PSKILL2 :skills2="data.skills2" />
+					<div class="contact-item" v-if="data.profile.address">
+						<strong>Location</strong><br>{{ data.profile.address }}
+					</div>
+					<div class="contact-item" v-if="data.profile.website">
+						<strong>Website</strong><br>{{ data.profile.website }}
+					</div>
+					<div class="contact-item" v-if="data.profile.linkedin">
+						<strong>LinkedIn</strong><br>{{ data.profile.linkedin }}
+					</div>
+					<div class="contact-item" v-if="data.profile.github">
+						<strong>GitHub</strong><br>{{ data.profile.github }}
 					</div>
 				</div>
 
-				<!-- Right Content -->
-				<div class="col-8 main-content" :style="{ padding: '40px 30px', background: 'white' }">
-					<!-- Summary -->
-					<div class="draggable-element" draggable="true" v-if="data.profile.summary" :style="{ marginBottom: '15px' }">
-						<h4 class="content-title" :style="{
-							fontSize: '14pt',
-							fontWeight: 'bold',
-							color: '#16a085',
-							margin: '20px 0 8px 0',
-							textTransform: 'uppercase',
-							letterSpacing: '1px'
-						}">ABOUT ME</h4>
-						<div class="accent-line" :style="{
-							height: '3px',
-							width: '60px',
-							background: '#16a085',
-							marginBottom: '12px',
-							borderRadius: '2px',
-							webkitPrintColorAdjust: 'exact',
-							printColorAdjust: 'exact'
-						}"></div>
-						<p class="summary-text" :style="{
-							textAlign: 'justify',
-							lineHeight: '1.5',
-							color: '#333'
-						}">{{ data.profile.summary }}</p>
-					</div>
+				<!-- Skills in sidebar -->
+				<div class="draggable-element" draggable="true" v-if="data.styles.skills == 1 && data.skills.length">
+					<PSKILL1 :skills="data.skills" />
+				</div>
+				<div class="draggable-element" draggable="true" v-if="data.styles.skills == 2">
+					<PSKILL2 :skills2="data.skills2" />
+				</div>
+			</div>
 
-					<!-- Experience -->
-					<div class="draggable-element" draggable="true" v-if="data.exps.length" :style="{ marginBottom: '15px' }">
-						<h4 class="content-title" :style="{
-							fontSize: '14pt',
-							fontWeight: 'bold',
-							color: '#16a085',
-							margin: '20px 0 8px 0',
-							textTransform: 'uppercase',
-							letterSpacing: '1px'
-						}">EXPERIENCE</h4>
-						<div class="accent-line" :style="{
-							height: '3px',
-							width: '60px',
-							background: '#16a085',
-							marginBottom: '12px',
-							borderRadius: '2px',
-							webkitPrintColorAdjust: 'exact',
-							printColorAdjust: 'exact'
-						}"></div>
-						<PEXP :exps="data.exps" bullet="•" bulletColor="#16a085" />
-					</div>
+			<!-- Right Content -->
+			<div class="main-content">
+				<!-- Summary -->
+				<div class="draggable-element section-spacing" draggable="true" v-if="data.profile.summary">
+					<h4 class="content-title">ABOUT ME</h4>
+					<div class="accent-line"></div>
+					<p class="summary-text">{{ data.profile.summary }}</p>
+				</div>
 
-					<!-- Education -->
-					<div class="draggable-element" draggable="true" v-if="data.eds.length" :style="{ marginBottom: '15px' }">
-						<h4 class="content-title" :style="{
-							fontSize: '14pt',
-							fontWeight: 'bold',
-							color: '#16a085',
-							margin: '20px 0 8px 0',
-							textTransform: 'uppercase',
-							letterSpacing: '1px'
-						}">EDUCATION</h4>
-						<div class="accent-line" :style="{
-							height: '3px',
-							width: '60px',
-							background: '#16a085',
-							marginBottom: '12px',
-							borderRadius: '2px',
-							webkitPrintColorAdjust: 'exact',
-							printColorAdjust: 'exact'
-						}"></div>
-						<PEDU :eds="data.eds" />
-					</div>
+				<!-- Experience -->
+				<div class="draggable-element section-spacing" draggable="true" v-if="data.exps.length">
+					<PEXP :exps="data.exps" bullet="•" bulletColor="#16a085" />
+				</div>
 
-					<!-- Projects -->
-					<div class="draggable-element" draggable="true" v-if="data.projs.length" :style="{ marginBottom: '15px' }">
-						<h4 class="content-title" :style="{
-							fontSize: '14pt',
-							fontWeight: 'bold',
-							color: '#16a085',
-							margin: '20px 0 8px 0',
-							textTransform: 'uppercase',
-							letterSpacing: '1px'
-						}">PROJECTS</h4>
-						<div class="accent-line" :style="{
-							height: '3px',
-							width: '60px',
-							background: '#16a085',
-							marginBottom: '12px',
-							borderRadius: '2px',
-							webkitPrintColorAdjust: 'exact',
-							printColorAdjust: 'exact'
-						}"></div>
-						<PProj :projs="data.projs" bullet="•" bulletColor="#16a085" />
-					</div>
+				<!-- Education -->
+				<div class="draggable-element section-spacing" draggable="true" v-if="data.eds.length">
+					<PEDU :eds="data.eds" />
+				</div>
+
+				<!-- Projects -->
+				<div class="draggable-element section-spacing" draggable="true" v-if="data.projs.length">
+					<PProj :projs="data.projs" bullet="•" bulletColor="#16a085" />
 				</div>
 			</div>
 		</div>
@@ -208,13 +105,13 @@ export default {
 			}
 
 			function handleDrop(e) {
-				if (current.classList[0] == "draggable-element") {
+				if (current && current.classList.contains("draggable-element")) {
 					if (navigator.userAgent.toLowerCase().includes("firefox")) {
 						dragSrcEl_.innerHTML = current.innerHTML
 						current.innerHTML = e.dataTransfer.getData("text/html")
 					} else {
 						let inner = current.innerHTML
-						current.innerHTML = e.target.innerHTML
+						current.innerHTML = dragSrcEl_.innerHTML
 						dragSrcEl_.innerHTML = inner
 					}
 				}
@@ -229,3 +126,152 @@ export default {
 	},
 }
 </script>
+
+<style scoped>
+.template5 {
+	font-family: inherit;
+	font-size: 10pt;
+	line-height: 1.4;
+	color: #333;
+	height: auto;
+}
+
+.main-container {
+	display: flex;
+	height: auto;
+}
+
+.sidebar {
+	width: 7cm;
+	background: linear-gradient(180deg, #16a085 0%, #1abc9c 100%);
+	color: white;
+	padding: 1.5cm 1cm;
+	flex-shrink: 0;
+	height: auto;
+}
+
+@media print {
+	.sidebar {
+		-webkit-print-color-adjust: exact !important;
+		print-color-adjust: exact !important;
+		color-adjust: exact !important;
+		background: linear-gradient(180deg, #16a085 0%, #1abc9c 100%) !important;
+	}
+}
+
+.profile-section {
+	margin-bottom: 15pt;
+	padding-bottom: 12pt;
+	border-bottom: 1.5pt solid rgba(255,255,255,0.3);
+}
+
+.name {
+	font-size: 18pt;
+	font-weight: bold;
+	margin: 0 0 6pt 0;
+	line-height: 1.1;
+	text-transform: uppercase;
+	letter-spacing: 0.5pt;
+}
+
+.title {
+	font-size: 10pt;
+	margin: 0;
+	font-weight: 300;
+	opacity: 0.95;
+}
+
+.sidebar-title {
+	font-size: 10pt;
+	font-weight: bold;
+	margin: 15pt 0 8pt 0;
+	letter-spacing: 0.8pt;
+	text-transform: uppercase;
+	border-bottom: 1.5pt solid rgba(255,255,255,0.3);
+	padding-bottom: 4pt;
+}
+
+.contact-section {
+	margin-bottom: 15pt;
+}
+
+.contact-item {
+	margin-bottom: 10pt;
+	font-size: 8pt;
+	line-height: 1.3;
+}
+
+.contact-item strong {
+	display: block;
+	font-size: 7pt;
+	text-transform: uppercase;
+	letter-spacing: 0.3pt;
+	opacity: 0.8;
+	margin-bottom: 2pt;
+}
+
+.main-content {
+	flex: 1;
+	padding: 1.5cm 1.5cm;
+	background: white;
+	height: auto;
+}
+
+.section-spacing {
+	margin-bottom: 12pt;
+}
+
+.content-title {
+	font-size: 11pt;
+	font-weight: bold;
+	color: #16a085;
+	margin: 0 0 4pt 0;
+	text-transform: uppercase;
+	letter-spacing: 0.8pt;
+}
+
+.accent-line {
+	height: 2pt;
+	width: 40pt;
+	background: #16a085;
+	margin-bottom: 8pt;
+	border-radius: 1pt;
+}
+
+@media print {
+	.accent-line {
+		-webkit-print-color-adjust: exact !important;
+		print-color-adjust: exact !important;
+		color-adjust: exact !important;
+	}
+}
+
+.summary-text {
+	text-align: justify;
+	line-height: 1.4;
+	font-size: 10pt;
+	margin: 0;
+}
+
+@media print {
+	.template5 {
+		height: auto;
+	}
+	
+	.main-container {
+		height: auto;
+	}
+	
+	.sidebar {
+		height: auto;
+	}
+	
+	.main-content {
+		height: auto;
+	}
+	
+	.section-spacing {
+		min-height: 0;
+	}
+}
+</style>

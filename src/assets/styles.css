@@ -1,3 +1,106 @@
+/* General styling */
+
+a:active {
+    box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.05);
+}
+
+.col-2-logo {
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    position: relative;
+}
+
+a.col-2 span,
+a.col-3 span,
+a.col-4 span,
+a.col-6 span,
+a.col-12 span {
+    display: block;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+}
+
+.col-12>a>img {
+    margin-bottom: 1rem;
+}
+
+
+@media only screen and (max-width: 768px) {
+
+    .col-6,
+    .col-2,
+    .col-3,
+    .col-4 {
+        position: relative;
+    }
+
+    .col-6 a span {
+        padding: 5px;
+        border-radius: 5px;
+        display: block;
+        position: absolute;
+        bottom: 5px;
+        right: 5px;
+        width: max-content;
+    }
+
+    .col-6 a {
+        overflow: hidden;
+    }
+}
+
+.carousel-item img {
+    max-height: 100vh;
+}
+
+.back-to-top {
+    position: fixed;
+    cursor: pointer;
+    display: none;
+    right: 30px;
+    bottom: 30px;
+    z-index: 99;
+}
+
+.social-link {
+    padding-left: 20px;
+    padding-right: 20px;
+    font-size: 25pt;
+}
+
+.social-link a {
+    text-decoration: none;
+}
+
+.bg-skill {
+    background-image: url("./bgskill.png");
+    background-attachment: fixed;
+    background-size: cover;
+    background-position: center;
+    filter: grayscale(100%);
+}
+
+span.year {
+    background-color: #e8e8e8;
+    padding: 5px;
+    border-radius: 5px;
+    width: max-content;
+}
+
+/* Removed global li:before rule that was causing double bullets */
+/* Templates now handle bullets individually via props */
+
+li {
+    list-style: none !important;
+}
+
+.pr-2 {
+    padding-right: 5dp !important;
+}
+
+
+
 .center-align-text {
     margin-left: auto;
     margin-right: auto;
@@ -8,6 +111,7 @@
 
 
 .preview {
+    border: none !important;
     user-select: none;
     -moz-user-select: none;
     -khtml-user-select: none;
@@ -34,10 +138,10 @@
     margin-bottom: 0.5em !important;
 }
 
-/* .preview>body {
+.preview>body {
     size: 7in 9.25in !important;
     margin: 27mm 16mm 27mm 16mm !important;
-} */
+}
 
 .preview-box {
     text-align: justify;

@@ -1,160 +1,53 @@
 <template>
-	<div id="preview" class="preview preview-box template4" :style="{ fontFamily: 'inherit' }">
-		<!-- Header with bold design -->
-		<div class="header-section" :style="{
-			background: 'linear-gradient(135deg, #2c3e50 0%, #34495e 100%)',
-			color: 'white',
-			padding: '30px 25px',
-			margin: '0 0 20px 0',
-			textAlign: 'center',
-			webkitPrintColorAdjust: 'exact',
-			printColorAdjust: 'exact'
-		}">
-			<h1 class="name" :style="{
-				fontSize: '36pt',
-				fontWeight: 'bold',
-				margin: '0 0 8px 0',
-				letterSpacing: '1px',
-				textTransform: 'uppercase'
-			}">{{ data.profile.name }}</h1>
-			<h3 class="title" :style="{
-				fontSize: '16pt',
-				margin: '0 0 15px 0',
-				fontWeight: '300',
-				letterSpacing: '0.5px'
-			}">{{ data.profile.title }}</h3>
-			<div class="contact-bar" :style="{
-				display: 'flex',
-				justifyContent: 'center',
-				flexWrap: 'wrap',
-				gap: '15px',
-				fontSize: '10pt',
-				opacity: '0.95'
-			}">
-				<span v-if="data.profile.email" :style="{ display: 'flex', alignItems: 'center' }">
-					{{ data.profile.email }}
-					<span v-if="data.profile.phone || data.profile.address || data.profile.website" :style="{ marginLeft: '15px', opacity: 0.6 }">|</span>
-				</span>
-				<span v-if="data.profile.phone" :style="{ display: 'flex', alignItems: 'center' }">
-					{{ data.profile.phone }}
-					<span v-if="data.profile.address || data.profile.website" :style="{ marginLeft: '15px', opacity: 0.6 }">|</span>
-				</span>
-				<span v-if="data.profile.address" :style="{ display: 'flex', alignItems: 'center' }">
-					{{ data.profile.address }}
-					<span v-if="data.profile.website" :style="{ marginLeft: '15px', opacity: 0.6 }">|</span>
-				</span>
+	<div id="preview" class="preview preview-box template4">
+		<!-- Header -->
+		<div class="header-section">
+			<h1 class="name">{{ data.profile.name }}</h1>
+			<h3 class="title">{{ data.profile.title }}</h3>
+			<div class="contact-bar">
+				<span v-if="data.profile.email">{{ data.profile.email }}</span>
+				<span v-if="data.profile.phone">{{ data.profile.phone }}</span>
+				<span v-if="data.profile.address">{{ data.profile.address }}</span>
 				<span v-if="data.profile.website">{{ data.profile.website }}</span>
 			</div>
 		</div>
 
-		<!-- Summary -->
-		<div class="draggable-element" draggable="true" v-if="data.profile.summary" :style="{ marginBottom: '15px' }">
-			<h4 class="section-title" :style="{
-				fontSize: '14pt',
-				fontWeight: 'bold',
-				color: '#2c3e50',
-				margin: '20px 0 8px 0',
-				textTransform: 'uppercase',
-				letterSpacing: '1px'
-			}">PROFESSIONAL SUMMARY</h4>
-			<div class="section-divider" :style="{
-				height: '3px',
-				background: 'linear-gradient(90deg, #3498db 0%, #2c3e50 100%)',
-				marginBottom: '12px',
-				borderRadius: '2px',
-				webkitPrintColorAdjust: 'exact',
-				printColorAdjust: 'exact'
-			}"></div>
-			<p class="summary-text" :style="{
-				textAlign: 'justify',
-				lineHeight: '1.5',
-				color: '#333'
-			}">{{ data.profile.summary }}</p>
-		</div>
+		<div class="content-wrapper">
+			<!-- Summary -->
+			<div class="draggable-element section-spacing" draggable="true" v-if="data.profile.summary">
+				<h4 class="section-title">PROFESSIONAL SUMMARY</h4>
+				<div class="section-divider"></div>
+				<p class="summary-text">{{ data.profile.summary }}</p>
+			</div>
 
-		<!-- Experience -->
-		<div class="draggable-element" draggable="true" v-if="data.exps.length" :style="{ marginBottom: '15px' }">
-			<h4 class="section-title" :style="{
-				fontSize: '14pt',
-				fontWeight: 'bold',
-				color: '#2c3e50',
-				margin: '20px 0 8px 0',
-				textTransform: 'uppercase',
-				letterSpacing: '1px'
-			}">EXPERIENCE</h4>
-			<div class="section-divider" :style="{
-				height: '3px',
-				background: 'linear-gradient(90deg, #3498db 0%, #2c3e50 100%)',
-				marginBottom: '12px',
-				borderRadius: '2px',
-				webkitPrintColorAdjust: 'exact',
-				printColorAdjust: 'exact'
-			}"></div>
-			<PEXP :exps="data.exps" bullet="▸" bulletColor="#3498db" />
-		</div>
+			<!-- Experience -->
+			<div class="draggable-element section-spacing" draggable="true" v-if="data.exps.length">
+				<h4 class="section-title">EXPERIENCE</h4>
+				<div class="section-divider"></div>
+				<PEXP :exps="data.exps" bullet="▸" bulletColor="#3498db" />
+			</div>
 
-		<!-- Skills -->
-		<div class="draggable-element" draggable="true" :style="{ marginBottom: '15px' }">
-			<h4 class="section-title" :style="{
-				fontSize: '14pt',
-				fontWeight: 'bold',
-				color: '#2c3e50',
-				margin: '20px 0 8px 0',
-				textTransform: 'uppercase',
-				letterSpacing: '1px'
-			}">SKILLS</h4>
-			<div class="section-divider" :style="{
-				height: '3px',
-				background: 'linear-gradient(90deg, #3498db 0%, #2c3e50 100%)',
-				marginBottom: '12px',
-				borderRadius: '2px',
-				webkitPrintColorAdjust: 'exact',
-				printColorAdjust: 'exact'
-			}"></div>
-			<PSKILL1 v-if="data.styles.skills == 1 && data.skills.length" :skills="data.skills" />
-			<PSKILL2 v-else-if="data.styles.skills == 2" :skills2="data.skills2" />
-		</div>
+			<!-- Skills -->
+			<div class="draggable-element section-spacing" draggable="true">
+				<h4 class="section-title">SKILLS</h4>
+				<div class="section-divider"></div>
+				<PSKILL1 v-if="data.styles.skills == 1 && data.skills.length" :skills="data.skills" />
+				<PSKILL2 v-else-if="data.styles.skills == 2" :skills2="data.skills2" />
+			</div>
 
-		<!-- Education -->
-		<div class="draggable-element" draggable="true" :style="{ marginBottom: '15px' }">
-			<h4 class="section-title" :style="{
-				fontSize: '14pt',
-				fontWeight: 'bold',
-				color: '#2c3e50',
-				margin: '20px 0 8px 0',
-				textTransform: 'uppercase',
-				letterSpacing: '1px'
-			}">EDUCATION</h4>
-			<div class="section-divider" :style="{
-				height: '3px',
-				background: 'linear-gradient(90deg, #3498db 0%, #2c3e50 100%)',
-				marginBottom: '12px',
-				borderRadius: '2px',
-				webkitPrintColorAdjust: 'exact',
-				printColorAdjust: 'exact'
-			}"></div>
-			<PEDU v-if="data.eds.length" :eds="data.eds" />
-		</div>
+			<!-- Education -->
+			<div class="draggable-element section-spacing" draggable="true" v-if="data.eds.length">
+				<h4 class="section-title">EDUCATION</h4>
+				<div class="section-divider"></div>
+				<PEDU :eds="data.eds" />
+			</div>
 
-		<!-- Projects -->
-		<div class="draggable-element" draggable="true" :style="{ marginBottom: '15px' }">
-			<h4 class="section-title" :style="{
-				fontSize: '14pt',
-				fontWeight: 'bold',
-				color: '#2c3e50',
-				margin: '20px 0 8px 0',
-				textTransform: 'uppercase',
-				letterSpacing: '1px'
-			}">PROJECTS</h4>
-			<div class="section-divider" :style="{
-				height: '3px',
-				background: 'linear-gradient(90deg, #3498db 0%, #2c3e50 100%)',
-				marginBottom: '12px',
-				borderRadius: '2px',
-				webkitPrintColorAdjust: 'exact',
-				printColorAdjust: 'exact'
-			}"></div>
-			<PProj v-if="data.projs.length" :projs="data.projs" bullet="▸" bulletColor="#3498db" />
+			<!-- Projects -->
+			<div class="draggable-element section-spacing" draggable="true" v-if="data.projs.length">
+				<h4 class="section-title">PROJECTS</h4>
+				<div class="section-divider"></div>
+				<PProj :projs="data.projs" bullet="▸" bulletColor="#3498db" />
+			</div>
 		</div>
 	</div>
 </template>
@@ -197,13 +90,13 @@ export default {
 			}
 
 			function handleDrop(e) {
-				if (current.classList[0] == "draggable-element") {
+				if (current && current.classList.contains("draggable-element")) {
 					if (navigator.userAgent.toLowerCase().includes("firefox")) {
 						dragSrcEl_.innerHTML = current.innerHTML
 						current.innerHTML = e.dataTransfer.getData("text/html")
 					} else {
 						let inner = current.innerHTML
-						current.innerHTML = e.target.innerHTML
+						current.innerHTML = dragSrcEl_.innerHTML
 						dragSrcEl_.innerHTML = inner
 					}
 				}
@@ -218,3 +111,116 @@ export default {
 	},
 }
 </script>
+
+<style scoped>
+.template4 {
+	font-family: inherit;
+	font-size: 10pt;
+	line-height: 1.4;
+	color: #333;
+	height: auto;
+}
+
+.header-section {
+	background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+	color: white;
+	padding: 20pt 15pt;
+	text-align: center;
+	height: auto;
+}
+
+@media print {
+	.header-section {
+		-webkit-print-color-adjust: exact !important;
+		print-color-adjust: exact !important;
+		color-adjust: exact !important;
+		background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%) !important;
+	}
+}
+
+.name {
+	font-size: 24pt;
+	font-weight: bold;
+	margin: 0 0 6pt 0;
+	letter-spacing: 1pt;
+	text-transform: uppercase;
+}
+
+.title {
+	font-size: 12pt;
+	margin: 0 0 10pt 0;
+	font-weight: 300;
+	letter-spacing: 0.5pt;
+}
+
+.contact-bar {
+	display: flex;
+	justify-content: center;
+	flex-wrap: wrap;
+	gap: 10pt;
+	font-size: 9pt;
+}
+
+.contact-bar span:not(:last-child)::after {
+	content: "|";
+	margin-left: 10pt;
+	opacity: 0.6;
+}
+
+.content-wrapper {
+	max-width: 100%;
+	height: auto;
+}
+
+/* .section-spacing {
+	margin-bottom: 12pt;
+	flex-grow: 0;
+	flex-shrink: 0;
+} */
+
+.section-title {
+	font-size: 11pt;
+	font-weight: bold;
+	color: #2c3e50;
+	margin: 0 0 4pt 0;
+	text-transform: uppercase;
+	letter-spacing: 0.8pt;
+}
+
+.section-divider {
+	height: 2pt;
+	background: linear-gradient(90deg, #3498db 0%, #2c3e50 100%);
+	margin-bottom: 8pt;
+	border-radius: 1pt;
+}
+
+@media print {
+	.section-divider {
+		-webkit-print-color-adjust: exact !important;
+		print-color-adjust: exact !important;
+		color-adjust: exact !important;
+	}
+}
+
+.summary-text {
+	text-align: justify;
+	line-height: 1.4;
+	font-size: 10pt;
+	margin: 0;
+}
+
+@media print {
+	.template4 {
+		height: auto;
+	}
+	
+	.content-wrapper {
+	max-width: 100%;
+		height: auto;
+	}
+	
+	.section-spacing {
+		min-height: 0;
+	}
+}
+</style>
