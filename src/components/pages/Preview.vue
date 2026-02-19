@@ -20,7 +20,7 @@
 			<small>Drag and drop sections below to rearrange them in your desired order</small>
 		</span>
 		<div class="preview-container" v-bind:style="fontClass">
-			<page size='A4' style="height: auto;">
+			<page size='A4'>
 				<Template v-if="template == '1'" :data="maindata" />
 				<Template2 v-else-if="template == '2'" :data="maindata" />
 				<TemplateTwoColumns v-else-if="template == '3'" :data="maindata" />
@@ -114,18 +114,19 @@ export default {
 
 page[size='A4'] {
 	width: 21cm;
-	height: 29.7cm;
-	margin: 0 auto 20px;
+	height: auto;
+	max-height: none;
+	margin: auto 20px;
 	background: white;
 	box-shadow: 0 0 10px rgba(0,0,0,0.1);
 	display: block;
-	overflow: hidden;
+	overflow: visible;
 	position: relative;
 }
 
 page[size='A4'][layout='landscape'] {
 	width: 29.7cm;
-	height: 21cm;
+	height: auto;
 }
 
 .preview-container {
@@ -140,14 +141,50 @@ page[size='A4'][layout='landscape'] {
 	margin-bottom: 20px;
 }
 
+/* Remove global list bullets */
+.preview-container ul {
+	list-style: none !important;
+	padding-left: 0;
+	margin: 0;
+}
+
+.preview-container li {
+	list-style: none !important;
+	list-style-type: none !important;
+}
+
+/* Ensure no double bullets from global CSS */
+.preview-container li:before {
+	content: none !important;
+}
+
+/* Prevent sections from expanding */
+.preview-container .draggable-element,
+.preview-container .section-spacing {
+	flex-grow: 0 !important;
+	flex-shrink: 0 !important;
+}
+
 @media print {
 	page[size='A4'] {
 		box-shadow: none;
 		margin: 0;
+		height: auto;
 	}
 	
 	.center-align-text {
 		display: none;
+	}
+	
+	/* Ensure bullets don't print double */
+	.preview-container li:before {
+		content: none !important;
+	}
+	
+	/* Prevent sections from stretching on print */
+	.preview-container .draggable-element,
+	.preview-container .section-spacing {
+		min-height: 0 !important;
 	}
 }
 </style>

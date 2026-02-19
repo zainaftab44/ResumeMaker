@@ -1,38 +1,35 @@
 <template>
-	<div id="preview" class="preview preview-box" :style="{
-		userSelect: 'none',
-		webkitUserSelect: 'none',
-		mozUserSelect: 'none',
-		msUserSelect: 'none',
-		textAlign: 'justify',
-		lineHeight: '1.2'
-	}">
-		<PProf :profile="data.profile" />
-		<div class="draggable-element mt-3" draggable="true" :style="{ marginTop: '1rem !important' }">
-			<PSKILL1 v-if="data.styles.skills == 1 && data.skills.length" :skills="data.skills" />
-			<PSKILL2 v-else-if="data.styles.skills == 2" :skills2="data.skills2" />
-		</div>
-		<div class="draggable-element" draggable="true" v-if="data.exps.length" :style="{ marginBottom: '15px' }">
-			<PEXP v-if="data.exps.length" :exps="data.exps" bullet="»" bulletColor="#808080" />
-		</div>
-		<div class="draggable-element mt-3" draggable="true" :style="{ marginTop: '1rem !important' }">
-			<PEDU v-if="data.eds.length" :eds="data.eds" />
-		</div>
-		<div class="draggable-element mt-3" draggable="true" :style="{ marginTop: '1rem !important' }">
-			<PProj v-if="data.projs.length" :projs="data.projs" bullet="»" bulletColor="#808080" />
+	<div id="preview" class="preview preview-box template1">
+		<div class="content-wrapper">
+			<PProf :profile="data.profile" />
+			<div class="draggable-element section-spacing" draggable="true" v-if="data.profile.summary">
+				<h4 class="section-title">SUMMARY</h4>
+				<p class="summary-text">{{ data.profile.summary }}</p>
+			</div>
+			<div class="draggable-element section-spacing" draggable="true" v-if="data.exps.length">
+				<PEXP :exps="data.exps" bullet="•" bulletColor="#333" />
+			</div>
+			<div class="draggable-element section-spacing" draggable="true">
+				<PSKILL1 v-if="data.styles.skills == 1 && data.skills.length" :skills="data.skills" />
+				<PSKILL2 v-else-if="data.styles.skills == 2" :skills2="data.skills2" />
+			</div>
+			<div class="draggable-element section-spacing" draggable="true" v-if="data.eds.length">
+				<PEDU :eds="data.eds" />
+			</div>
+			<div class="draggable-element section-spacing" draggable="true" v-if="data.projs.length">
+				<PProj :projs="data.projs" bullet="•" bulletColor="#333" />
+			</div>
 		</div>
 	</div>
 </template>
 
 <script>
-//Previews
 import PProf from "../previews/profile/First.vue"
 import PEXP from "../previews/Experience.vue"
 import PEDU from "../previews/Education.vue"
 import PSKILL1 from "../previews/Skills.vue"
 import PSKILL2 from "../previews/Skills2.vue"
 import PProj from "../previews/Project.vue"
-// import AWD from './previews/Award.vue'
 
 export default {
 	name: "Template",
@@ -44,9 +41,7 @@ export default {
 		PSKILL1,
 		PSKILL2,
 		PProj,
-		// AWD,
 	},
-	methods: {},
 	mounted() {
 		(function() {
 			var id_ = "preview"
@@ -64,14 +59,15 @@ export default {
 			function handleDragOver(e) {
 				if (typeof e.target.closest == "function") current = e.target.closest(".draggable-element")
 			}
+			
 			function handleDrop(e) {
-				if (current.classList[0] == "draggable-element") {
+				if (current && current.classList.contains("draggable-element")) {
 					if (navigator.userAgent.toLowerCase().includes("firefox")) {
 						dragSrcEl_.innerHTML = current.innerHTML
 						current.innerHTML = e.dataTransfer.getData("text/html")
 					} else {
 						let inner = current.innerHTML
-						current.innerHTML = e.target.innerHTML
+						current.innerHTML = dragSrcEl_.innerHTML
 						dragSrcEl_.innerHTML = inner
 					}
 				}
@@ -87,3 +83,45 @@ export default {
 }
 </script>
 
+<style scoped>
+.template1 {
+	font-family: inherit;
+	font-size: 10pt;
+	line-height: 1.4;
+	color: #333;
+	padding: 1.5cm 2cm;
+}
+
+.content-wrapper {
+	max-width: 100%;
+}
+
+.section-spacing {
+	margin-bottom: 12pt;
+	page-break-inside: avoid;
+}
+
+.section-title {
+	font-size: 12pt;
+	font-weight: bold;
+	color: #000;
+	margin: 0 0 6pt 0;
+	text-transform: uppercase;
+	letter-spacing: 0.5pt;
+	border-bottom: 1pt solid #000;
+	padding-bottom: 3pt;
+}
+
+.summary-text {
+	text-align: justify;
+	line-height: 1.4;
+	font-size: 10pt;
+	margin: 0;
+}
+
+@media print {
+	.template1 {
+		padding: 1.5cm 2cm;
+	}
+}
+</style>

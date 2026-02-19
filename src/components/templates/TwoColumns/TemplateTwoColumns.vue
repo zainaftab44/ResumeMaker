@@ -1,29 +1,24 @@
 <template>
-	<div id="preview" class="preview preview-box" :style="{
-		userSelect: 'none',
-		webkitUserSelect: 'none',
-		mozUserSelect: 'none',
-		msUserSelect: 'none'
-	}">
-		<div class="row" :style="{ textAlign: 'start !important', margin: 0 }">
-			<div :style="{ width: '7cm', padding: '10px' }">
+	<div id="preview" class="preview preview-box template-two-columns">
+		<div class="two-column-container">
+			<div class="left-column">
 				<PProf :profile="data.profile" />
-				<div class="draggable-element mt-3" v-if="data.styles.skills == 2" draggable="true" :style="{ marginTop: '1rem !important' }">
+				<div class="draggable-element section-spacing" v-if="data.styles.skills == 2" draggable="true">
 					<PSKILL2 :skills2="data.skills2" />
 				</div>
-				<div class="draggable-element mt-3" draggable="true" :style="{ marginTop: '1rem !important' }">
-					<PEDU v-if="data.eds.length" :eds="data.eds" />
+				<div class="draggable-element section-spacing" draggable="true" v-if="data.eds.length">
+					<PEDU :eds="data.eds" />
 				</div>
 			</div>
-			<div class="col" :style="{ width: 'auto', borderLeft: '1px solid', padding: '10px' }">
-				<div class="draggable-element" draggable="true" v-if="data.exps.length">
-					<PEXP v-if="data.exps.length" :exps="data.exps" bullet="»" bulletColor="#808080" />
+			<div class="right-column">
+				<div class="draggable-element section-spacing" draggable="true" v-if="data.exps.length">
+					<PEXP :exps="data.exps" bullet="▪" bulletColor="#555" />
 				</div>
-				<div class="draggable-element mt-3" v-if="data.styles.skills == 1 && data.skills.length" draggable="true" :style="{ marginTop: '1rem !important' }">
+				<div class="draggable-element section-spacing" v-if="data.styles.skills == 1 && data.skills.length" draggable="true">
 					<PSKILL1 :skills="data.skills" />
 				</div>
-				<div class="draggable-element mt-3" draggable="true" :style="{ marginTop: '1rem !important' }">
-					<PProj v-if="data.projs.length" :projs="data.projs" bullet="»" bulletColor="#808080" />
+				<div class="draggable-element section-spacing" draggable="true" v-if="data.projs.length">
+					<PProj :projs="data.projs" bullet="▪" bulletColor="#555" />
 				</div>
 			</div>
 		</div>
@@ -31,7 +26,6 @@
 </template>
 
 <script>
-//Previews
 import PProf from "../../previews/profile/Third.vue"
 import PEXP from "../../previews/Experience.vue"
 import PEDU from "../../previews/Education.vue"
@@ -40,7 +34,7 @@ import PSKILL2 from "../../previews/Skills2.vue"
 import PProj from "../../previews/Project.vue"
 
 export default {
-	name: "Template",
+	name: "TemplateTwoColumns",
 	props: ["data"],
 	components: {
 		PProf,
@@ -67,14 +61,15 @@ export default {
 			function handleDragOver(e) {
 				if (typeof e.target.closest == "function") current = e.target.closest(".draggable-element")
 			}
+			
 			function handleDrop(e) {
-				if (current.classList[0] == "draggable-element") {
+				if (current && current.classList.contains("draggable-element")) {
 					if (navigator.userAgent.toLowerCase().includes("firefox")) {
 						dragSrcEl_.innerHTML = current.innerHTML
 						current.innerHTML = e.dataTransfer.getData("text/html")
 					} else {
 						let inner = current.innerHTML
-						current.innerHTML = e.target.innerHTML
+						current.innerHTML = dragSrcEl_.innerHTML
 						dragSrcEl_.innerHTML = inner
 					}
 				}
@@ -89,3 +84,39 @@ export default {
 	},
 }
 </script>
+
+<style scoped>
+.template-two-columns {
+	font-family: inherit;
+	font-size: 10pt;
+	line-height: 1.4;
+	color: #333;
+	padding: 1.5cm 2cm;
+}
+
+.two-column-container {
+	display: flex;
+	gap: 1cm;
+}
+
+.left-column {
+	width: 7cm;
+	flex-shrink: 0;
+}
+
+.right-column {
+	flex: 1;
+	border-left: 1pt solid #ddd;
+	padding-left: 1cm;
+}
+
+.section-spacing {
+	margin-bottom: 12pt;
+}
+
+@media print {
+	.template-two-columns {
+		padding: 1.5cm 2cm;
+	}
+}
+</style>
