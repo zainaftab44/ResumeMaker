@@ -8,23 +8,23 @@
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
-    "axios": "^0.21.1",
-    "core-js": "^3.6.5",
-    "jquery": "^3.6.0",
-    "jspdf": "^2.3.1",
+    "axios": "^1.7.9",
+    "core-js": "^3.40.0",
+    "jquery": "^3.7.1",
+    "jspdf": "^4.1.0",
     "netlify-lualatex": "^1.2.1",
     "path": "^0.12.7",
-    "vue": "^2.6.11",
-    "vue-router": "^3.5.1"
+    "vue": "^2.7.16",
+    "vue-router": "^3.6.5"
   },
   "devDependencies": {
-    "@vue/cli-plugin-babel": "~4.5.0",
-    "@vue/cli-plugin-eslint": "~4.5.0",
-    "@vue/cli-service": "~4.5.0",
-    "babel-eslint": "^10.1.0",
-    "eslint": "^6.7.2",
-    "eslint-plugin-vue": "^6.2.2",
-    "vue-template-compiler": "^2.6.11"
+    "@vue/cli-plugin-babel": "~5.0.9",
+    "@vue/cli-plugin-eslint": "~5.0.9",
+    "@vue/cli-service": "~5.0.9",
+    "@babel/eslint-parser": "^7.24.1",
+    "eslint": "^8.57.0",
+    "eslint-plugin-vue": "^9.32.0",
+    "vue-template-compiler": "^2.7.16"
   },
   "eslintConfig": {
     "root": true,
@@ -35,9 +35,15 @@
       "plugin:vue/essential"
     ],
     "parserOptions": {
-      "parser": "babel-eslint"
+      "parser": "@babel/eslint-parser"
     },
-    "rules": {}
+    "rules": {
+      "vue/multi-word-component-names": "off",
+      "vue/no-reserved-component-names": "off",
+      "vue/no-mutating-props": "off",
+      "vue/no-unused-components": "warn",
+      "vue/no-useless-template-attributes": "off"
+    }
   },
   "browserslist": [
     "> 1%",

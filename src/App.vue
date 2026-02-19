@@ -7,9 +7,9 @@
 						<img src="./assets/logo.svg" alt="" style="width: 150px;" />
 					</a>
 					<div class="input-group">
-						<button v-if="addChk" @click="add()" class="btn btn-primary">Add {{   btnCurr   }}</button>
+						<button v-if="addChk" @click="add()" class="btn btn-primary">Add {{ btnCurr }}</button>
 						<button v-if="canChangeStyle" @click="changestyle()" class="btn btn-info">Toggle Style</button>
-						<a v-if="current == 'Preview'" class="btn btn-primary" @click.prevent="create">Generate</a>
+						<a v-if="current == 'Preview'" class="btn btn-primary" @click.prevent="create">Print/Export to PDF</a>
 					</div>
 					<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-label="Toggle navigation">
 						<span class="navbar-toggler-icon"></span>
@@ -18,10 +18,8 @@
 						<ul class="navbar-nav me-auto mb-2 mb-lg-0">
 							<li class="nav-item" v-for="(item, i) in nav" :key="i">
 								<a class="nav-link" :class="{ active: current == item }" @click.prevent="current = item">
-									{{  item  }}
+									{{ item }}
 								</a>
-							</li>
-							<li class="nav-item" >
 							</li>
 							<li class="nav-item">
 								<a class="nav-link" @click.prevent="download">Backup</a>
@@ -31,14 +29,12 @@
 							</li>
 							<li class="nav-item">
 								<a class="nav-link" data-bs-toggle="modal" data-bs-target="#loadresume">Load</a>
-								<!-- @click.prevent="trigger" -->
 							</li>
 						</ul>
 					</div>
 				</div>
 			</nav>
 		</div>
-		<!-- <div class="container-fluid"> -->
 		<div class="row mt-4" v-if="current !== 'Preview'">
 			<div class="col-lg-6 col-md-12 accordion px-5" :id="current.toLowerCase()">
 				<Profile v-if="current == 'Profile'" :profile="profile" />
@@ -47,10 +43,8 @@
 				<Skills v-else-if="current == 'Skills' && styles.skills == 1" v-for="(sk, i) in skills" :key="i" :skill="sk" @delete-row="delRow(i)" @move-row="moveRow" />
 				<Skills2 v-else-if="current == 'Skills' && styles.skills == 2" :skill2="skills2" />
 				<Projects v-else-if="current == 'Projects'" v-for="(pr, i) in projs" :key="i" :proj="pr" @delete-row="delRow(i)" @move-row="moveRow" />
-				<!-- <Award v-else-if="current == 'Awards'" v-for="(awd, i) in awds" :key="i" :awd="awd" @delete-row="delRow(i)" @move-row="moveRow" /> -->
-				<!-- <Certifications v-for="(c, i) in certs" :key="i" :cert="c" @delrow="delRow(i)"/> -->
 				<div class="input-group mt-4">
-					<button v-if="addChk" @click="add()" class="btn btn-primary">Add {{  btnCurr  }}</button>
+					<button v-if="addChk" @click="add()" class="btn btn-primary">Add {{ btnCurr }}</button>
 					<button v-if="canChangeStyle" @click="changestyle()" class="btn btn-info">Toggle</button>
 				</div>
 			</div>
@@ -62,12 +56,10 @@
 				<SK1P v-else-if="current == 'Skills' && styles.skills == 1" :skills="skills" />
 				<SK2P v-else-if="current == 'Skills' && styles.skills == 2" :skills2="skills2" />
 				<PJP v-else-if="current == 'Projects'" :projs="projs" />
-				<!-- <AWD v-else-if="current == 'Awards'" :awds="awds" /> -->
 			</div>
 		</div>
 
 		<Preview v-else :maindata="$data" />
-		<!-- </div> -->
 
 		<div class="text-center">
 			<p>
@@ -75,10 +67,10 @@
 				Download to get backup and load from any device
 			</p>
 			<p v-if="current != 'Preview'">Displayed previews to check for proofreading and are not final.</p>
-			<div class="row" v-if="current == 'Skills' && styles.skills == 2">
+			<div class="row" v-if="current == 'Preview'">
 				<h5 class="modal-title">Print Instructions</h5>
-				<p>While printing with this skills type please check the print backgrounds checkbox in print modal</p>
-				<img style="max-width:400px" src="./assets/printbackground.png" alt="printing instructions" />
+				<p>To export as PDF: Click "Print/Export to PDF" button, then in the print dialog, select "Save as PDF" as the destination.</p>
+				<p>Make sure "Background graphics" is enabled in print settings for best results.</p>
 			</div>
 		</div>
 		<div class="modal" tabindex="-1" aria-hidden="true" id="loadresume">
@@ -106,9 +98,6 @@ import Education from "./components/pages/Education.vue"
 import Skills from "./components/pages/Skills.vue"
 import Skills2 from "./components/pages/Skills2.vue"
 import Projects from "./components/pages/Projects.vue"
-// import Award from "./components/Award.vue"
-// import Certifications from "./components/Certifications.vue"
-// import Import from "./components/Import.vue"
 
 //Previews
 import PP from "./components/previews/profile/First.vue"
@@ -118,7 +107,6 @@ import EDP from "./components/previews/Education.vue"
 import SK1P from "./components/previews/Skills.vue"
 import SK2P from "./components/previews/Skills2.vue"
 import PJP from "./components/previews/Project.vue"
-// import AWD from './components/previews/Award.vue'
 
 import Vue from "vue"
 
@@ -131,7 +119,6 @@ export default {
 		Education,
 		Skills,
 		Projects,
-		// Award,
 		Skills2,
 		PP,
 		PP2,
@@ -140,8 +127,6 @@ export default {
 		SK1P,
 		SK2P,
 		PJP,
-		// AWD,
-		// Certifications,
 	},
 	watch: {
 		current: function () {
@@ -159,6 +144,8 @@ export default {
 				address: "",
 				summary: "",
 				website: "",
+				github: "",
+				linkedin: "",
 			},
 			exps: [],
 			eds: [],
@@ -166,15 +153,12 @@ export default {
 			projs: [],
 			skills2: { name: [] },
 			awds: [],
-			// certs: [],
 			nav: [
 				"Profile",
 				"Experience",
 				"Education",
 				"Skills",
 				"Projects",
-				// "Certifications",
-				// "Awards",
 				"Preview",
 			],
 			current: "Profile",
@@ -196,18 +180,142 @@ export default {
 			this.styles[this.current.toLowerCase()] = this.styles[this.current.toLowerCase()] == 1 ? 2 : 1
 		},
 		create: function () {
-			// <html><head><link rel='stylesheet' href='./assets/bootstrap.min.css' media='print'/>
-			var source = `<html> ${window.document.head.outerHTML}<body>
-				<style>body {font-family: '${this.settings.font}'} @page {size: A4 portrait} page[size='A4'] {  width: 21cm;  height: 29.7cm } page[size='A4'][layout='landscape'] {  width: 29.7cm; height: 21cm  } page{background:'#fff;display:block;margin:0 auto;margin-bottom:.5cm; }</style>
-				<style>.preview>.sub-color,.preview>small{color:grey!important}ul{margin:0!important}.preview{user-select:none;-moz-user-select:none;-khtml-user-select:none;-webkit-user-select:none;-o-user-select:none}.preview>*{text-align:justify!important;line-height:1.2!important}.preview>small{text-decoration:none!important}.preview>h4{margin-top:1.5em!important;margin-bottom:.5em!important}.preview>body{size:7in 9.25in!important;margin:27mm 16mm!important}li:before{content:'\\2014\\a0\\a0'}li{list-style:none!important}.pr-2{padding-right:5dp!important}</style>
-				<div class='preview'>` +
-				// "<page size='A4'>" +
-				window.document.getElementsByClassName("preview")[0].innerHTML +
-				// "</page>" +
-				"</div><script>window.print()<\/script></body></html>"
-			var tab = window.open("/")
-			tab.document.write(source)
-			// localStorage.data = JSON.stringify(this.$data)
+			// Improved print functionality with better CSS handling
+			const previewElement = window.document.querySelector(".preview-container")
+			if (!previewElement) {
+				alert("Preview not found. Please try again.")
+				return
+			}
+
+			const source = `<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Resume - ${this.profile.name || 'Preview'}</title>
+	<style>
+		* {
+			margin: 0;
+			padding: 0;
+			box-sizing: border-box;
+		}
+		
+		body {
+			font-family: '${this.settings.font}', Arial, sans-serif;
+			line-height: 1.6;
+			color: #333;
+			background: #fff;
+		}
+		
+		@page {
+			size: A4 portrait;
+			margin: 0;
+		}
+		
+		@media print {
+			body {
+				margin: 0;
+				padding: 0;
+			}
+			
+			.preview-container {
+				width: 21cm;
+				min-height: 29.7cm;
+				margin: 0;
+				padding: 1.5cm 2cm;
+				page-break-after: always;
+			}
+			
+			.no-print {
+				display: none !important;
+			}
+			
+			* {
+				-webkit-print-color-adjust: exact !important;
+				print-color-adjust: exact !important;
+				color-adjust: exact !important;
+			}
+		}
+		
+		@media screen {
+			.preview-container {
+				width: 21cm;
+				min-height: 29.7cm;
+				margin: 20px auto;
+				padding: 1.5cm 2cm;
+				background: white;
+				box-shadow: 0 0 10px rgba(0,0,0,0.1);
+			}
+		}
+		
+		/* Preserve all original styles */
+		.preview > * {
+			text-align: justify !important;
+			line-height: 1.4 !important;
+		}
+		
+		.preview small {
+			color: #666 !important;
+		}
+		
+		.preview .sub-color {
+			color: #666 !important;
+		}
+		
+		.preview h4 {
+			margin-top: 1.2em !important;
+			margin-bottom: 0.4em !important;
+			page-break-after: avoid;
+		}
+		
+		.preview h1, .preview h2, .preview h3 {
+			page-break-after: avoid;
+		}
+		
+		ul {
+			margin: 0 !important;
+			padding-left: 20px;
+		}
+		
+		li {
+			list-style: none !important;
+			page-break-inside: avoid;
+		}
+		
+		li:before {
+			content: "\\2014\\a0\\a0";
+		}
+		
+		table {
+			page-break-inside: avoid;
+		}
+		
+		.draggable-element {
+			page-break-inside: avoid;
+		}
+	</style>
+</head>
+<body>
+	<div class="preview-container">
+		${previewElement.innerHTML}
+	</div>
+	<script>
+		// Auto-print when loaded
+		window.onload = function() {
+			window.print();
+		};
+	<\/script>
+</body>
+</html>`
+
+			const tab = window.open("")
+			if (tab) {
+				tab.document.write(source)
+				tab.document.close()
+			} else {
+				alert("Please allow popups for this site to enable PDF export")
+			}
+			
 			this.save()
 		},
 		save: function () {
@@ -220,7 +328,12 @@ export default {
 			localStorage.setItem("styles", JSON.stringify(this.$data.styles))
 			localStorage.setItem("skills2", JSON.stringify(this.$data.skills2))
 			localStorage.setItem("awds", JSON.stringify(this.$data.awds))
-			document.getElementById("save-nav").innerHTML = "Saved"
+			setTimeout(() => {
+				document.getElementById("save-nav").innerHTML = "Saved"
+				setTimeout(() => {
+					document.getElementById("save-nav").innerHTML = "Save"
+				}, 2000)
+			}, 500)
 		},
 		load: function () {
 			let e = document.getElementById("resumefile")
@@ -235,13 +348,11 @@ export default {
 				if (d.styles) this.styles = d.styles
 				if (d.skills2) this.skills2 = d.skills2
 				if (d.awds) this.awds = d.awds
-				// your code to consume the json
 			}
 			fr.readAsText(e.files[0])
 		},
 		download() {
 			this.save()
-
 			var data = JSON.stringify(this.$data)
 			data = JSON.parse(data)
 			delete data["certs"]
@@ -289,7 +400,7 @@ export default {
 		getEmpty() {
 			switch (this.current) {
 				case "Experience":
-					return  { company: "", location: "", title: "", start: "", end: "", resp: [] }
+					return { company: "", location: "", title: "", start: "", end: "", resp: [] }
 				case "Education":
 					return { institute: "", degree: "", major: "", locations: "", start: "", end: "" }
 				case "Skills":
@@ -300,8 +411,6 @@ export default {
 		},
 	},
 	mounted() {
-		var ref = window.location.href
-
 		document.addEventListener("keydown", (e) => {
 			if (e.ctrlKey && e.keyCode == 83) {
 				e.preventDefault()
@@ -413,7 +522,7 @@ hr {
 	cursor: pointer;
 }
 
-.navbar-nav>li::before {
+.navbar-nav > li::before {
 	content: "" !important;
 }
 </style>
