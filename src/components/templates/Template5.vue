@@ -1,67 +1,168 @@
 <template>
-	<div id="preview" class="preview preview-box template5">
-		<div class="container-fluid">
-			<div class="row">
+	<div id="preview" class="preview preview-box template5" :style="{ fontFamily: 'inherit', margin: 0 }">
+		<div class="container-fluid" :style="{ padding: 0 }">
+			<div class="row" :style="{ margin: 0, minHeight: 'calc(29.7cm - 3cm)' }">
 				<!-- Left Sidebar -->
-				<div class="col-4 sidebar">
-					<div class="profile-section">
-						<h1 class="name">{{ data.profile.name }}</h1>
-						<h4 class="title">{{ data.profile.title }}</h4>
+				<div class="col-4 sidebar" :style="{
+					background: 'linear-gradient(180deg, #16a085 0%, #1abc9c 100%)',
+					color: 'white',
+					padding: '40px 25px',
+					minHeight: '100%',
+					webkitPrintColorAdjust: 'exact',
+					printColorAdjust: 'exact'
+				}">
+					<div class="profile-section" :style="{
+						marginBottom: '30px',
+						paddingBottom: '20px',
+						borderBottom: '2px solid rgba(255,255,255,0.3)'
+					}">
+						<h1 class="name" :style="{
+							fontSize: '26pt',
+							fontWeight: 'bold',
+							margin: '0 0 10px 0',
+							lineHeight: 1.2,
+							textTransform: 'uppercase',
+							letterSpacing: '1px'
+						}">{{ data.profile.name }}</h1>
+						<h4 class="title" :style="{
+							fontSize: '13pt',
+							margin: 0,
+							fontWeight: '300',
+							opacity: '0.95'
+						}">{{ data.profile.title }}</h4>
 					</div>
 
-					<div class="contact-section">
-						<h5 class="sidebar-title">CONTACT</h5>
-						<div class="contact-item" v-if="data.profile.email">
-							<strong>Email</strong><br>{{ data.profile.email }}
+					<div class="contact-section" :style="{ marginBottom: '25px' }">
+						<h5 class="sidebar-title" :style="{
+							fontSize: '12pt',
+							fontWeight: 'bold',
+							margin: '25px 0 15px 0',
+							letterSpacing: '1px',
+							textTransform: 'uppercase',
+							borderBottom: '2px solid rgba(255,255,255,0.3)',
+							paddingBottom: '8px'
+						}">CONTACT</h5>
+						<div class="contact-item" v-if="data.profile.email" :style="{ marginBottom: '15px', fontSize: '9pt', lineHeight: 1.4 }">
+							<strong :style="{ display: 'block', fontSize: '8pt', textTransform: 'uppercase', letterSpacing: '0.5px', opacity: 0.8, marginBottom: '3px' }">Email</strong>{{ data.profile.email }}
 						</div>
-						<div class="contact-item" v-if="data.profile.phone">
-							<strong>Phone</strong><br>{{ data.profile.phone }}
+						<div class="contact-item" v-if="data.profile.phone" :style="{ marginBottom: '15px', fontSize: '9pt', lineHeight: 1.4 }">
+							<strong :style="{ display: 'block', fontSize: '8pt', textTransform: 'uppercase', letterSpacing: '0.5px', opacity: 0.8, marginBottom: '3px' }">Phone</strong>{{ data.profile.phone }}
 						</div>
-						<div class="contact-item" v-if="data.profile.address">
-							<strong>Address</strong><br>{{ data.profile.address }}
+						<div class="contact-item" v-if="data.profile.address" :style="{ marginBottom: '15px', fontSize: '9pt', lineHeight: 1.4 }">
+							<strong :style="{ display: 'block', fontSize: '8pt', textTransform: 'uppercase', letterSpacing: '0.5px', opacity: 0.8, marginBottom: '3px' }">Address</strong>{{ data.profile.address }}
 						</div>
-						<div class="contact-item" v-if="data.profile.website">
-							<strong>Website</strong><br>{{ data.profile.website }}
+						<div class="contact-item" v-if="data.profile.website" :style="{ marginBottom: '15px', fontSize: '9pt', lineHeight: 1.4 }">
+							<strong :style="{ display: 'block', fontSize: '8pt', textTransform: 'uppercase', letterSpacing: '0.5px', opacity: 0.8, marginBottom: '3px' }">Website</strong>{{ data.profile.website }}
 						</div>
-						<div class="contact-item" v-if="data.profile.linkedin">
-							<strong>LinkedIn</strong><br>{{ data.profile.linkedin }}
+						<div class="contact-item" v-if="data.profile.linkedin" :style="{ marginBottom: '15px', fontSize: '9pt', lineHeight: 1.4 }">
+							<strong :style="{ display: 'block', fontSize: '8pt', textTransform: 'uppercase', letterSpacing: '0.5px', opacity: 0.8, marginBottom: '3px' }">LinkedIn</strong>{{ data.profile.linkedin }}
 						</div>
-						<div class="contact-item" v-if="data.profile.github">
-							<strong>GitHub</strong><br>{{ data.profile.github }}
+						<div class="contact-item" v-if="data.profile.github" :style="{ marginBottom: '15px', fontSize: '9pt', lineHeight: 1.4 }">
+							<strong :style="{ display: 'block', fontSize: '8pt', textTransform: 'uppercase', letterSpacing: '0.5px', opacity: 0.8, marginBottom: '3px' }">GitHub</strong>{{ data.profile.github }}
 						</div>
 					</div>
 
 					<!-- Skills in sidebar -->
-					<div class="draggable-element" draggable="true" v-if="data.styles.skills == 1 && data.skills.length">
+					<div class="draggable-element" draggable="true" v-if="data.styles.skills == 1 && data.skills.length" :style="{ marginBottom: '15px' }">
 						<PSKILL1 :skills="data.skills" />
 					</div>
-					<div class="draggable-element" draggable="true" v-if="data.styles.skills == 2">
+					<div class="draggable-element" draggable="true" v-if="data.styles.skills == 2" :style="{ marginBottom: '15px' }">
 						<PSKILL2 :skills2="data.skills2" />
 					</div>
 				</div>
 
 				<!-- Right Content -->
-				<div class="col-8 main-content">
+				<div class="col-8 main-content" :style="{ padding: '40px 30px', background: 'white' }">
 					<!-- Summary -->
-					<div class="draggable-element" draggable="true" v-if="data.profile.summary">
-						<h4 class="content-title">ABOUT ME</h4>
-						<div class="accent-line"></div>
-						<p class="summary-text">{{ data.profile.summary }}</p>
+					<div class="draggable-element" draggable="true" v-if="data.profile.summary" :style="{ marginBottom: '15px' }">
+						<h4 class="content-title" :style="{
+							fontSize: '14pt',
+							fontWeight: 'bold',
+							color: '#16a085',
+							margin: '20px 0 8px 0',
+							textTransform: 'uppercase',
+							letterSpacing: '1px'
+						}">ABOUT ME</h4>
+						<div class="accent-line" :style="{
+							height: '3px',
+							width: '60px',
+							background: '#16a085',
+							marginBottom: '12px',
+							borderRadius: '2px',
+							webkitPrintColorAdjust: 'exact',
+							printColorAdjust: 'exact'
+						}"></div>
+						<p class="summary-text" :style="{
+							textAlign: 'justify',
+							lineHeight: '1.5',
+							color: '#333'
+						}">{{ data.profile.summary }}</p>
 					</div>
 
 					<!-- Experience -->
-					<div class="draggable-element" draggable="true" v-if="data.exps.length">
-						<PEXP :exps="data.exps" />
+					<div class="draggable-element" draggable="true" v-if="data.exps.length" :style="{ marginBottom: '15px' }">
+						<h4 class="content-title" :style="{
+							fontSize: '14pt',
+							fontWeight: 'bold',
+							color: '#16a085',
+							margin: '20px 0 8px 0',
+							textTransform: 'uppercase',
+							letterSpacing: '1px'
+						}">EXPERIENCE</h4>
+						<div class="accent-line" :style="{
+							height: '3px',
+							width: '60px',
+							background: '#16a085',
+							marginBottom: '12px',
+							borderRadius: '2px',
+							webkitPrintColorAdjust: 'exact',
+							printColorAdjust: 'exact'
+						}"></div>
+						<PEXP :exps="data.exps" bullet="•" bulletColor="#16a085" />
 					</div>
 
 					<!-- Education -->
-					<div class="draggable-element" draggable="true" v-if="data.eds.length">
+					<div class="draggable-element" draggable="true" v-if="data.eds.length" :style="{ marginBottom: '15px' }">
+						<h4 class="content-title" :style="{
+							fontSize: '14pt',
+							fontWeight: 'bold',
+							color: '#16a085',
+							margin: '20px 0 8px 0',
+							textTransform: 'uppercase',
+							letterSpacing: '1px'
+						}">EDUCATION</h4>
+						<div class="accent-line" :style="{
+							height: '3px',
+							width: '60px',
+							background: '#16a085',
+							marginBottom: '12px',
+							borderRadius: '2px',
+							webkitPrintColorAdjust: 'exact',
+							printColorAdjust: 'exact'
+						}"></div>
 						<PEDU :eds="data.eds" />
 					</div>
 
 					<!-- Projects -->
-					<div class="draggable-element" draggable="true" v-if="data.projs.length">
-						<PProj :projs="data.projs" />
+					<div class="draggable-element" draggable="true" v-if="data.projs.length" :style="{ marginBottom: '15px' }">
+						<h4 class="content-title" :style="{
+							fontSize: '14pt',
+							fontWeight: 'bold',
+							color: '#16a085',
+							margin: '20px 0 8px 0',
+							textTransform: 'uppercase',
+							letterSpacing: '1px'
+						}">PROJECTS</h4>
+						<div class="accent-line" :style="{
+							height: '3px',
+							width: '60px',
+							background: '#16a085',
+							marginBottom: '12px',
+							borderRadius: '2px',
+							webkitPrintColorAdjust: 'exact',
+							printColorAdjust: 'exact'
+						}"></div>
+						<PProj :projs="data.projs" bullet="•" bulletColor="#16a085" />
 					</div>
 				</div>
 			</div>
@@ -128,139 +229,3 @@ export default {
 	},
 }
 </script>
-
-<style scoped>
-.template5 {
-	font-family: inherit;
-	margin: -1.5cm -2cm;
-}
-
-.template5 .row {
-	margin: 0;
-	min-height: 29.7cm;
-}
-
-.template5 .sidebar {
-	background: linear-gradient(180deg, #16a085 0%, #1abc9c 100%);
-	color: white;
-	padding: 40px 25px;
-	min-height: 100%;
-}
-
-@media print {
-	.template5 .sidebar {
-		-webkit-print-color-adjust: exact;
-		print-color-adjust: exact;
-		color-adjust: exact;
-		background: linear-gradient(180deg, #16a085 0%, #1abc9c 100%) !important;
-	}
-}
-
-.template5 .profile-section {
-	margin-bottom: 30px;
-	padding-bottom: 20px;
-	border-bottom: 2px solid rgba(255,255,255,0.3);
-}
-
-.template5 .name {
-	font-size: 26pt;
-	font-weight: bold;
-	margin: 0 0 10px 0;
-	line-height: 1.2;
-	text-transform: uppercase;
-	letter-spacing: 1px;
-}
-
-.template5 .title {
-	font-size: 13pt;
-	margin: 0;
-	font-weight: 300;
-	opacity: 0.95;
-}
-
-.template5 .sidebar-title {
-	font-size: 12pt;
-	font-weight: bold;
-	margin: 25px 0 15px 0;
-	letter-spacing: 1px;
-	text-transform: uppercase;
-	border-bottom: 2px solid rgba(255,255,255,0.3);
-	padding-bottom: 8px;
-}
-
-.template5 .contact-section {
-	margin-bottom: 25px;
-}
-
-.template5 .contact-item {
-	margin-bottom: 15px;
-	font-size: 9pt;
-	line-height: 1.4;
-}
-
-.template5 .contact-item strong {
-	display: block;
-	font-size: 8pt;
-	text-transform: uppercase;
-	letter-spacing: 0.5px;
-	opacity: 0.8;
-	margin-bottom: 3px;
-}
-
-.template5 .main-content {
-	padding: 40px 30px;
-	background: white;
-}
-
-.template5 .content-title {
-	font-size: 14pt;
-	font-weight: bold;
-	color: #16a085;
-	margin: 20px 0 8px 0;
-	text-transform: uppercase;
-	letter-spacing: 1px;
-}
-
-.template5 .accent-line {
-	height: 3px;
-	width: 60px;
-	background: #16a085;
-	margin-bottom: 12px;
-	border-radius: 2px;
-}
-
-@media print {
-	.template5 .accent-line {
-		-webkit-print-color-adjust: exact;
-		print-color-adjust: exact;
-		color-adjust: exact;
-	}
-}
-
-.template5 .summary-text {
-	text-align: justify;
-	line-height: 1.5;
-	color: #333;
-}
-
-.template5 .draggable-element {
-	margin-bottom: 15px;
-}
-
-.template5 ul {
-	margin: 0 !important;
-	padding-left: 20px;
-}
-
-.template5 li {
-	list-style: none !important;
-	margin-bottom: 4px;
-}
-
-.template5 li:before {
-	content: "• ";
-	color: #16a085;
-	font-weight: bold;
-	margin-right: 8px;
-}
-</style>

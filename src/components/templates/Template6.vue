@@ -1,72 +1,260 @@
 <template>
-	<div id="preview" class="preview preview-box template6">
+	<div id="preview" class="preview preview-box template6" :style="{ fontFamily: 'inherit', color: '#2c3e50' }">
 		<!-- Header -->
-		<div class="header-minimal">
-			<div class="header-content">
-				<h1 class="name">{{ data.profile.name }}</h1>
-				<div class="separator"></div>
-				<h3 class="title">{{ data.profile.title }}</h3>
+		<div class="header-minimal" :style="{
+			borderLeft: '4px solid #3498db',
+			paddingLeft: '20px',
+			marginBottom: '30px',
+			webkitPrintColorAdjust: 'exact',
+			printColorAdjust: 'exact'
+		}">
+			<div class="header-content" :style="{ marginBottom: '15px' }">
+				<h1 class="name" :style="{
+					fontSize: '32pt',
+					fontWeight: '700',
+					margin: '0',
+					lineHeight: 1,
+					color: '#2c3e50',
+					letterSpacing: '-0.5px'
+				}">{{ data.profile.name }}</h1>
+				<div class="separator" :style="{
+					height: '2px',
+					width: '50px',
+					background: '#3498db',
+					margin: '8px 0',
+					webkitPrintColorAdjust: 'exact',
+					printColorAdjust: 'exact'
+				}"></div>
+				<h3 class="title" :style="{
+					fontSize: '14pt',
+					margin: '0',
+					fontWeight: '300',
+					color: '#7f8c8d',
+					letterSpacing: '0.5px'
+				}">{{ data.profile.title }}</h3>
 			</div>
-			<div class="contact-grid">
-				<div v-if="data.profile.email" class="contact-item">
-					<span class="label">E</span> {{ data.profile.email }}
+			<div class="contact-grid" :style="{
+				display: 'grid',
+				gridTemplateColumns: '1fr 1fr',
+				gap: '8px',
+				fontSize: '9pt',
+				marginTop: '15px'
+			}">
+				<div v-if="data.profile.email" class="contact-item" :style="{ display: 'flex', alignItems: 'center' }">
+					<span class="label" :style="{
+						display: 'inline-block',
+						width: '20px',
+						height: '20px',
+						background: '#ecf0f1',
+						color: '#3498db',
+						fontWeight: 'bold',
+						fontSize: '8pt',
+						textAlign: 'center',
+						lineHeight: '20px',
+						marginRight: '8px',
+						borderRadius: '3px',
+						webkitPrintColorAdjust: 'exact',
+						printColorAdjust: 'exact'
+					}">E</span> {{ data.profile.email }}
 				</div>
-				<div v-if="data.profile.phone" class="contact-item">
-					<span class="label">P</span> {{ data.profile.phone }}
+				<div v-if="data.profile.phone" class="contact-item" :style="{ display: 'flex', alignItems: 'center' }">
+					<span class="label" :style="{
+						display: 'inline-block',
+						width: '20px',
+						height: '20px',
+						background: '#ecf0f1',
+						color: '#3498db',
+						fontWeight: 'bold',
+						fontSize: '8pt',
+						textAlign: 'center',
+						lineHeight: '20px',
+						marginRight: '8px',
+						borderRadius: '3px',
+						webkitPrintColorAdjust: 'exact',
+						printColorAdjust: 'exact'
+					}">P</span> {{ data.profile.phone }}
 				</div>
-				<div v-if="data.profile.website" class="contact-item">
-					<span class="label">W</span> {{ data.profile.website }}
+				<div v-if="data.profile.website" class="contact-item" :style="{ display: 'flex', alignItems: 'center' }">
+					<span class="label" :style="{
+						display: 'inline-block',
+						width: '20px',
+						height: '20px',
+						background: '#ecf0f1',
+						color: '#3498db',
+						fontWeight: 'bold',
+						fontSize: '8pt',
+						textAlign: 'center',
+						lineHeight: '20px',
+						marginRight: '8px',
+						borderRadius: '3px',
+						webkitPrintColorAdjust: 'exact',
+						printColorAdjust: 'exact'
+					}">W</span> {{ data.profile.website }}
 				</div>
-				<div v-if="data.profile.linkedin" class="contact-item">
-					<span class="label">L</span> {{ data.profile.linkedin }}
+				<div v-if="data.profile.linkedin" class="contact-item" :style="{ display: 'flex', alignItems: 'center' }">
+					<span class="label" :style="{
+						display: 'inline-block',
+						width: '20px',
+						height: '20px',
+						background: '#ecf0f1',
+						color: '#3498db',
+						fontWeight: 'bold',
+						fontSize: '8pt',
+						textAlign: 'center',
+						lineHeight: '20px',
+						marginRight: '8px',
+						borderRadius: '3px',
+						webkitPrintColorAdjust: 'exact',
+						printColorAdjust: 'exact'
+					}">L</span> {{ data.profile.linkedin }}
 				</div>
 			</div>
 		</div>
 
 		<!-- Summary -->
-		<div class="draggable-element" draggable="true" v-if="data.profile.summary">
-			<div class="section-header">
-				<span class="section-number">01</span>
-				<h4 class="section-title">PROFILE</h4>
+		<div class="draggable-element" draggable="true" v-if="data.profile.summary" :style="{ marginBottom: '25px' }">
+			<div class="section-header" :style="{ display: 'flex', alignItems: 'center', margin: '25px 0 12px 0', gap: '12px' }">
+				<span class="section-number" :style="{ fontSize: '16pt', fontWeight: 'bold', color: '#3498db', minWidth: '30px' }">01</span>
+				<div style="position: relative; flex-grow: 1;">
+					<h4 class="section-title" :style="{
+						fontSize: '12pt',
+						fontWeight: '700',
+						margin: '0',
+						textTransform: 'uppercase',
+						letterSpacing: '2px',
+						color: '#2c3e50'
+					}">PROFILE</h4>
+					<div :style="{
+						position: 'absolute',
+						bottom: '-4px',
+						left: 0,
+						right: 0,
+						height: '1px',
+						background: 'linear-gradient(90deg, #3498db 0%, transparent 100%)',
+						webkitPrintColorAdjust: 'exact',
+						printColorAdjust: 'exact'
+					}"></div>
+				</div>
 			</div>
-			<p class="summary-text">{{ data.profile.summary }}</p>
+			<p class="summary-text" :style="{
+				textAlign: 'justify',
+				lineHeight: '1.6',
+				color: '#34495e',
+				marginLeft: '42px'
+			}">{{ data.profile.summary }}</p>
 		</div>
 
 		<!-- Experience -->
-		<div class="draggable-element" draggable="true" v-if="data.exps.length">
-			<div class="section-header">
-				<span class="section-number">02</span>
-				<h4 class="section-title">EXPERIENCE</h4>
+		<div class="draggable-element" draggable="true" v-if="data.exps.length" :style="{ marginBottom: '25px' }">
+			<div class="section-header" :style="{ display: 'flex', alignItems: 'center', margin: '25px 0 12px 0', gap: '12px' }">
+				<span class="section-number" :style="{ fontSize: '16pt', fontWeight: 'bold', color: '#3498db', minWidth: '30px' }">02</span>
+				<div style="position: relative; flex-grow: 1;">
+					<h4 class="section-title" :style="{
+						fontSize: '12pt',
+						fontWeight: '700',
+						margin: '0',
+						textTransform: 'uppercase',
+						letterSpacing: '2px',
+						color: '#2c3e50'
+					}">EXPERIENCE</h4>
+					<div :style="{
+						position: 'absolute',
+						bottom: '-4px',
+						left: 0,
+						right: 0,
+						height: '1px',
+						background: 'linear-gradient(90deg, #3498db 0%, transparent 100%)',
+						webkitPrintColorAdjust: 'exact',
+						printColorAdjust: 'exact'
+					}"></div>
+				</div>
 			</div>
-			<PEXP :exps="data.exps" />
+			<PEXP :exps="data.exps" bullet="•" bulletColor="#3498db" />
 		</div>
 
 		<!-- Skills -->
-		<div class="draggable-element" draggable="true">
-			<div class="section-header">
-				<span class="section-number">03</span>
-				<h4 class="section-title">SKILLS</h4>
+		<div class="draggable-element" draggable="true" :style="{ marginBottom: '25px' }">
+			<div class="section-header" :style="{ display: 'flex', alignItems: 'center', margin: '25px 0 12px 0', gap: '12px' }">
+				<span class="section-number" :style="{ fontSize: '16pt', fontWeight: 'bold', color: '#3498db', minWidth: '30px' }">03</span>
+				<div style="position: relative; flex-grow: 1;">
+					<h4 class="section-title" :style="{
+						fontSize: '12pt',
+						fontWeight: '700',
+						margin: '0',
+						textTransform: 'uppercase',
+						letterSpacing: '2px',
+						color: '#2c3e50'
+					}">SKILLS</h4>
+					<div :style="{
+						position: 'absolute',
+						bottom: '-4px',
+						left: 0,
+						right: 0,
+						height: '1px',
+						background: 'linear-gradient(90deg, #3498db 0%, transparent 100%)',
+						webkitPrintColorAdjust: 'exact',
+						printColorAdjust: 'exact'
+					}"></div>
+				</div>
 			</div>
 			<PSKILL1 v-if="data.styles.skills == 1 && data.skills.length" :skills="data.skills" />
 			<PSKILL2 v-else-if="data.styles.skills == 2" :skills2="data.skills2" />
 		</div>
 
 		<!-- Education -->
-		<div class="draggable-element" draggable="true" v-if="data.eds.length">
-			<div class="section-header">
-				<span class="section-number">04</span>
-				<h4 class="section-title">EDUCATION</h4>
+		<div class="draggable-element" draggable="true" v-if="data.eds.length" :style="{ marginBottom: '25px' }">
+			<div class="section-header" :style="{ display: 'flex', alignItems: 'center', margin: '25px 0 12px 0', gap: '12px' }">
+				<span class="section-number" :style="{ fontSize: '16pt', fontWeight: 'bold', color: '#3498db', minWidth: '30px' }">04</span>
+				<div style="position: relative; flex-grow: 1;">
+					<h4 class="section-title" :style="{
+						fontSize: '12pt',
+						fontWeight: '700',
+						margin: '0',
+						textTransform: 'uppercase',
+						letterSpacing: '2px',
+						color: '#2c3e50'
+					}">EDUCATION</h4>
+					<div :style="{
+						position: 'absolute',
+						bottom: '-4px',
+						left: 0,
+						right: 0,
+						height: '1px',
+						background: 'linear-gradient(90deg, #3498db 0%, transparent 100%)',
+						webkitPrintColorAdjust: 'exact',
+						printColorAdjust: 'exact'
+					}"></div>
+				</div>
 			</div>
 			<PEDU :eds="data.eds" />
 		</div>
 
 		<!-- Projects -->
-		<div class="draggable-element" draggable="true" v-if="data.projs.length">
-			<div class="section-header">
-				<span class="section-number">05</span>
-				<h4 class="section-title">PROJECTS</h4>
+		<div class="draggable-element" draggable="true" v-if="data.projs.length" :style="{ marginBottom: '25px' }">
+			<div class="section-header" :style="{ display: 'flex', alignItems: 'center', margin: '25px 0 12px 0', gap: '12px' }">
+				<span class="section-number" :style="{ fontSize: '16pt', fontWeight: 'bold', color: '#3498db', minWidth: '30px' }">05</span>
+				<div style="position: relative; flex-grow: 1;">
+					<h4 class="section-title" :style="{
+						fontSize: '12pt',
+						fontWeight: '700',
+						margin: '0',
+						textTransform: 'uppercase',
+						letterSpacing: '2px',
+						color: '#2c3e50'
+					}">PROJECTS</h4>
+					<div :style="{
+						position: 'absolute',
+						bottom: '-4px',
+						left: 0,
+						right: 0,
+						height: '1px',
+						background: 'linear-gradient(90deg, #3498db 0%, transparent 100%)',
+						webkitPrintColorAdjust: 'exact',
+						printColorAdjust: 'exact'
+					}"></div>
+				</div>
 			</div>
-			<PProj :projs="data.projs" />
+			<PProj :projs="data.projs" bullet="•" bulletColor="#3498db" />
 		</div>
 	</div>
 </template>
@@ -130,178 +318,3 @@ export default {
 	},
 }
 </script>
-
-<style scoped>
-.template6 {
-	font-family: inherit;
-	color: #2c3e50;
-}
-
-.template6 .header-minimal {
-	border-left: 4px solid #3498db;
-	padding-left: 20px;
-	margin-bottom: 30px;
-}
-
-@media print {
-	.template6 .header-minimal {
-		-webkit-print-color-adjust: exact;
-		print-color-adjust: exact;
-		color-adjust: exact;
-	}
-}
-
-.template6 .header-content {
-	margin-bottom: 15px;
-}
-
-.template6 .name {
-	font-size: 32pt;
-	font-weight: 700;
-	margin: 0;
-	line-height: 1;
-	color: #2c3e50;
-	letter-spacing: -0.5px;
-}
-
-.template6 .separator {
-	height: 2px;
-	width: 50px;
-	background: #3498db;
-	margin: 8px 0;
-}
-
-@media print {
-	.template6 .separator {
-		-webkit-print-color-adjust: exact;
-		print-color-adjust: exact;
-		color-adjust: exact;
-	}
-}
-
-.template6 .title {
-	font-size: 14pt;
-	margin: 0;
-	font-weight: 300;
-	color: #7f8c8d;
-	letter-spacing: 0.5px;
-}
-
-.template6 .contact-grid {
-	display: grid;
-	grid-template-columns: 1fr 1fr;
-	gap: 8px;
-	font-size: 9pt;
-	margin-top: 15px;
-}
-
-.template6 .contact-item {
-	display: flex;
-	align-items: center;
-}
-
-.template6 .label {
-	display: inline-block;
-	width: 20px;
-	height: 20px;
-	background: #ecf0f1;
-	color: #3498db;
-	font-weight: bold;
-	font-size: 8pt;
-	text-align: center;
-	line-height: 20px;
-	margin-right: 8px;
-	border-radius: 3px;
-}
-
-@media print {
-	.template6 .label {
-		-webkit-print-color-adjust: exact;
-		print-color-adjust: exact;
-		color-adjust: exact;
-	}
-}
-
-.template6 .section-header {
-	display: flex;
-	align-items: center;
-	margin: 25px 0 12px 0;
-	gap: 12px;
-}
-
-.template6 .section-number {
-	font-size: 16pt;
-	font-weight: bold;
-	color: #3498db;
-	min-width: 30px;
-}
-
-.template6 .section-title {
-	font-size: 12pt;
-	font-weight: 700;
-	margin: 0;
-	text-transform: uppercase;
-	letter-spacing: 2px;
-	color: #2c3e50;
-	position: relative;
-}
-
-.template6 .section-title::after {
-	content: "";
-	position: absolute;
-	bottom: -4px;
-	left: 0;
-	right: 0;
-	height: 1px;
-	background: linear-gradient(90deg, #3498db 0%, transparent 100%);
-}
-
-@media print {
-	.template6 .section-title::after {
-		-webkit-print-color-adjust: exact;
-		print-color-adjust: exact;
-		color-adjust: exact;
-	}
-}
-
-.template6 .summary-text {
-	text-align: justify;
-	line-height: 1.6;
-	color: #34495e;
-	margin-left: 42px;
-}
-
-.template6 .draggable-element {
-	margin-bottom: 18px;
-}
-
-.template6 ul {
-	margin: 0 !important;
-	padding-left: 42px;
-}
-
-.template6 li {
-	list-style: none !important;
-	margin-bottom: 5px;
-	position: relative;
-}
-
-.template6 li:before {
-	content: "";
-	position: absolute;
-	left: -22px;
-	top: 9px;
-	width: 6px;
-	height: 6px;
-	background: #3498db;
-	border-radius: 50%;
-}
-
-@media print {
-	.template6 li:before {
-		-webkit-print-color-adjust: exact;
-		print-color-adjust: exact;
-		color-adjust: exact;
-	}
-}
-</style>
