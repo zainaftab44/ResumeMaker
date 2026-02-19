@@ -1,78 +1,87 @@
 <template>
 	<div class="row">
 		<span class="mb-3 center-align-text">
-			Select Template
-			<select v-model="template">
-				<option value="1">Template 1</option>
-				<option value="2">Template 2</option>
-				<option value="3">Template 3</option>
+			<strong>Select Template</strong>
+			<select v-model="template" class="form-select" style="display: inline-block; width: auto; margin: 0 10px;">
+				<option value="1">Classic Professional</option>
+				<option value="2">Modern Minimal</option>
+				<option value="3">Two Column</option>
+				<option value="4">Executive Bold</option>
+				<option value="5">Creative Designer</option>
+				<option value="6">Tech Minimalist</option>
+				<option value="7">Corporate Elegant</option>
 			</select>
 			<br />
-			Select Font
-			<select v-model="maindata.settings.font">
+			<strong>Select Font</strong>
+			<select v-model="maindata.settings.font" class="form-select" style="display: inline-block; width: auto; margin: 10px 10px;">
 				<option v-for="(font, f) in fonts" :key="f" :value="font">{{ font }}</option>
 			</select>
 			<br />
-			You can drag/drop sections in box below to re-arrange them in your desired order
+			<small>Drag and drop sections below to rearrange them in your desired order</small>
 		</span>
-		<div v-bind:style="fontClass">
+		<div class="preview-container" v-bind:style="fontClass">
 			<page size='A4' style="height: auto;">
-				<Template v-if="template == 1" :data="maindata" />
-				<Template2 v-else-if="template == 2" :data="maindata" />
-				<TemplateTwoColumns v-else-if="template == 3" :data="maindata" />
+				<Template v-if="template == '1'" :data="maindata" />
+				<Template2 v-else-if="template == '2'" :data="maindata" />
+				<TemplateTwoColumns v-else-if="template == '3'" :data="maindata" />
+				<Template4 v-else-if="template == '4'" :data="maindata" />
+				<Template5 v-else-if="template == '5'" :data="maindata" />
+				<Template6 v-else-if="template == '6'" :data="maindata" />
+				<Template7 v-else-if="template == '7'" :data="maindata" />
 			</page>
 		</div>
 	</div>
 </template>
 
 <script>
-import { match } from "assert"
 import Template from "../templates/Template.vue"
 import Template2 from "../templates/Template2.vue"
 import TemplateTwoColumns from "../templates/TwoColumns/TemplateTwoColumns.vue"
+import Template4 from "../templates/Template4.vue"
+import Template5 from "../templates/Template5.vue"
+import Template6 from "../templates/Template6.vue"
+import Template7 from "../templates/Template7.vue"
+
 export default {
 	name: "Preview",
 	props: ["maindata"],
 	components: {
 		Template,
 		Template2,
-		TemplateTwoColumns
+		TemplateTwoColumns,
+		Template4,
+		Template5,
+		Template6,
+		Template7
 	},
 	data() {
 		return {
-			template: 3,
+			template: '1',
 			font: "Arial",
-			arial: [],
 			cursive: [
 				"Comic Sans",
 			],
 			sansSerif: [
 				"Arial",
 				"Calibri",
+				"Helvetica",
 				"Arial Narrow",
 				"Times New Roman",
+				"Georgia",
+				"Verdana",
+				"Trebuchet MS"
 			],
 			monospace: [
 				"Courier New",
-				"Mangal",
-				"MS Gothic",
-				"Meiryo UI"
+				"Consolas",
+				"Monaco"
 			],
 			normal: [
-				"DaunPenh",
-				"DotumChe",
-				"Dotum",
-				"Gautami",
-				"Gungsuh",
-				"BatangChe",
-				"Browallia New",
-				"KaiTi",
-				"MingLiU",
-				"Narkisim",
-				"NSimSun",
-				"SimSun",
-				"Sylfaen",
-
+				"Segoe UI",
+				"Roboto",
+				"Open Sans",
+				"Lato",
+				"Montserrat"
 			]
 		}
 	},
@@ -100,11 +109,17 @@ export default {
 <style>
 @page {
 	size: A4 portrait;
+	margin: 0;
 }
 
 page[size='A4'] {
 	width: 21cm;
 	height: 29.7cm;
+	padding: 1.5cm 2cm;
+	margin: 0 auto 20px;
+	background: white;
+	box-shadow: 0 0 10px rgba(0,0,0,0.1);
+	display: block;
 }
 
 page[size='A4'][layout='landscape'] {
@@ -112,10 +127,26 @@ page[size='A4'][layout='landscape'] {
 	height: 21cm;
 }
 
-page {
-	background: #fff;
-	display: block;
+.preview-container {
+	width: 100%;
+	max-width: 21cm;
 	margin: 0 auto;
-	margin-bottom: .5cm;
+}
+
+.center-align-text {
+	text-align: center;
+	display: block;
+	margin-bottom: 20px;
+}
+
+@media print {
+	page[size='A4'] {
+		box-shadow: none;
+		margin: 0;
+	}
+	
+	.center-align-text {
+		display: none;
+	}
 }
 </style>
