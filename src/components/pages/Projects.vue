@@ -1,63 +1,50 @@
 <template>
-  <div class="accordion">
-    <div class="card">
-      <AHead :def="'Project'" :title="title" :did="this.$vnode.key" @del="$emit('delete-row')" @move="passToParent" />
-      <ABody :title="title" :did="this.$vnode.key" :parent="'project'">
-        <div class="card-body">
-          <Input label="Title" :val="proj.title" @input="proj.title = $event" />
-          <TArea label="Summary" :val="proj.desc" @input="proj.desc = $event" />
-          <Input label="Link" :val="proj.link" @input="proj.link = $event" />
-          <Input label="Start Date" :val="proj.start" @input="proj.start = $event" />
-          <Input label="End Date" :val="proj.end" @input="proj.end = $event" />
-          <div class="input-group my-2">
-            <label for="end" class="col col-form-label">Tools &amp; Technologies</label>
-            <button @click="add('tool')" class="col-md-1 btn btn-secondary">+</button>
-          </div>
-          <DInput :title="'Tools'" :items="proj" :sub="'tools'" :half="true" />
-          <div class="input-group my-2">
-            <label for="end" class="col col-form-label">Responsibilities</label>
-            <button @click="add('resp')" class="col-md-1 btn btn-secondary">+</button>
-          </div>
-          <DInput :title="'Responsibility'" :items="proj" :sub="'resp'" />
-        </div>
-      </ABody>
-    </div>
-  </div>
+	<table style="width: 100%;">
+		<tbody>
+			<tr v-for="(proj, l) in projs" :key="l">
+				<td style="font-size:10pt">
+					<i style="font-size:10pt; font-style: italic;">
+						{{ date(proj.start, proj.end) }}
+					</i>
+					<br />
+					<strong class="headding" v-if="proj.title" :style="{ fontWeight: 'bold' }">
+						{{ proj.title }}
+						<br />
+					</strong>
+					<span v-if="proj.link">
+						<a :href="proj.link" :style="{ color: '#3498db', textDecoration: 'none' }">{{ proj.link }}</a>
+					</span>
+					<span v-if="proj.desc">
+						<br v-if="proj.link" />
+						<span :style="{ display: 'block', marginTop: '5px' }">{{ proj.desc }}</span>
+					</span>
+					<ul style="margin-top:5px; margin-bottom:5px; font-size: 10pt; list-style: none !important; list-style-type: none !important; padding: 0; margin-left: 0;" v-if="(proj.resp && proj.resp.join('').length) || (proj.tools && proj.tools.join('').length)">
+						<li v-for="(res, m) in proj.resp" :key="m" style="padding-left: 1.4em; text-indent: -1.2em; position: relative; list-style-type: none !important;">
+							<span v-if="bullet" :style="{ color: bulletColor || 'inherit', marginRight: '8px', fontWeight: 'bold' }">{{ bullet }}</span>
+							{{ res }}
+						</li>
+						<li v-if="proj.tools && proj.tools.join('')" style="padding-left: 1.4em; text-indent: -1.2em; position: relative; list-style-type: none !important;">
+							<span v-if="bullet" :style="{ color: bulletColor || 'inherit', marginRight: '8px', fontWeight: 'bold' }">{{ bullet }}</span>
+							<strong :style="{ fontWeight: 'bold' }">Technologies:</strong>
+							{{ proj.tools.join(", ") }}
+						</li>
+					</ul>
+				</td>
+			</tr>
+		</tbody>
+	</table>
 </template>
 
 <script>
-import TArea from '../inner/TextArea.vue'
-import DInput from '../inner/DraggableInput.vue'
-import Input from '../inner/Input.vue'
-import AHead from '../inner/AccordionHeader.vue'
-import ABody from '../inner/AccordionBody.vue'
-
 export default {
-  name: "Projects",
-  components: { DInput, Input, AHead, ABody, TArea },
-  props: ["proj"],
-  methods: {
-    add: function (type) {
-      switch (type) {
-        case "resp":
-          this.proj.resp.push("")
-          break
-        case "tool":
-          this.proj.tools.push("")
-          break
-
-        default:
-          break
-      }
-    },
-    passToParent: function (value) {
-      this.$emit('move-row', this.$vnode.key, value)
-    },
-  },
-  computed: {
-    title: function () {
-      return this.proj.title ? this.proj.title : ""
-    }
-  }
+	name: "PJP",
+	props: ["projs", "bullet", "bulletColor"],
+	methods: {
+		date: (s, e) => {
+			s = s || ''
+			e = e || ''
+			return s.toUpperCase().trim() + (s.trim().length == 0 || e.trim().length == 0 ? "" : " – ") + e.toUpperCase().trim()
+		}
+	},
 }
 </script>

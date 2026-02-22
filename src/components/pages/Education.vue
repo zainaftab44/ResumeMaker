@@ -1,41 +1,35 @@
 <template>
-  <div class="accordion" >
-    <div class="card">
-      <AHead :def="'Education'" :title="title" :did="this.$vnode.key" @del="$emit('delete-row')" @move="passToParent"  />
-      <ABody :title="title" :did="this.$vnode.key" :parent="'education'">
-        <div class="card-body">
-          <Input label="Institute" :val="edu.institute" @input="edu.institute = $event" />
-          <Input label="Degree" :val="edu.degree" @input="edu.degree = $event" />
-          <Input label="Major" :val="edu.major" @input="edu.major = $event" />
-          <Input label="Location" :val="edu.location" @input="edu.location = $event" />
-          <Input label="Start Date" :val="edu.start" @input="edu.start = $event" />
-          <Input label="End Date" :val="edu.end" @input="edu.end = $event" />
-        </div>
-      </ABody>
-    </div>
-  </div>
+	<table v-if="eds.length">
+		<tbody>
+			<tr v-for="(ed, k) in eds" :key="k">
+				<td>
+					<i style="font-size:10pt">
+						{{ date(ed.start, ed.end) }}
+					</i>
+					<br v-if="ed.end || ed.start" />
+					<strong  class="degree headding" v-if="ed.major || ed.degree">
+						<span v-if="ed.degree">{{ ed.degree }}</span>
+						<br v-if="ed.degree.length + ed.major.length > 50" />
+						<span v-if="ed.major">({{ ed.major }})</span>
+					</strong>
+					<br v-if="ed.institute" />
+					{{ ed.institute }}
+					<br v-if="ed.location" />
+					{{ ed.location }}
+				</td>
+			</tr>
+		</tbody>
+	</table>
 </template>
 
-
-
 <script>
-import Input from '../inner/Input.vue'
-import AHead from '../inner/AccordionHeader.vue'
-import ABody from '../inner/AccordionBody.vue'
-
 export default {
-  name: "Education",
-  components: { Input, AHead, ABody },
-  props: ["edu"],
-  methods: {
-    passToParent: function(value){
-      this.$emit('move-row',this.$vnode.key,value)
-    }
-  },
-  computed: {
-    title: function() {
-      return this.edu.degree.concat(this.edu.major) == "" ? "" : `${this.edu.degree} (${this.edu.major})`
-    }
-  }
+	name: "EDP",
+	props: ["eds"],
+	methods: {
+		date: (s, e) => {
+			return s.toUpperCase().trim() + (s.trim().length == 0 || e.trim().length == 0 ? "" : " – ") + e.toUpperCase().trim()
+		}
+	},
 }
 </script>

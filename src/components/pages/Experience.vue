@@ -1,58 +1,43 @@
 <template>
-  <div class="accordion-item">
-    <div class="card">
-      <AHead :def="'Experience'" :title="title" :did="this.$vnode.key" @del="$emit('delete-row')" @move="passToParent" />
-      <ABody :title="title" :did="this.$vnode.key" :parent="'experience'">
-        <div class="card-body">
-          <Input label="Job Title" :val="exp.title" @input="exp.title = $event" />
-          <Input label="Company" :val="exp.company" @input="exp.company = $event" />
-          <Input label="Location" :val="exp.location" @input="exp.location = $event" />
-          <Input label="Start Date" :val="exp.start" @input="exp.start = $event" />
-          <Input label="End Date" :val="exp.end" @input="exp.end = $event" />
-          <div class="input-group">
-            <label for="end" class="col col-form-label">Responsibilities</label>
-            <button @click="add" class="col-md-1 btn btn-secondary">+</button>
-          </div>
-          <DInput :title="'Responsibility'" :items="exp" :sub="'resp'" />
-        </div>
-      </ABody>
-    </div>
-  </div>
+	<table style="width: 100%;">
+		<tbody>
+			<tr v-for="(exp, ind) in exps" :key="ind">
+				<td style="font-size:10pt">
+					<i style="font-style: italic;">
+						{{ date(exp.start, exp.end) }}
+					</i>
+					<br>
+					<strong class="headding" v-if="exp.title.length" :style="{ fontWeight: 'bold' }">
+						{{ exp.title.toUpperCase() }}
+						<br />
+					</strong>
+					{{ company(exp.company, exp.location) }}
+					<ul style="margin-top:5px; margin-bottom:5px; font-size: 10pt; list-style: none !important; list-style-type: none !important; padding: 0; margin-left: 0;" v-if="exp.resp.join('')">
+						<li v-for="(res, i) in exp.resp" :key="i" style="padding-left: 1.4em; text-indent: -1.2em; position: relative; list-style-type: none !important;">
+							<span v-if="bullet" :style="{ color: bulletColor || 'inherit', marginRight: '8px', fontWeight: 'bold' }">{{ bullet }}</span>
+							{{ res }}
+						</li>
+					</ul>
+				</td>
+			</tr>
+		</tbody>
+	</table>
 </template>
 
-
-
 <script>
-
-import DInput from '../inner/DraggableInput.vue'
-import Input from '../inner/Input.vue'
-import AHead from '../inner/AccordionHeader.vue'
-import ABody from '../inner/AccordionBody.vue'
-
 export default {
-  name: "Experience",
-  components: { DInput, Input, AHead, ABody },
-  props: ["exp"],
-  methods: {
-    add: function () {
-      this.exp.resp.push("")
-    },
-    passToParent: function (value) {
-      this.$emit('move-row', this.$vnode.key, value)
-    }
-  },
-  computed: {
-    title: function () {
-      return `${this.exp.title}${this.exp.title && this.exp.company ? ', ' : ''}${this.exp.company}`
-    }
-  },
+	name: "EXP",
+	props: ["exps", "bullet", "bulletColor"],
+	methods: {
+		company(name, location) {
+			let comp = (name || '').toUpperCase() + ((name || '').trim().length + (location || '').trim().length > 0 ? ", " : "") + (location || '').toUpperCase()
+			return comp
+		},
+		date: (s, e) => {
+			s = s || ''
+			e = e || ''
+			return s.toUpperCase().trim() + (s.trim().length == 0 || e.trim().length == 0 ? "" : " – ") + e.toUpperCase().trim()
+		}
+	},
 }
 </script>
-
-<style>
-h3 {
-  padding: 7px 0px 0px 0px;
-  width: 100%;
-  font-size: initial;
-}
-</style>
