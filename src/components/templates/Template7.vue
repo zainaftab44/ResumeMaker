@@ -1,9 +1,9 @@
 <template>
 	<div id="preview" class="preview preview-box template7">
+		<div class="content-wrapper">
 		<!-- Top accent bar -->
 		<div class="top-accent"></div>
 		
-		<div class="content-wrapper">
 			<!-- Header -->
 			<div class="header-elegant">
 				<h1 class="name">{{ data.profile.name }}</h1>
@@ -160,7 +160,6 @@ export default {
 .top-accent {
 	height: 6pt;
 	background: linear-gradient(90deg, #8e44ad 0%, #9b59b6 50%, #8e44ad 100%);
-	margin: -1.5cm -2cm 0 -2cm;
 }
 
 @media print {

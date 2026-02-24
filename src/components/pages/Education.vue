@@ -1,35 +1,58 @@
 <template>
-	<table v-if="eds.length">
-		<tbody>
-			<tr v-for="(ed, k) in eds" :key="k">
-				<td>
-					<i style="font-size:10pt">
-						{{ date(ed.start, ed.end) }}
-					</i>
-					<br v-if="ed.end || ed.start" />
-					<strong  class="degree headding" v-if="ed.major || ed.degree">
-						<span v-if="ed.degree">{{ ed.degree }}</span>
-						<br v-if="ed.degree.length + ed.major.length > 50" />
-						<span v-if="ed.major">({{ ed.major }})</span>
-					</strong>
-					<br v-if="ed.institute" />
-					{{ ed.institute }}
-					<br v-if="ed.location" />
-					{{ ed.location }}
-				</td>
-			</tr>
-		</tbody>
-	</table>
+	<div class="card mb-3 education-editor-card">
+		<AHead :def="'Education'" :title="edu.institute" :did="did" @del="$emit('delete-row')" @move="$emit('move-row', $event)" />
+		<ABody :did="did" :title="edu.institute" :parent="'education'">
+			<div class="form-container">
+				<div class="row">
+					<div class="col-md-12">
+						<Input label="Institute / University" :val="edu.institute" @input="edu.institute = $event" />
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-6">
+						<Input label="Degree" :val="edu.degree" @input="edu.degree = $event" />
+					</div>
+					<div class="col-md-6">
+						<Input label="Field of Study" :val="edu.major" @input="edu.major = $event" />
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-4">
+						<Input label="Location" :val="edu.location" @input="edu.location = $event" />
+					</div>
+					<div class="col-md-4">
+						<Input label="Start Date" :val="edu.start" @input="edu.start = $event" />
+					</div>
+					<div class="col-md-4">
+						<Input label="End Date" :val="edu.end" @input="edu.end = $event" />
+					</div>
+				</div>
+			</div>
+		</ABody>
+	</div>
 </template>
 
 <script>
+import AHead from "../inner/AccordionHeader.vue"
+import ABody from "../inner/AccordionBody.vue"
+import Input from "../inner/Input.vue"
+
 export default {
-	name: "EDP",
-	props: ["eds"],
-	methods: {
-		date: (s, e) => {
-			return s.toUpperCase().trim() + (s.trim().length == 0 || e.trim().length == 0 ? "" : " – ") + e.toUpperCase().trim()
-		}
-	},
+	name: "EducationEditor",
+	props: ["edu", "did"],
+	components: { AHead, ABody, Input },
 }
 </script>
+
+<style scoped>
+.education-editor-card {
+	border: 1px solid #e0e0e0;
+	border-radius: 8px;
+	overflow: hidden;
+	box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+.form-container {
+	padding: 10px;
+}
+</style>

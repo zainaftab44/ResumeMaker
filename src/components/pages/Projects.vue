@@ -1,50 +1,91 @@
 <template>
-	<table style="width: 100%;">
-		<tbody>
-			<tr v-for="(proj, l) in projs" :key="l">
-				<td style="font-size:10pt">
-					<i style="font-size:10pt; font-style: italic;">
-						{{ date(proj.start, proj.end) }}
-					</i>
-					<br />
-					<strong class="headding" v-if="proj.title" :style="{ fontWeight: 'bold' }">
-						{{ proj.title }}
-						<br />
-					</strong>
-					<span v-if="proj.link">
-						<a :href="proj.link" :style="{ color: '#3498db', textDecoration: 'none' }">{{ proj.link }}</a>
-					</span>
-					<span v-if="proj.desc">
-						<br v-if="proj.link" />
-						<span :style="{ display: 'block', marginTop: '5px' }">{{ proj.desc }}</span>
-					</span>
-					<ul style="margin-top:5px; margin-bottom:5px; font-size: 10pt; list-style: none !important; list-style-type: none !important; padding: 0; margin-left: 0;" v-if="(proj.resp && proj.resp.join('').length) || (proj.tools && proj.tools.join('').length)">
-						<li v-for="(res, m) in proj.resp" :key="m" style="padding-left: 1.4em; text-indent: -1.2em; position: relative; list-style-type: none !important;">
-							<span v-if="bullet" :style="{ color: bulletColor || 'inherit', marginRight: '8px', fontWeight: 'bold' }">{{ bullet }}</span>
-							{{ res }}
-						</li>
-						<li v-if="proj.tools && proj.tools.join('')" style="padding-left: 1.4em; text-indent: -1.2em; position: relative; list-style-type: none !important;">
-							<span v-if="bullet" :style="{ color: bulletColor || 'inherit', marginRight: '8px', fontWeight: 'bold' }">{{ bullet }}</span>
-							<strong :style="{ fontWeight: 'bold' }">Technologies:</strong>
-							{{ proj.tools.join(", ") }}
-						</li>
-					</ul>
-				</td>
-			</tr>
-		</tbody>
-	</table>
+	<div class="card mb-3 projects-editor-card">
+		<AHead :def="'Project'" :title="proj.title" :did="did" @del="$emit('delete-row')" @move="$emit('move-row', $event)" />
+		<ABody :did="did" :title="proj.title" :parent="'projects'">
+			<div class="form-container">
+				<div class="row">
+					<div class="col-md-12">
+						<Input label="Project Title" :val="proj.title" @input="proj.title = $event" />
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-12">
+						<Input label="Link / URL" :val="proj.link" @input="proj.link = $event" />
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-6">
+						<Input label="Start Date" :val="proj.start" @input="proj.start = $event" />
+					</div>
+					<div class="col-md-6">
+						<Input label="End Date" :val="proj.end" @input="proj.end = $event" />
+					</div>
+				</div>
+				<div class="row mt-3">
+					<div class="col-md-12">
+						<TArea label="Description" :val="proj.desc" @input="proj.desc = $event" />
+					</div>
+				</div>
+
+				<div class="skills-list-section mt-3">
+					<label class="form-label d-block mb-2">Technologies Used</label>
+					<DInput :title="'Technology'" :items="proj" :sub="'tools'" :half="true" />
+					<button class="btn btn-sm btn-outline-success mt-2" @click="addTool">+ Add Tech</button>
+				</div>
+
+				<div class="responsibilities-section mt-3">
+					<label class="form-label d-block mb-2">Key Contributions</label>
+					<DInput :title="'Contribution'" :items="proj" :sub="'resp'" />
+					<button class="btn btn-sm btn-outline-success mt-2" @click="addResp">+ Add Contribution</button>
+				</div>
+			</div>
+		</ABody>
+	</div>
 </template>
 
 <script>
+import AHead from "../inner/AccordionHeader.vue"
+import ABody from "../inner/AccordionBody.vue"
+import Input from "../inner/Input.vue"
+import TArea from "../inner/TextArea.vue"
+import DInput from "../inner/DraggableInput.vue"
+
 export default {
-	name: "PJP",
-	props: ["projs", "bullet", "bulletColor"],
+	name: "ProjectsEditor",
+	props: ["proj", "did"],
+	components: { AHead, ABody, Input, TArea, DInput },
 	methods: {
-		date: (s, e) => {
-			s = s || ''
-			e = e || ''
-			return s.toUpperCase().trim() + (s.trim().length == 0 || e.trim().length == 0 ? "" : " – ") + e.toUpperCase().trim()
+		addTool() {
+			this.proj.tools.push("")
+		},
+		addResp() {
+			this.proj.resp.push("")
 		}
-	},
+	}
 }
 </script>
+
+<style scoped>
+.projects-editor-card {
+	border: 1px solid #e0e0e0;
+	border-radius: 8px;
+	overflow: hidden;
+	box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+.form-container {
+	padding: 10px;
+}
+
+.skills-list-section, .responsibilities-section {
+	padding: 15px;
+	background: #f8f9fa;
+	border-radius: 6px;
+	margin-bottom: 10px;
+}
+
+.form-label {
+	font-weight: 600;
+	color: #495057;
+}
+</style>

@@ -19,6 +19,9 @@
 							<option value="5">🎨 Creative Designer</option>
 							<option value="6">💻 Tech Minimalist</option>
 							<option value="7">🏢 Corporate Elegant</option>
+							<option value="8">🟦 Modern Sidebar (Left)</option>
+							<option value="9">🌗 Clean Split (Right)</option>
+							<option value="10">🎨 Modern Portfolio (Zain Style)</option>
 						</select>
 					</div>
 
@@ -89,6 +92,9 @@
 					<Template5 v-else-if="template == '5'" :data="maindata" />
 					<Template6 v-else-if="template == '6'" :data="maindata" />
 					<Template7 v-else-if="template == '7'" :data="maindata" />
+					<Template8 v-else-if="template == '8'" :data="maindata" />
+					<Template9 v-else-if="template == '9'" :data="maindata" />
+					<Template10 v-else-if="template == '10'" :data="maindata" />
 				</page>
 			</div>
 		</div>
@@ -125,6 +131,9 @@ import Template4 from "../templates/Template4.vue"
 import Template5 from "../templates/Template5.vue"
 import Template6 from "../templates/Template6.vue"
 import Template7 from "../templates/Template7.vue"
+import Template8 from "../templates/TemplateSidebarLeft.vue"
+import Template9 from "../templates/TemplateSplitRight.vue"
+import Template10 from "../templates/TemplateModernPortfolio.vue"
 
 export default {
 	name: "Preview",
@@ -136,7 +145,10 @@ export default {
 		Template4,
 		Template5,
 		Template6,
-		Template7
+		Template7,
+		Template8,
+		Template9,
+		Template10
 	},
 	data() {
 		return {
