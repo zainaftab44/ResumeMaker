@@ -37,12 +37,12 @@
 		</div>
 		<div class="row mt-4" v-if="current !== 'Preview'">
 			<div class="col-lg-6 col-md-12 accordion px-5" :id="current.toLowerCase()">
-				<Profile v-if="current == 'Profile'" :profile="profile" />
-				<Experience v-else-if="current == 'Experience'" v-for="(exp, i) in exps" :key="i" :exp="exp" @delete-row="delRow(i)" @move-row="moveRow" />
-				<Education v-else-if="current == 'Education'" v-for="(e, i) in eds" :key="i" :edu="e" @delete-row="delRow(i)" @move-row="moveRow" />
-				<Skills v-else-if="current == 'Skills' && styles.skills == 1" v-for="(sk, i) in skills" :key="i" :skill="sk" @delete-row="delRow(i)" @move-row="moveRow" />
-				<Skills2 v-else-if="current == 'Skills' && styles.skills == 2" :skill2="skills2" />
-				<Projects v-else-if="current == 'Projects'" v-for="(pr, i) in projs" :key="i" :proj="pr" @delete-row="delRow(i)" @move-row="moveRow" />
+				<Profile v-if="current == 'Profile'" key="profile-editor" :profile="profile" />
+				<Experience v-else-if="current == 'Experience'" v-for="(exp, i) in exps" :key="'exp-editor-' + i" :exp="exp" :did="i" @delete-row="delRow(i)" @move-row="moveRow" />
+				<Education v-else-if="current == 'Education'" v-for="(e, i) in eds" :key="'edu-editor-' + i" :edu="e" :did="i" @delete-row="delRow(i)" @move-row="moveRow" />
+				<Skills v-else-if="current == 'Skills' && styles.skills % 2 != 0" v-for="(sk, i) in skills" :key="'sk-editor-' + i" :skill="sk" :did="i" @delete-row="delRow(i)" @move-row="moveRow" />
+				<Skills2 v-else-if="current == 'Skills' && styles.skills % 2 == 0" key="sk2-editor" :skill2="skills2" />
+				<Projects v-else-if="current == 'Projects'" v-for="(pr, i) in projs" :key="'proj-editor-' + i" :proj="pr" :did="i" @delete-row="delRow(i)" @move-row="moveRow" />
 				<div class="input-group mt-4">
 					<button v-if="addChk" @click="add()" class="btn btn-primary">Add {{ btnCurr }}</button>
 					<button v-if="canChangeStyle" @click="changestyle()" class="btn btn-info">Toggle</button>
@@ -53,8 +53,8 @@
 				<PP2 v-if="current == 'Profile' && styles.profile == 2" :profile="profile" />
 				<EXP v-else-if="current == 'Experience'" :exps="exps" />
 				<EDP v-else-if="current == 'Education'" :eds="eds" />
-				<SK1P v-else-if="current == 'Skills' && styles.skills == 1" :skills="skills" />
-				<SK2P v-else-if="current == 'Skills' && styles.skills == 2" :skills2="skills2" />
+				<SK1P v-else-if="current == 'Skills' && styles.skills % 2 != 0" :skills="skills" :styleMode="styles.skills" />
+				<SK2P v-else-if="current == 'Skills' && styles.skills % 2 == 0" :skills2="skills2" :styleMode="styles.skills" />
 				<PJP v-else-if="current == 'Projects'" :projs="projs" />
 			</div>
 		</div>
@@ -177,7 +177,13 @@ export default {
 			this.getArrayRef().unshift(this.getEmpty())
 		},
 		changestyle: function () {
-			this.styles[this.current.toLowerCase()] = this.styles[this.current.toLowerCase()] == 1 ? 2 : 1
+			let currentSection = this.current.toLowerCase();
+			if (currentSection === 'skills') {
+				// Cycle through 6 styles for skills
+				this.styles.skills = (this.styles.skills % 6) + 1;
+			} else {
+				this.styles[currentSection] = this.styles[currentSection] == 1 ? 2 : 1
+			}
 		},
 		create: function () {
 			// Improved print functionality with reliable style capturing
@@ -428,7 +434,7 @@ export default {
 			return this.current == "Awards" ? "awd" : this.current.toLowerCase().substring(0, 3)
 		},
 		addChk: function () {
-			return !/Preview|Profile|Skills/.test(this.current) || (this.current == "Skills" && this.styles.skills == 1)
+			return !/Preview|Profile|Skills/.test(this.current) || (this.current == "Skills" && this.styles.skills % 2 != 0)
 		},
 		btnCurr: function () {
 			return this.current.replace(/s$/, "")

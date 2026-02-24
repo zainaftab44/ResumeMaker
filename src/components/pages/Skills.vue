@@ -1,43 +1,64 @@
 <template>
-  <div class="accordion">
-    <div class="card">
-      <AHead :def="'Skill'" :title="skill.type" :did="this.$vnode.key" @del="$emit('delete-row')" @move="passToParent" />
-      <ABody :title="skill.type" :did="this.$vnode.key" :parent="'skills'">
-        <Input label="Skill Type" :val="skill.type" @input="skill.type = $event" />
-        <div class="input-group">
-          <label for="end" class="col-md-6 col-form-label">Skills</label>
-          <button @click="add" class="col-md-1 btn btn-secondary">+</button>
-        </div>
-        <DInput :title="'Skill'" :items="skill" :sub="'name'" :half="true" />
-      </ABody>
-    </div>
-  </div>
+	<div class="card mb-3 skill-editor-card">
+		<AHead :def="'Skill Category'" :title="skill.type" :did="did" @del="$emit('delete-row')" @move="$emit('move-row', $event)" />
+		<ABody :did="did" :title="skill.type" :parent="'skills'">
+			<div class="form-container">
+				<Input label="Category Title" :val="skill.type" @input="skill.type = $event" />
+				<div class="skills-list-section">
+					<label class="form-label d-block mb-2">Skills in this Category</label>
+					<DInput :title="'Skill'" :items="skill" :sub="'name'" :half="true" />
+					<button class="btn btn-sm btn-outline-success mt-2" @click="addSkill">+ Add Skill</button>
+				</div>
+			</div>
+		</ABody>
+	</div>
 </template>
 
-<style scoped>
-.btn + .float-end {
-  color: red;
-  padding: 0px 8px;
-}
-</style>
-
 <script>
-import DInput from '../inner/DraggableInput.vue'
-import Input from '../inner/Input.vue'
-import AHead from '../inner/AccordionHeader.vue'
-import ABody from '../inner/AccordionBody.vue'
+import AHead from "../inner/AccordionHeader.vue"
+import ABody from "../inner/AccordionBody.vue"
+import Input from "../inner/Input.vue"
+import DInput from "../inner/DraggableInput.vue"
 
 export default {
-  name: "Skills",
-  components: { DInput, Input, AHead, ABody },
-  methods: {
-    add: function() {
-      this.skill.name.push("")
-    },
-    passToParent: function(value){
-      this.$emit('move-row',this.$vnode.key,value)
-    },
-  },
-  props: ["skill"],
+	name: "SkillsEditor",
+	props: ["skill", "did"],
+	components: { AHead, ABody, Input, DInput },
+	methods: {
+		addSkill() {
+			this.skill.name.push("")
+		}
+	}
 }
 </script>
+
+<style scoped>
+.skill-editor-card {
+	border: 1px solid #e0e0e0;
+	border-radius: 8px;
+	overflow: hidden;
+	box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+	transition: all 0.3s ease;
+}
+
+.skill-editor-card:hover {
+	box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.form-container {
+	padding: 10px;
+}
+
+.skills-list-section {
+	margin-top: 15px;
+	padding: 15px;
+	background: #f8f9fa;
+	border-radius: 6px;
+}
+
+.form-label {
+	font-weight: 600;
+	color: #495057;
+	font-size: 0.9rem;
+}
+</style>
