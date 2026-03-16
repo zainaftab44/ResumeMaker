@@ -10,7 +10,7 @@
 		<i class="bi bi-linkedin"></i> {{ profile.linkedin.split("/")[profile.linkedin.split("/").length-1] }} <br>
 		<hr>
 		<div v-if="profile.summary">
-			<h4 class="headding">SUMMARY</h4>
+			<h4 class="heading">SUMMARY</h4>
 			{{ profile.summary }}
 		</div>
 		<hr>

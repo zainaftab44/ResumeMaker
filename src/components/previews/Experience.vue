@@ -2,7 +2,7 @@
 	<table style="width: 100%;">
 		<tbody>
 			<tr>
-				<td>
+				<td class="section_heading">
 					<h4 role="heading" style="margin-bottom:5px;font-size: 12pt;">EXPERIENCE</h4>
 				</td>
 			</tr>
@@ -12,7 +12,7 @@
 						{{ date(exp.start, exp.end) }}
 					</i>
 					<br>
-					<strong class="headding" v-if="exp.title.length" :style="{ fontWeight: 'bold' }">
+					<strong class="heading" v-if="exp.title.length" :style="{ fontWeight: 'bold' }">
 						{{ exp.title.toUpperCase() }}
 						<br />
 					</strong>

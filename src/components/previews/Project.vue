@@ -2,7 +2,7 @@
 	<table style="width: 100%;">
 		<tbody>
 			<tr>
-				<td>
+				<td class="section_heading">
 					<h4 role="heading" style="margin-bottom:5px; font-size: 12pt;">PROJECTS</h4>
 				</td>
 			</tr>
@@ -12,7 +12,7 @@
 						{{ date(proj.start, proj.end) }}
 					</i>
 					<br />
-					<strong class="headding" v-if="proj.title" :style="{ fontWeight: 'bold' }">
+					<strong class="heading" v-if="proj.title" :style="{ fontWeight: 'bold' }">
 						{{ proj.title }}
 						<br />
 					</strong>
