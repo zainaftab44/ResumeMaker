@@ -24,7 +24,7 @@
 </template>
 
 <script>
-import PProf from "../previews/profile/First.vue"
+import PProf from "../previews/profile/First_WithoutSummary.vue"
 import PEXP from "../previews/Experience.vue"
 import PEDU from "../previews/Education.vue"
 import PSKILL1 from "../previews/Skills.vue"

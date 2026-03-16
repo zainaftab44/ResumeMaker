@@ -2,7 +2,7 @@
 	<table v-if="eds.length">
 		<tbody>
 			<tr>
-				<td>
+				<td class="section_heading">
 					<h4 role="heading" style="margin-bottom:5px">EDUCATION</h4>
 				</td>
 			</tr>
@@ -12,7 +12,7 @@
 						{{ date(ed.start, ed.end) }}
 					</i>
 					<br v-if="ed.end || ed.start" />
-					<strong  class="degree headding" v-if="ed.major || ed.degree">
+					<strong  class="degree heading" v-if="ed.major || ed.degree">
 						<span v-if="ed.degree">{{ ed.degree }}</span>
 						<br v-if="ed.degree.length + ed.major.length > 50" />
 						<span v-if="ed.major">({{ ed.major }})</span>
