@@ -40,9 +40,9 @@
 		</tr>
 		<tr>
 			<td colspan="2">
-				<div v-if="profile.summary" class="text-align:left">
+				<div v-if="profile.topSummary" class="text-align:left">
 					<h3 style="margin-bottom:5px; font-size: 12pt;">SUMMARY</h3>
-					{{ profile.summary }}
+					{{ profile.topSummary }}
 				</div>
 			</td>
 		</tr>
