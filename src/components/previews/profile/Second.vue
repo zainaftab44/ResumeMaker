@@ -41,9 +41,9 @@
 			</tr>
 			<tr style="text-align: center">
 				<td colspan="2">
-					<div v-if="profile.summary">
+					<div v-if="profile.topSummary">
 						<h3 class="headding">SUMMARY</h3>
-						{{ profile.summary }}
+						{{ profile.topSummary }}
 					</div>
 					<hr />
 

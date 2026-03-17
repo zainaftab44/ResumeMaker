@@ -119,7 +119,14 @@
 				</svg>
 				Ready to Print/Export
 			</div>
+
+			<a v-if="template === '1' || template === '2'"
+			   class="btn btn-primary toggle_top_summary"
+			   @click.prevent="$emit('toggle-top-summary')">
+				Toggle Top Summary
+			</a>
 		</div>
+
 	</div>
 </template>
 
@@ -137,7 +144,7 @@ import Template10 from "../templates/TemplateModernPortfolio.vue"
 
 export default {
 	name: "Preview",
-	props: ["maindata"],
+	props: ["maindata", "toggleTopSummary"],
 	components: {
 		Template,
 		Template2,

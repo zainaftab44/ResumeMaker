@@ -59,7 +59,7 @@
 			</div>
 		</div>
 
-		<Preview v-else :maindata="$data" />
+		<Preview v-else :maindata="$data" @toggle-top-summary="toggleTopSummary"/>
 
 		<div class="text-center">
 			<p>
@@ -87,9 +87,11 @@
 				</div>
 			</div>
 		</div>
-	</div>
-</template>
 
+	</div>
+
+</template>
+	
 <script>
 import Preview from "./components/pages/Preview.vue"
 import Profile from "./components/pages/Profile.vue"
@@ -142,6 +144,7 @@ export default {
 				email: "",
 				phone: "",
 				address: "",
+				topSummary: "",
 				summary: "",
 				website: "",
 				github: "",
@@ -186,7 +189,8 @@ export default {
 			}
 		},
 		create: function () {
-			// Improved print functionality with reliable style capturing
+			// Improved print functionalit
+			// y with reliable style capturing
 			const previewElement = window.document.querySelector(".preview-container")
 			if (!previewElement) {
 				alert("Preview not found. Please try again.")
@@ -204,69 +208,69 @@ export default {
 			const styles = headContent.innerHTML
 
 			const source = `<!DOCTYPE html>
-<html>
-<head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<base href="${window.location.origin}${window.location.pathname}">
-	<title>Resume - ${this.profile.name || 'Preview'}</title>
-	${stylesExternal}
-	${styles}
-	<style>
-		* {
-			margin: 0;
-			padding: 0;
-			box-sizing: border-box;
-		}
-		
-		body {
-			font-family: '${this.settings.font}', Arial, sans-serif;
-			line-height: 1.6;
-			color: #333;	
-			background: #fff;
-			margin: 0;
-			padding: 0;
-		}
-		
-		@page {
-			size: A4 portrait;
-			margin: 0;
-		}
-		
-		.preview-container {
-			width: 21cm;
-			height: auto;
-			margin: 0 auto;
-			background: white;
-			overflow: hidden;
-		}
-			
-		/* Force color printing */
-		* {
-			-webkit-print-color-adjust: exact !important;
-			print-color-adjust: exact !important;
-			color-adjust: exact !important;
-		}
+							<html>
+							<head>
+								<meta charset="UTF-8">
+								<meta name="viewport" content="width=device-width, initial-scale=1.0">
+								<base href="${window.location.origin}${window.location.pathname}">
+								<title>Resume - ${this.profile.name || 'Preview'}</title>
+								${stylesExternal}
+								${styles}
+								<style>
+									* {
+										margin: 0;
+										padding: 0;
+										box-sizing: border-box;
+									}
+									
+									body {
+										font-family: '${this.settings.font}', Arial, sans-serif;
+										line-height: 1.6;
+										color: #333;	
+										background: #fff;
+										margin: 0;
+										padding: 0;
+									}
+									
+									@page {
+										size: A4 portrait;
+										margin: 0;
+									}
+									
+									.preview-container {
+										width: 21cm;
+										height: auto;
+										margin: 0 auto;
+										background: white;
+										overflow: hidden;
+									}
+										
+									/* Force color printing */
+									* {
+										-webkit-print-color-adjust: exact !important;
+										print-color-adjust: exact !important;
+										color-adjust: exact !important;
+									}
 
-		@media print {
-			body { margin: 0; }
-			.preview-container { box-shadow: none; }
-		}
-	</style>
-</head>
-<body>
-	<div class="preview-container">
-		${previewElement.innerHTML}
-	</div>
-	<script>
-		window.onload = function() {
-			setTimeout(() => {
-				window.print();
-			}, 1000);
-		};
-	<\/script>
-</body>
-</html>`
+									@media print {
+										body { margin: 0; }
+										.preview-container { box-shadow: none; }
+									}
+								</style>
+							</head>
+							<body>
+								<div class="preview-container">
+									${previewElement.innerHTML}
+								</div>
+								<script>
+									window.onload = function() {
+										setTimeout(() => {
+											window.print();
+										}, 1000);
+									};
+								<\/script>
+							</body>
+							</html>`
 
 			const tab = window.open("")
 			if (tab) {
@@ -368,6 +372,13 @@ export default {
 				case "Projects":
 					return { title: "", desc: "", link: "", start: "", end: "", tools: [], resp: [] }
 			}
+		},
+		toggleTopSummary() {
+			if (this.profile.topSummary) {
+                this.profile.topSummary = "";
+			}
+			else
+                this.profile.topSummary = this.profile.summary;
 		},
 	},
 	mounted() {
@@ -484,5 +495,13 @@ hr {
 
 .navbar-nav > li::before {
 	content: "" !important;
+}
+
+.toggle_top_summary {
+    position: fixed !important; /* stays in place even when scrolling */
+    top: 50%; /* vertical position (middle of screen) */
+    left: 20%; /* distance from the left edge */
+    transform: translateY(-50%); /* centers it vertically */
+    z-index: 1000; /* ensures it stays above other elements */
 }
 </style>
