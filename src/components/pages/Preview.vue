@@ -120,7 +120,7 @@
 				Ready to Print/Export
 			</div>
 
-			<a v-if="template === '1' || template === '2'"
+			<a v-if="template === '1' || template === '2' || template === '8'"
 			   class="btn btn-primary toggle_top_summary"
 			   @click.prevent="$emit('toggle-top-summary')">
 				Toggle Top Summary
