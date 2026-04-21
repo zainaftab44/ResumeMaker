@@ -1,0 +1,734 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zain Aftab · modern resume</title>
+    <!-- Google Font & Font Awesome -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300..700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: "Inter", system-ui, -apple-system, sans-serif;
+            background: #f2f5f9;
+            color: #1e293b;
+            line-height: 1.5;
+            padding: 2rem 1rem;
+        }
+
+        .resume-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 2rem;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.15);
+            display: grid;
+            grid-template-columns: 320px 1fr;
+            overflow: hidden;
+            transition: all 0.2s ease;
+        }
+
+        /* LEFT PANEL — modern dark/light elegant */
+        .panel-left {
+            background: #0f1825;
+            color: #e9edf2;
+            padding: 2rem 1.8rem;
+        }
+
+        .panel-left a {
+            color: #b2c9f0;
+            text-decoration: none;
+            font-weight: 400;
+            transition: color 0.2s;
+        }
+
+        .panel-left a:hover {
+            color: white;
+            text-decoration: underline;
+        }
+
+        .name-large {
+            font-size: 2rem;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            line-height: 1.2;
+            margin-bottom: 0.25rem;
+            color: white;
+        }
+
+        .title-tag {
+            font-size: 1rem;
+            font-weight: 400;
+            background: #1f2b3a;
+            display: inline-block;
+            padding: 0.35rem 1rem;
+            border-radius: 30px;
+            margin: 0.75rem 0 1.5rem 0;
+            color: #cfdfff;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            margin-bottom: 0.8rem;
+            font-size: 0.9rem;
+            word-break: break-word;
+        }
+
+        .contact-item i {
+            width: 1.2rem;
+            color: #809ab3;
+            font-size: 1rem;
+            text-align: center;
+        }
+
+        .divider-light {
+            height: 1px;
+            background: #253040;
+            margin: 2rem 0 1.8rem 0;
+        }
+
+        .section-title-left {
+            text-transform: uppercase;
+            font-size: 0.7rem;
+            letter-spacing: 1px;
+            font-weight: 600;
+            color: #9db4d0;
+            margin-bottom: 1.2rem;
+            border-bottom: 1px solid #253040;
+            padding-bottom: 0.5rem;
+        }
+
+        .skill-tag {
+            display: inline-block;
+            background: #1e2a38;
+            color: #d3e0f0;
+            padding: 0.3rem 0.9rem;
+            border-radius: 30px;
+            font-size: 0.8rem;
+            font-weight: 500;
+            margin: 0.2rem 0.25rem;
+            border: 1px solid #314154;
+        }
+
+        .lang-item {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .lang-name {
+            font-weight: 500;
+        }
+
+        .lang-level {
+            color: #b0c6df;
+            font-style: italic;
+            font-size: 0.8rem;
+        }
+
+        .cert-item,
+        .award-item,
+        .pub-item {
+            font-size: 0.85rem;
+            margin-bottom: 0.8rem;
+            line-height: 1.4;
+        }
+
+        .cert-item i,
+        .award-item i,
+        .pub-item i {
+            color: #809ab3;
+            width: 1.2rem;
+            margin-right: 0.4rem;
+        }
+
+        .pub-item a {
+            word-break: break-all;
+        }
+
+        /* RIGHT PANEL */
+        .panel-right {
+            background: white;
+            padding: 2rem 2.2rem;
+        }
+
+        .summary {
+            background: #f8fafd;
+            padding: 1.5rem;
+            border-radius: 24px;
+            margin-bottom: 2rem;
+            border: 1px solid #eef2f6;
+            font-size: 0.95rem;
+            color: #1e293b;
+            box-shadow: 0 4px 10px -8px rgba(0, 0, 0, 0.05);
+        }
+
+        .section-title-right {
+            font-size: 1rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: #3b4e66;
+            margin-bottom: 1rem;
+            border-bottom: 1.5px solid #e6edf5;
+            padding-bottom: 0.4rem;
+        }
+
+        .exp-item,
+        .edu-item,
+        .project-item {
+            margin-bottom: 2rem;
+        }
+
+        .exp-header {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: baseline;
+            margin-bottom: 0.4rem;
+        }
+
+        .exp-title {
+            font-weight: 700;
+            font-size: 1.1rem;
+            color: #0b1a2b;
+        }
+
+        .exp-company {
+            font-weight: 500;
+            color: #3466aa;
+        }
+
+        .exp-date {
+            font-size: 0.8rem;
+            background: #ecf2f9;
+            padding: 0.2rem 0.8rem;
+            border-radius: 30px;
+            color: #1f3a5f;
+        }
+
+        .exp-location {
+            font-size: 0.8rem;
+            color: #5f6f84;
+            margin-bottom: 0.75rem;
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+        }
+
+        .exp-desc {
+            list-style: none;
+            margin-top: 0.8rem;
+        }
+
+        .exp-desc li {
+            font-size: 0.9rem;
+            margin-bottom: 0.6rem;
+            display: flex;
+            gap: 0.6rem;
+        }
+
+        .exp-desc li i {
+            color: #3466aa;
+            font-size: 0.7rem;
+            margin-top: 0.3rem;
+            width: 1rem;
+        }
+
+        /* tech stack badges for experience */
+        .exp-tech {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.4rem;
+            margin: 0.5rem 0 1rem 0;
+        }
+
+        .tech-badge {
+            background: #e3eaf2;
+            padding: 0.2rem 0.8rem;
+            border-radius: 30px;
+            font-size: 0.7rem;
+            font-weight: 500;
+            color: #1f3a5f;
+            border: 1px solid #cbd6e4;
+        }
+
+        .edu-line {
+            display: flex;
+            justify-content: space-between;
+            font-weight: 500;
+        }
+
+        .edu-detail {
+            font-size: 0.9rem;
+            color: #2c3e5a;
+        }
+
+        .project-header {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: baseline;
+            justify-content: space-between;
+        }
+
+        .project-title {
+            font-weight: 700;
+            color: #0f263c;
+        }
+
+        .project-link {
+            font-size: 0.8rem;
+            word-break: break-all;
+        }
+
+        .project-tools {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.4rem;
+            margin: 0.5rem 0 0.5rem 0;
+        }
+
+        .tool-badge {
+            background: #e3eaf2;
+            padding: 0.2rem 0.6rem;
+            border-radius: 30px;
+            font-size: 0.7rem;
+            font-weight: 500;
+            color: #1f3a5f;
+        }
+
+        .project-desc {
+            font-size: 0.9rem;
+            color: #36454F;
+            margin-top: 0.3rem;
+        }
+
+        hr {
+            border: 0;
+            border-top: 1px solid #e2eaf2;
+            margin: 1.5rem 0;
+        }
+
+        /* responsive */
+        @media (max-width: 800px) {
+            .resume-container {
+                grid-template-columns: 1fr;
+                border-radius: 1.5rem;
+            }
+
+            .panel-left {
+                padding: 1.8rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="resume-container">
+        <!-- LEFT COLUMN (personal, skills, certs, etc) -->
+        <div class="panel-left">
+            <div class="name-large">Zain Aftab</div>
+            <div class="title-tag">Senior Full‑Stack Engineer</div>
+
+            <div class="contact-item"><i class="fas fa-map-marker-alt"></i> <span>Malaga, Spain & Birkirkara,
+                    Malta</span></div>
+            <div class="contact-item"><i class="fas fa-phone-alt"></i> <span>+34 663 551 576 (ES) · +92 312 4210568
+                    (PK)</span></div>
+            <div class="contact-item"><i class="fas fa-envelope"></i> <a
+                    href="mailto:zainaftab44@gmail.com">zainaftab44@gmail.com</a></div>
+            <div class="contact-item"><i class="fab fa-linkedin"></i> <a href="http://linkedin.com/in/zainaftab"
+                    target="_blank">linkedin.com/in/zainaftab</a></div>
+            <div class="contact-item"><i class="fab fa-github"></i> <a href="https://github.com/zainaftab44"
+                    target="_blank">github.com/zainaftab44</a></div>
+            <div class="contact-item"><i class="fas fa-globe"></i> <a href="https://zainaftab.netlify.app/"
+                    target="_blank">zainaftab.netlify.app</a></div>
+
+            <div class="divider-light"></div>
+
+            <!-- top skills (from pdf & json merged) -->
+            <div class="section-title-left">⚡ core competencies</div>
+            <div style="margin-bottom: 1.8rem;">
+                <span class="skill-tag">Vue.js</span>
+                <span class="skill-tag">JavaScript/ES6+</span>
+                <span class="skill-tag">HTML5/CSS3</span>
+                <span class="skill-tag">PHP 8.1+</span>
+                <span class="skill-tag">Laravel</span>
+                <span class="skill-tag">AWS Lambda</span>
+                <span class="skill-tag">Static Analysis</span>
+                <span class="skill-tag">Feature Testing</span>
+                <span class="skill-tag">Docker</span>
+                <span class="skill-tag">MySQL/PostgreSQL</span>
+                <span class="skill-tag">REST APIs</span>
+                <span class="skill-tag">Node.js</span>
+                <span class="skill-tag">Scala/Play</span>
+                <span class="skill-tag">WebRTC</span>
+                <span class="skill-tag">Redis</span>
+                <span class="skill-tag">Netsuite</span>
+                <span class="skill-tag">TDD</span>
+            </div>
+
+            <div class="section-title-left">🗣️ languages</div>
+            <div class="lang-item"><span class="lang-name">Urdu</span> <span class="lang-level">Native</span></div>
+            <div class="lang-item"><span class="lang-name">English</span> <span class="lang-level">Professional
+                    working</span></div>
+            <div class="lang-item"><span class="lang-name">Spanish</span> <span class="lang-level">Elementary</span>
+            </div>
+
+            <div class="divider-light"></div>
+
+            <div class="section-title-left">📜 certifications & workshops</div>
+            <div class="cert-item"><i class="fas fa-certificate"></i> OBE System Implementation (5th Intl. Conference)
+            </div>
+            <div class="cert-item"><i class="fas fa-certificate"></i> Duolingo Spanish Fluency – Beginner (est.)</div>
+
+            <div class="section-title-left" style="margin-top: 1.5rem;">🏆 Honors & Awards</div>
+            <div class="award-item"><i class="fas fa-database"></i> Recognition: ETL migration of 1k+ admins & 215k+
+                leads</div>
+
+            <div class="section-title-left" style="margin-top: 1.5rem;">📄 Publication</div>
+            <div class="pub-item">
+                <i class="fas fa-file-alt"></i> “Automatic NoSQL to Relational Database Transformation with Dynamic
+                Schema Mapping” – Hindawi (2020)<br>
+                <a href="https://www.hindawi.com/journals/sp/2020/8813350/" target="_blank"
+                    style="font-size:0.75rem;">doi.org/10.1155/2020/8813350</a>
+            </div>
+        </div>
+
+        <!-- RIGHT COLUMN (summary, experience, education, projects) -->
+        <div class="panel-right">
+            <!-- summary (merged from json + pdf vibe) -->
+            <div class="summary">
+                <i class="fas fa-quote-left" style="color:#6688aa; opacity:0.5; margin-right:0.3rem;"></i>
+                Senior Full‑Stack Software Engineer with 9+ years of experience architecting high‑performance web apps
+                used by millions. Expert in Vue.js, PHP, and cloud infrastructure (AWS). Proven track record of
+                optimising performance (20‑30% gains), leading technical coordination, and enforcing code quality across
+                distributed teams. Passionate about domain‑driven design, clean code, and innovative user‑centric
+                solutions.
+            </div>
+
+            <!-- EXPERIENCE with tech stacks added -->
+            <div class="section-title-right"><i class="fas fa-briefcase" style="margin-right:0.5rem;"></i> experience
+            </div>
+
+            <!-- UN1Q -->
+            <div class="exp-item">
+                <div class="exp-header">
+                    <span class="exp-title">Technical Coordinator & Senior Software Engineer</span>
+                    <span class="exp-date">Oct 2024 – Present</span>
+                </div>
+                <div class="exp-company">UN1Q · Birkirkara, Malta</div>
+                <div class="exp-tech">
+                    <span class="tech-badge">PHP 8.1+</span>
+                    <span class="tech-badge">Laravel</span>
+                    <span class="tech-badge">MySQL</span>
+                    <span class="tech-badge">Pest/PHPUnit</span>
+                    <span class="tech-badge">Psalm</span>
+                    <span class="tech-badge">PHPCS</span>
+                    <span class="tech-badge">Docker</span>
+                    <span class="tech-badge">GitHub Actions</span>
+                    <span class="tech-badge">Domain-Driven Design</span>
+                </div>
+                <ul class="exp-desc">
+                    <li><i class="fas fa-circle"></i> Lead technical coordination across teams, enforcing coding
+                        standards, architectural patterns, and domain‑driven design (Laravel, bounded contexts).</li>
+                    <li><i class="fas fa-circle"></i> Built and evolved complex proprietary fitness/health assessment
+                        algorithms with Pest feature tests covering accuracy and API contracts.</li>
+                    <li><i class="fas fa-circle"></i> Enforced code quality via Psalm, PHPCS, and utilised PHP 8.1+
+                        enums, readonly properties, named arguments, strict typing.</li>
+                    <li><i class="fas fa-circle"></i> Designed polymorphic Eloquent relationships for flexible state
+                        tracking; maintained configuration‑driven model generation.</li>
+                    <li><i class="fas fa-circle"></i> Serve as primary technical point for cross‑team collaboration,
+                        document technical decisions, and flag risks early.</li>
+                </ul>
+            </div>
+
+            <!-- EPAM Systems -->
+            <div class="exp-item">
+                <div class="exp-header">
+                    <span class="exp-title">Senior Software Engineer</span>
+                    <span class="exp-date">Oct 2022 – Jul 2024</span>
+                </div>
+                <div class="exp-company">EPAM Systems · Spain (remote)</div>
+                <div class="exp-tech">
+                    <span class="tech-badge">PHP</span>
+                    <span class="tech-badge">JavaScript</span>
+                    <span class="tech-badge">CMS</span>
+                    <span class="tech-badge">Caching strategies</span>
+                    <span class="tech-badge">Performance tuning</span>
+                </div>
+                <ul class="exp-desc">
+                    <li><i class="fas fa-circle"></i> Increased company website performance by 20% via new caching
+                        strategy.</li>
+                    <li><i class="fas fa-circle"></i> Identified and reported bugs in internal CMS, reducing production
+                        bugs by ~20%.</li>
+                    <li><i class="fas fa-circle"></i> Strategised improvements to processes, tools, and best practices
+                        across teams.</li>
+                </ul>
+            </div>
+
+            <!-- Fullsend Solutions -->
+            <div class="exp-item">
+                <div class="exp-header">
+                    <span class="exp-title">Scala Developer</span>
+                    <span class="exp-date">Jul 2021 – Oct 2022</span>
+                </div>
+                <div class="exp-company">Fullsend Solutions · USA (remote)</div>
+                <div class="exp-tech">
+                    <span class="tech-badge">Scala</span>
+                    <span class="tech-badge">Play Framework</span>
+                    <span class="tech-badge">Anorm</span>
+                    <span class="tech-badge">ElasticSearch</span>
+                    <span class="tech-badge">PHP</span>
+                    <span class="tech-badge">PHPExcel</span>
+                    <span class="tech-badge">Handlebars</span>
+                    <span class="tech-badge">Bootstrap</span>
+                    <span class="tech-badge">TDD</span>
+                    <span class="tech-badge">Functional programming</span>
+                </div>
+                <ul class="exp-desc">
+                    <li><i class="fas fa-circle"></i> Designed new feature endpoints using PlayFramework & Anorm;
+                        integrated ElasticSearch improving search performance by 30%.</li>
+                    <li><i class="fas fa-circle"></i> Built custom PHP import/export system with PHPExcel; resolved user
+                        issues within 24h (95% satisfaction).</li>
+                    <li><i class="fas fa-circle"></i> Wrote functional/integration tests following TDD; used functional
+                        programming for maintainability.</li>
+                    <li><i class="fas fa-circle"></i> Created responsive UIs with Handlebars, Bootstrap, and JavaScript.
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Contour Software (Constellation) -->
+            <div class="exp-item">
+                <div class="exp-header">
+                    <span class="exp-title">Software Engineer</span>
+                    <span class="exp-date">Feb 2020 – Jul 2021</span>
+                </div>
+                <div class="exp-company">Contour Software (Constellation) · Lahore</div>
+                <div class="exp-tech">
+                    <span class="tech-badge">PHP</span>
+                    <span class="tech-badge">Laravel</span>
+                    <span class="tech-badge">Zend Framework</span>
+                    <span class="tech-badge">MySQL</span>
+                    <span class="tech-badge">Redis</span>
+                    <span class="tech-badge">AWS (EC2,S3,CloudFront)</span>
+                    <span class="tech-badge">Netsuite</span>
+                    <span class="tech-badge">Zapier</span>
+                    <span class="tech-badge">OAuth2</span>
+                    <span class="tech-badge">Zillow API</span>
+                    <span class="tech-badge">Facebook Marketing API</span>
+                </div>
+                <ul class="exp-desc">
+                    <li><i class="fas fa-circle"></i> Engineered high‑performance web app for Zurple/TorchX serving 1M+
+                        users/month; integrated Zillow, Facebook Marketing API, Netsuite.</li>
+                    <li><i class="fas fa-circle"></i> Refactored Zend Framework 1.2 → 3.0, PHP 5.3 → 7.0, improving
+                        efficiency 25% and saving ~$15k/year.</li>
+                    <li><i class="fas fa-circle"></i> Used Redis for session handling, reducing DB load 18% and boosting
+                        page speed 15%.</li>
+                    <li><i class="fas fa-circle"></i> Implemented AWS services (S3, CloudFront, EC2) cutting costs
+                        $10k/year and scaling 30%.</li>
+                    <li><i class="fas fa-circle"></i> Automated lead management via Zapier; performed ETL migration of
+                        215k+ leads (received recognition).</li>
+                </ul>
+            </div>
+
+            <!-- Bellstone -->
+            <div class="exp-item">
+                <div class="exp-header">
+                    <span class="exp-title">Software Engineer</span>
+                    <span class="exp-date">Oct 2018 – Dec 2019</span>
+                </div>
+                <div class="exp-company">Bellstone PVT LTD · Lahore</div>
+                <div class="exp-tech">
+                    <span class="tech-badge">WebRTC</span>
+                    <span class="tech-badge">Java (TCP/UDP)</span>
+                    <span class="tech-badge">Vue.js</span>
+                    <span class="tech-badge">Node.js</span>
+                    <span class="tech-badge">Google Cloud Storage</span>
+                    <span class="tech-badge">Mailgun</span>
+                    <span class="tech-badge">Bank Alfalah API</span>
+                    <span class="tech-badge">PHP</span>
+                    <span class="tech-badge">MySQL</span>
+                </div>
+                <ul class="exp-desc">
+                    <li><i class="fas fa-circle"></i> Strategised WebRTC peer‑to‑peer data transfer, achieving 98%
+                        success rate (20% better than competitors).</li>
+                    <li><i class="fas fa-circle"></i> Built live data transfer platform with Java (TCP/UDP
+                        hole‑punching), Vue.js, Node, Google Cloud Storage.</li>
+                    <li><i class="fas fa-circle"></i> Integrated Mailgun (50% less manual effort) and Bank Alfalah
+                        payment gateway (15% sales increase).</li>
+                </ul>
+            </div>
+
+            <!-- Graduate Research Assistant -->
+            <div class="exp-item">
+                <div class="exp-header">
+                    <span class="exp-title">Graduate Research Assistant</span>
+                    <span class="exp-date">Aug 2016 – Oct 2017</span>
+                </div>
+                <div class="exp-company">PUCIT, University of the Punjab · Lahore</div>
+                <div class="exp-tech">
+                    <span class="tech-badge">NoSQL</span>
+                    <span class="tech-badge">SQL</span>
+                    <span class="tech-badge">ETL</span>
+                    <span class="tech-badge">Cloud computing</span>
+                    <span class="tech-badge">Python</span>
+                </div>
+                <ul class="exp-desc">
+                    <li><i class="fas fa-circle"></i> Published research on NoSQL to SQL ETL with automated schema
+                        mapping (Hindawi journal).</li>
+                    <li><i class="fas fa-circle"></i> Investigated cloud‑based transformation and dynamic schema
+                        detection.</li>
+                </ul>
+            </div>
+
+            <!-- Freelance -->
+            <div class="exp-item">
+                <div class="exp-header">
+                    <span class="exp-title">Freelance Software Engineer</span>
+                    <span class="exp-date">Jul 2015 – Oct 2018</span>
+                </div>
+                <div class="exp-company">Self-Employed · remote</div>
+                <div class="exp-tech">
+                    <span class="tech-badge">Java/Kotlin</span>
+                    <span class="tech-badge">Swift</span>
+                    <span class="tech-badge">PHP</span>
+                    <span class="tech-badge">Node.js</span>
+                    <span class="tech-badge">MySQL/MongoDB</span>
+                    <span class="tech-badge">Stripe</span>
+                    <span class="tech-badge">Firebase</span>
+                    <span class="tech-badge">Google Maps API</span>
+                    <span class="tech-badge">Selenium</span>
+                    <span class="tech-badge">Python</span>
+                </div>
+                <ul class="exp-desc">
+                    <li><i class="fas fa-circle"></i> Developed web/mobile apps (Java/Kotlin, Swift, PHP, Node) for
+                        international clients; integrated Stripe, Firebase, Maps.</li>
+                    <li><i class="fas fa-circle"></i> Automated data scraping with Python/Selenium; optimised
+                        performance via caching, CDN, minification.</li>
+                    <li><i class="fas fa-circle"></i> Delivered 10+ projects on time, budget; maintained high client
+                        satisfaction.</li>
+                </ul>
+            </div>
+
+            <!-- EDUCATION -->
+            <div class="section-title-right" style="margin-top:2rem;"><i class="fas fa-graduation-cap"></i> education
+            </div>
+            <div class="edu-item">
+                <div class="edu-line">
+                    <span>M.Phil Computer Science</span>
+                    <span style="font-size:0.85rem; background:#eef3f9; padding:0.1rem 0.8rem; border-radius:20px;">2015
+                        – 2017</span>
+                </div>
+                <div class="edu-detail">PUCIT, University of the Punjab · Lahore</div>
+            </div>
+            <div class="edu-item" style="margin-top:0.8rem;">
+                <div class="edu-line">
+                    <span>BS Computer Science</span>
+                    <span style="font-size:0.85rem; background:#eef3f9; padding:0.1rem 0.8rem; border-radius:20px;">2011
+                        – 2015</span>
+                </div>
+                <div class="edu-detail">PUCIT, University of the Punjab · Lahore</div>
+            </div>
+
+            <!-- PROJECTS (already have tool badges, now enriched with more tech from json) -->
+            <div class="section-title-right" style="margin-top:2rem;"><i class="fas fa-code-branch"></i> key projects
+            </div>
+
+            <div class="project-item">
+                <div class="project-header">
+                    <span class="project-title">UN1Q · Fitness/wellness platform</span>
+                    <span class="exp-date">2024 – present</span>
+                </div>
+                <div class="project-tools">
+                    <span class="tool-badge">PHP 8.1+</span><span class="tool-badge">Laravel</span><span
+                        class="tool-badge">MySQL</span><span class="tool-badge">Pest</span><span
+                        class="tool-badge">Docker</span><span class="tool-badge">GitHub Actions</span><span
+                        class="tool-badge">Psalm</span>
+                </div>
+                <div class="project-desc">Proprietary health assessment algorithms, domain‑driven design, feature tests,
+                    PHP 8.1+ strict typing. <a href="https://www.un1q.com/" target="_blank">un1q.com</a></div>
+            </div>
+
+            <div class="project-item">
+                <div class="project-header">
+                    <span class="project-title">Resume Forge (open source)</span>
+                    <span class="exp-date">2020 – present</span>
+                </div>
+                <div class="project-tools">
+                    <span class="tool-badge">Vue.js 3</span><span class="tool-badge">Composition API</span><span
+                        class="tool-badge">Bootstrap</span><span class="tool-badge">LocalStorage</span><span
+                        class="tool-badge">jQuery</span><span class="tool-badge">Netlify</span>
+                </div>
+                <div class="project-desc">Simplistic resume maker with live preview, JSON import/export. <a
+                        href="https://resumeforge.netlify.app/" target="_blank">resumeforge.netlify.app</a> | <a
+                        href="https://github.com/zainaftab44/ResumeMaker/" target="_blank">github</a></div>
+            </div>
+
+            <div class="project-item">
+                <div class="project-header">
+                    <span class="project-title">Trango · P2P data transfer</span>
+                    <span class="exp-date">2019</span>
+                </div>
+                <div class="project-tools">
+                    <span class="tool-badge">WebRTC</span><span class="tool-badge">Vue.js</span><span
+                        class="tool-badge">Node.js</span><span class="tool-badge">Mailgun</span><span
+                        class="tool-badge">MySQL</span><span class="tool-badge">Google Cloud Storage</span><span
+                        class="tool-badge">Git</span>
+                </div>
+                <div class="project-desc">LAN/Internet file transfer with hole‑punching, 20% faster than competitors. <a
+                        href="https://play.google.com/store/apps/details?id=com.bellstone.trango"
+                        target="_blank">Android app</a></div>
+            </div>
+
+            <div class="project-item">
+                <div class="project-header">
+                    <span class="project-title">Zurple / PropertyPulse</span>
+                    <span class="exp-date">2020–2021</span>
+                </div>
+                <div class="project-tools">
+                    <span class="tool-badge">PHP</span><span class="tool-badge">Laravel</span><span
+                        class="tool-badge">Zend</span><span class="tool-badge">Vue.js</span><span
+                        class="tool-badge">MySQL</span><span class="tool-badge">AWS S3/CloudFront</span><span
+                        class="tool-badge">Netsuite</span><span class="tool-badge">Zapier</span><span
+                        class="tool-badge">Redis</span>
+                </div>
+                <div class="project-desc">Real estate client generation software, Zillow TechConnect integration, 40%
+                    query optimisation. <a href="https://zurple.com/" target="_blank">zurple.com</a></div>
+            </div>
+
+            <div class="project-item">
+                <div class="project-header">
+                    <span class="project-title">VennFnB</span>
+                    <span class="exp-date">2022</span>
+                </div>
+                <div class="project-tools">
+                    <span class="tool-badge">PHP</span><span class="tool-badge">MySQL</span><span
+                        class="tool-badge">Handlebars</span><span class="tool-badge">Bootstrap</span><span
+                        class="tool-badge">Docker</span><span class="tool-badge">PHPMailer</span><span
+                        class="tool-badge">REST</span>
+                </div>
+                <div class="project-desc">Restaurant operations system: inventory, supplier ordering, invoice matching.
+                    <a href="https://www.vennfnb.com/" target="_blank">vennfnb.com</a>
+                </div>
+            </div>
+
+            <hr>
+            <div style="text-align:right; font-size:0.7rem; color:#5f6f84;">✨ combined resume · tools & tech highlighted
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

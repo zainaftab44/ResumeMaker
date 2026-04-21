@@ -123,3 +123,16 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+.education-editor-card {
+	border: 1px solid #e0e0e0;
+	border-radius: 8px;
+	overflow: hidden;
+	box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+.form-container {
+	padding: 10px;
+}
+</style>

@@ -145,3 +145,28 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+.projects-editor-card {
+	border: 1px solid #e0e0e0;
+	border-radius: 8px;
+	overflow: hidden;
+	box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+.form-container {
+	padding: 10px;
+}
+
+.skills-list-section, .responsibilities-section {
+	padding: 15px;
+	background: #f8f9fa;
+	border-radius: 6px;
+	margin-bottom: 10px;
+}
+
+.form-label {
+	font-weight: 600;
+	color: #495057;
+}
+</style>
