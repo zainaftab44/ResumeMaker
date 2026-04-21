@@ -1,7 +1,7 @@
 <template>
 	<table v-if="eds.length">
 		<tbody>
-			<tr>
+			<tr v-if="showHeading">
 				<td>
 					<h4 role="heading" style="margin-bottom:5px">EDUCATION</h4>
 				</td>
@@ -30,7 +30,7 @@
 <script>
 export default {
 	name: "EDP",
-	props: ["eds"],
+	props: { eds: Array, showHeading: { type: Boolean, default: true } },
 	methods: {
 		date: (s, e) => {
 			return s.toUpperCase().trim() + (s.trim().length == 0 || e.trim().length == 0 ? "" : " – ") + e.toUpperCase().trim()

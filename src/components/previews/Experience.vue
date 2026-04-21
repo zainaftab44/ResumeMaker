@@ -1,7 +1,7 @@
 <template>
 	<table style="width: 100%;">
 		<tbody>
-			<tr>
+			<tr v-if="showHeading">
 				<td>
 					<h4 role="heading" style="margin-bottom:5px;font-size: 12pt;">EXPERIENCE</h4>
 				</td>
@@ -32,7 +32,7 @@
 <script>
 export default {
 	name: "EXP",
-	props: ["exps", "bullet", "bulletColor"],
+	props: { exps: Array, bullet: String, bulletColor: String, showHeading: { type: Boolean, default: true } },
 	methods: {
 		company(name, location) {
 			let comp = (name || '').toUpperCase() + ((name || '').trim().length + (location || '').trim().length > 0 ? ", " : "") + (location || '').toUpperCase()

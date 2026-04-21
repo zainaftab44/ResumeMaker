@@ -1,23 +1,47 @@
+<!-- src/components/inner/AccordionHeader.vue -->
 <template>
-	<div class="card-header " :id="`${def.toLowerCase()}-${did}`">
-		<div class="row">
-			<div class="col-lg-2 col-md-2 col-sm-2">
-				<div class="btn-group">
-					<input type="button" class="btn-outline-primary" value="↑" @click="$emit('move', -1)" />
-					<input type="button" class="btn-outline-primary" value="↓" @click="$emit('move', 1)" />
-				</div>
-			</div>
-			<h3 class="col-lg-8 col-md-8 col-sm-8 accordion-header" data-bs-toggle="collapse" :data-bs-target="`#col-${did}`" :aria-controls="`col${did}`">
-				{{ title ? title : def }}
-			</h3>
-			<input class="btn btn-outline-danger col-sm-1 delete-btn p-1" type="button" value="Delete" @click="$emit('del')" />
-		</div>
-	</div>
+  <div class="accordion-header" :id="'heading-' + did">
+    <button class="accordion-button" type="button" data-bs-toggle="collapse" 
+            :data-bs-target="'#collapse-' + did" aria-expanded="true" 
+            aria-controls="'collapse-' + did">
+      <slot></slot>
+      <span class="drag-handle ms-auto">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" 
+             class="bi bi-arrows-move" viewBox="0 0 16 16">
+          <path fill-rule="evenodd"
+                d="M7.646.146a.5.5 0 0 1 .708 0l2 2a.5.5 0 0 1-.708.708L8.5 1.707V5.5a.5.5 0 0 1-1 0V1.707L6.354 2.854a.5.5 0 1 1-.708-.708l2-2zM8 10a.5.5 0 0 1 .5.5v3.793l1.146-1.147a.5.5 0 0 1 .708.708l-2 2a.5.5 0 0 1-.708 0l-2-2a.5.5 0 0 1 .708-.708L7.5 14.293V10.5A.5.5 0 0 1 8 10zM.146 8.354a.5.5 0 0 1 0-.708l2-2a.5.5 0 1 1 .708.708L1.707 7.5H5.5a.5.5 0 0 1 0 1H1.707l1.147 1.146a.5.5 0 0 1-.708.708l-2-2zM10 8a.5.5 0 0 1 .5-.5h3.793l-1.147-1.146a.5.5 0 0 1 .708-.708l2 2a.5.5 0 0 1 0 .708l-2 2a.5.5 0 0 1-.708-.708L14.293 8.5H10.5A.5.5 0 0 1 10 8z" />
+        </svg>
+      </span>
+    </button>
+  </div>
 </template>
 
 <script>
 export default {
-	name: "AHead",
-	props: ["def", "title", "did"],
+  name: "AHead",
+  props: ['did', 'title', 'def']
 }
 </script>
+
+<style scoped>
+.drag-handle {
+  cursor: grab;
+  opacity: 0.7;
+}
+
+.drag-handle:hover {
+  opacity: 1;
+}
+
+.accordion-item[draggable="true"] {
+  cursor: move;
+}
+
+.accordion-item[draggable="true"]:hover {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+
+.accordion-item.dragging {
+  opacity: 0.5;
+}
+</style>

@@ -1,7 +1,7 @@
 <template>
 	<table style="width: 100%;">
 		<tbody>
-			<tr>
+			<tr v-if="showHeading">
 				<td>
 					<h4 role="heading" style="margin-bottom:5px; font-size: 12pt;">PROJECTS</h4>
 				</td>
@@ -43,7 +43,7 @@
 <script>
 export default {
 	name: "PJP",
-	props: ["projs", "bullet", "bulletColor"],
+	props: { projs: Array, bullet: String, bulletColor: String, showHeading: { type: Boolean, default: true } },
 	methods: {
 		date: (s, e) => {
 			s = s || ''
