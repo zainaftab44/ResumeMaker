@@ -136,45 +136,6 @@
 export default {
 	name: "TemplateModernPortfolio",
 	props: ["data"],
-	mounted() {
-		(function () {
-			var id_ = "preview"
-			var rows_ = document.querySelectorAll("#" + id_ + " .draggable-element")
-			var dragSrcEl_ = null
-			var current = null
-
-			function handleDragStart(e) {
-				if (!e.target.classList.contains('draggable-element')) return;
-				e.dataTransfer.effectAllowed = "move"
-				e.dataTransfer.setData("text/html", e.target.innerHTML)
-				e.dataTransfer.dropEffect = "move"
-				dragSrcEl_ = e.target
-			}
-
-			function handleDragOver(e) {
-				if (typeof e.target.closest == "function") current = e.target.closest(".draggable-element")
-			}
-
-			function handleDrop(e) {
-				if (current && current.classList.contains("draggable-element") && dragSrcEl_) {
-					if (navigator.userAgent.toLowerCase().includes("firefox")) {
-						dragSrcEl_.innerHTML = current.innerHTML
-						current.innerHTML = e.dataTransfer.getData("text/html")
-					} else {
-						let inner = current.innerHTML
-						current.innerHTML = dragSrcEl_.innerHTML
-						dragSrcEl_.innerHTML = inner
-					}
-				}
-			}
-
-			[].forEach.call(rows_, function (row) {
-				row.addEventListener("dragstart", handleDragStart, false)
-				row.addEventListener("dragover", handleDragOver, false)
-				row.addEventListener("dragend", handleDrop, false)
-			})
-		})()
-	},
 }
 </script>
 

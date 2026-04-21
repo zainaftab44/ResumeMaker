@@ -1,198 +1,82 @@
 <!DOCTYPE html>
 <html lang="en">
 
-  <head>
-    <meta charset="utf-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width,initial-scale=1.0" />
-    <link rel="icon" href="<%= BASE_URL %>favicon.ico" />
-    <title>Resume Forge</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.0/font/bootstrap-icons.css" />
-    <!-- <link
-      rel="stylesheet"
-      href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
-      integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
-      crossorigin="anonymous"
-    /> -->
-    <!-- CSS only -->
-    <!-- <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css"
-      rel="stylesheet"
-      integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl"
-      crossorigin="anonymous"
-    /> -->
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+  <link rel="icon" href="<%= BASE_URL %>favicon.ico" />
+  <title>Resume Forge - Professional ATS-Optimized Resume Builder</title>
 
-    <!-- JS, Popper.js, and jQuery -->
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-    <!-- <script
-      src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
-      integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
-      crossorigin="anonymous"
-    ></script> -->
-    <!-- <script
-      src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
-      integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV"
-      crossorigin="anonymous"
-    ></script> -->
-    <!-- JavaScript Bundle with Popper -->
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"></script>
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-7V89K90ZXG"></script>
-  </head>
+  <!-- Google Fonts - Space Grotesk & Inter -->
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
 
-  <body>
-    <noscript>
-      <strong> We're sorry but <%= htmlWebpackPlugin.options.title %> doesn't work properly without JavaScript enabled. Please enable it to continue. </strong>
-    </noscript>
-    <div class="row">
-      <div class="container-fluid">
-        <div id="app"></div>
-      </div>
-      <div class="row">
-        <footer class="footer">
-          <div class="row">
-            <div class="col-md-4 col-xl-5">
-              <div class="pr-xl-4">
-                <a class="brand" href="#"><img class="brand-logo-light" src="./logo.svg" alt="" width="140" height="37" /></a>
-                <p></p>
-                <!-- Rights-->
-                <p class="rights">
-                  <span>© </span><span class="copyright-year">2020</span> <span>Resume Forge</span> &ndash;By
-                  <span>Zain Aftab.</span>
-                  <br />
-                  <span>All Rights Reserved.</span>
-                </p>
-              </div>
-            </div>
-            <div class="col-md-4">
-              <h5><strong>Contact</strong></h5>
-              <dl class="contact-list">
-                <dt>Address:</dt>
-                <dd>Lahore Pakistan</dd>
-              </dl>
-              <dl class="contact-list">
-                <dt>Email:</dt>
-                <dd>
-                  <a href="mailto:zainaftab44@gmail.com">zainaftab44@gmail.com</a>
-                </dd>
-              </dl>
-            </div>
-            <div class="col-md-4 col-xl-3">
-              <h5><strong>Links</strong></h5>
-              <ul class="nav-list">
-                <li><a href="https://zainaftab.netlify.app">About</a></li>
-                <li><a href="https://www.github.com/zainaftab44">Projects</a></li>
-                <li><a href="https://toppersdaily.blogspot.com">Blog</a></li>
-                <li><a href="https://www.skynetlabz.com">Website</a></li>
-                <li><a href="https://www.linkedin.com/in/zainaftab">Contact</a></li>
-              </ul>
-            </div>
-          </div>
-          <div class="row no-gutters social-container">
-            <a class="anchor-tag col social-inner" href="https://www.facebook.com/zkingleo2009">
-              <span>Facebook</span>
-            </a>
-            <a class="anchor-tag col social-inner" href="https://www.twitter.com/zkingleo2009">
-              <span>Twitter</span>
-            </a>
-            <a class="anchor-tag col social-inner" href="https://www.linkedin.com/in/zainaftab">
-              <span>LinkedIn</span>
-            </a>
-            <a class="anchor-tag col social-inner" href="https://www.youtube.com/user/1zainaftab">
-              <span>Youtube</span>
-            </a>
-          </div>
-        </footer>
-      </div>
-    </div>
+  <!-- Font Awesome 6 -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
-    <style>
-      /* footer {
-        bottom: 0;
-        left: 0;
-        right: 0;
+  <!-- Bootstrap Icons -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.0/font/bootstrap-icons.css" />
+
+  <!-- Bootstrap Bundle (for accordion / existing components) -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"></script>
+
+  <!-- Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-7V89K90ZXG"></script>
+
+  <style>
+    /* Font defaults for Tailwind @layer base */
+    @layer base {
+      * {
+        font-family: 'Inter', sans-serif;
       }
-      .footer {
-        background-color: rgb(11, 52, 90);
-        color: rgb(100 198 214);
-        padding-top: 20px;
+
+      h1, h2, h3, h4, h5, h6, .brand-font {
+        font-family: 'Space Grotesk', sans-serif;
+      }
+    }
+
+    /* Print Styles */
+    @media print {
+      body * {
+        visibility: hidden;
+      }
+
+      #resume-preview,
+      #resume-preview * {
+        visibility: visible;
+      }
+
+      #resume-preview {
         position: absolute;
-      } */
-      /* 
-      html,
-      body {
-        height: 100%;
-        max-width: 100%;
-      } */
-
-      footer {
-        background-color: rgb(11, 52, 90);
-        color: rgb(100 198 214);
-        padding-top: 20px;
-        margin-top: 20px;
-      }
-
-      /* body {
+        left: 0;
+        top: 0;
         width: 100%;
-        min-height: 100%;
-        margin: 0 auto -272px;
-      } */
-
-      .anchor-tag {
-        color: white;
-        width: 100%;
-        height: 100%;
       }
 
-      .anchor-tag>span {
-        color: white;
-        width: 100%;
-        height: 100%;
+      .skills2 {
+        background-color: #999;
       }
+    }
+  </style>
+</head>
 
-      .nav-list>li>a {
-        color: white;
-      }
+<body>
+  <noscript>
+    <strong>We're sorry but Resume Forge doesn't work properly without JavaScript enabled. Please enable it to continue.</strong>
+  </noscript>
 
-      .anchor-tag:hover {
-        background-color: transparent;
-        text-decoration-line: none;
-        text-decoration-color: aliceblue;
-      }
+  <div id="app"></div>
 
-      .social-inner {
-        border: solid 1px;
-        color: white;
-        border-color: white;
-        text-align: center;
-        padding-top: 20px;
-        padding-bottom: 20px;
-      }
-
-      dd {
-        color: white;
-      }
-
-      dd>a {
-        color: white;
-      }
-
-      @media print {
-        .skills2 {
-          background-color: #999;
-        }
-      }
-    </style>
-    <!-- built files will be auto injected -->
-
-    <!-- Global site tag (gtag.js) - Google Analytics -->
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-
-      gtag('config', 'G-7V89K90ZXG');
-    </script>
-  </body>
+  <!-- Google Analytics -->
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-7V89K90ZXG');
+  </script>
+</body>
 
 </html>

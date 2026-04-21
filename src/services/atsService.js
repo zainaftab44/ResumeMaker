@@ -379,7 +379,7 @@ class ATSService {
     if (!resumeData.eds || resumeData.eds.length === 0) {
       missing.push('Education');
     }
-    if (!resumeData.skills || resumeData.skills.length === 0) {
+    if ((!resumeData.skills || resumeData.skills.length === 0) && (!resumeData.skills2 || resumeData.skills2.length === 0)) {
       missing.push('Skills');
     }
     

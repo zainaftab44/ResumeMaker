@@ -1,56 +1,60 @@
+// Data-driven section drag mixin for single-column templates.
+// Provides localSectionOrder computed, drag methods, and sectionNum helper.
+// Multi-column templates (3, 5, 8) should not bind these drag events on sections.
 export default {
-  methods: {
-    setupDrag() {
-      if (!this.$el) return
-      const rows = this.$el.querySelectorAll('.draggable-element')
-      let dragSrcEl = null
-      let current = null
-
-      function handleDragStart(e) {
-        e.dataTransfer.effectAllowed = 'move'
-        e.dataTransfer.setData('text/html', e.target.innerHTML)
-        e.dataTransfer.dropEffect = 'move'
-        dragSrcEl = e.target
-        e.target.style.opacity = '0.5'
-      }
-
-      function handleDragOver(e) {
-        e.preventDefault()
-        if (typeof e.target.closest === 'function') {
-          current = e.target.closest('.draggable-element')
-        }
-      }
-
-      function handleDragEnd(e) {
-        e.target.style.opacity = '1'
-        if (current && current !== dragSrcEl && current.classList.contains('draggable-element')) {
-          const inner = current.innerHTML
-          current.innerHTML = dragSrcEl.innerHTML
-          dragSrcEl.innerHTML = inner
-        }
-        current = null
-        dragSrcEl = null
-      }
-
-      rows.forEach(function (row) {
-        // Remove old listeners by cloning
-        const clone = row.cloneNode(true)
-        row.parentNode.replaceChild(clone, row)
-      })
-
-      // Re-query after clone
-      const freshRows = this.$el.querySelectorAll('.draggable-element')
-      freshRows.forEach(function (row) {
-        row.addEventListener('dragstart', handleDragStart, false)
-        row.addEventListener('dragover', handleDragOver, false)
-        row.addEventListener('dragend', handleDragEnd, false)
-      })
+  data() {
+    return {
+      dragSrcSection: null
     }
   },
-  mounted() {
-    this.$nextTick(() => this.setupDrag())
+
+  computed: {
+    localSectionOrder() {
+      const defaults = ['exps', 'skills', 'eds', 'projs']
+      if (this.data && this.data.sectionOrder && this.data.sectionOrder.length) {
+        return this.data.sectionOrder
+      }
+      return defaults
+    }
   },
-  updated() {
-    this.$nextTick(() => this.setupDrag())
+
+  methods: {
+    // Returns a zero-padded section number for templates that display numeric labels.
+    // idx is the 0-based position in localSectionOrder; summary is always "01".
+    sectionNum(idx) {
+      return String(idx + 2).padStart(2, '0')
+    },
+
+    onSectionDragStart(e, section) {
+      this.dragSrcSection = section
+      e.dataTransfer.effectAllowed = 'move'
+      e.dataTransfer.setData('text', section)
+      e.currentTarget.style.opacity = '0.5'
+    },
+
+    onSectionDragOver(e) {
+      e.preventDefault()
+      e.dataTransfer.dropEffect = 'move'
+    },
+
+    onSectionDrop(e, targetSection) {
+      e.preventDefault()
+      if (this.dragSrcSection && this.dragSrcSection !== targetSection) {
+        const order = [...this.localSectionOrder]
+        const from = order.indexOf(this.dragSrcSection)
+        const to = order.indexOf(targetSection)
+        if (from !== -1 && to !== -1) {
+          order.splice(from, 1)
+          order.splice(to, 0, this.dragSrcSection)
+          this.$emit('reorder-sections', order)
+        }
+      }
+      this.dragSrcSection = null
+    },
+
+    onSectionDragEnd(e) {
+      e.currentTarget.style.opacity = '1'
+      this.dragSrcSection = null
+    }
   }
 }
