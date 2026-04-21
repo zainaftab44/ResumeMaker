@@ -12,11 +12,11 @@
 				listStyleType: 'none !important'
 			}">
 				{{ skname }}
-			</span>
-		</div>
+			</li>
+		</ul>
 
 		<!-- Style 6: Simple Inline List -->
-		<div class="skills-simple-list" v-else-if="styleMode == 6">
+		<div class="skills-simple-list">
 			<span class="simple-item" v-for="(skname, i) in skills2.name.filter(n => n.trim())" :key="i">
 				{{ skname }}<span v-if="i < skills2.name.filter(n => n.trim()).length - 1" class="separator">, </span>
 			</span>
@@ -29,4 +29,4 @@ export default {
 	name: "SK2P",
 	props: { skills2: Object, showHeading: { type: Boolean, default: true } },
 }
-</style>
+</script>

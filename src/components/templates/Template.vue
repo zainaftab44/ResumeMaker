@@ -20,7 +20,7 @@
 			</div>
 			<template v-for="section in localSectionOrder">
 				<div v-if="section === 'exps' && data.exps.length"
-				     :key="'exps'"
+				     :key="section"
 				     class="draggable-element section-spacing"
 				     draggable="true"
 				     @dragstart="onSectionDragStart($event, section)"
@@ -30,7 +30,7 @@
 					<PEXP :exps="data.exps" bullet="•" bulletColor="#333" />
 				</div>
 				<div v-if="section === 'skills'"
-				     :key="'skills'"
+				     :key="section"
 				     class="draggable-element section-spacing"
 				     draggable="true"
 				     @dragstart="onSectionDragStart($event, section)"
@@ -41,7 +41,7 @@
 					<PSKILL2 v-else-if="data.styles.skills == 2" :skills2="data.skills2" />
 				</div>
 				<div v-if="section === 'eds' && data.eds.length"
-				     :key="'eds'"
+				     :key="section"
 				     class="draggable-element section-spacing"
 				     draggable="true"
 				     @dragstart="onSectionDragStart($event, section)"
@@ -51,7 +51,7 @@
 					<PEDU :eds="data.eds" />
 				</div>
 				<div v-if="section === 'projs' && data.projs.length"
-				     :key="'projs'"
+				     :key="section"
 				     class="draggable-element section-spacing"
 				     draggable="true"
 				     @dragstart="onSectionDragStart($event, section)"

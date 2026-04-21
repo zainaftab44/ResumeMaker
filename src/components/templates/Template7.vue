@@ -53,7 +53,7 @@
 
 			<template v-for="section in localSectionOrder">
 				<div v-if="section === 'exps' && data.exps.length"
-				     :key="'exps'"
+				     :key="section"
 				     class="draggable-element section-spacing"
 				     draggable="true"
 				     @dragstart="onSectionDragStart($event, section)"
@@ -68,7 +68,7 @@
 					</div>
 				</div>
 				<div v-if="section === 'skills'"
-				     :key="'skills'"
+				     :key="section"
 				     class="draggable-element section-spacing"
 				     draggable="true"
 				     @dragstart="onSectionDragStart($event, section)"
@@ -84,7 +84,7 @@
 					</div>
 				</div>
 				<div v-if="section === 'eds' && data.eds.length"
-				     :key="'eds'"
+				     :key="section"
 				     class="draggable-element section-spacing"
 				     draggable="true"
 				     @dragstart="onSectionDragStart($event, section)"
@@ -99,7 +99,7 @@
 					</div>
 				</div>
 				<div v-if="section === 'projs' && data.projs.length"
-				     :key="'projs'"
+				     :key="section"
 				     class="draggable-element section-spacing"
 				     draggable="true"
 				     @dragstart="onSectionDragStart($event, section)"
