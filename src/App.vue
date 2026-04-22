@@ -60,7 +60,7 @@
 
     <!-- Main Content -->
     <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-      <div class="grid lg:grid-cols-2 gap-8">
+      <div :class="['grid gap-8', activeTab === 'cover-letter' ? 'lg:grid-cols-1' : 'lg:grid-cols-2']">
         <!-- Left Panel - Forms -->
         <div class="space-y-6">
           <!-- Profile Tab -->
@@ -126,14 +126,21 @@
             :resumeData="maindata"
             @import="importData"
           />
+
+          <!-- Cover Letter Tab -->
+          <CoverLetterPage
+            v-show="activeTab === 'cover-letter'"
+            :maindata="maindata"
+          />
+
           <!-- ATS Sidebar -->
           <div v-if="activeTab === 'preview'" class="glass-panel rounded-2xl p-6">
             <ATSSidebar :resumeData="maindata" @open-scanner="activeTab = 'ats'" />
           </div>
         </div>
 
-        <!-- Right Panel - Live Preview -->
-        <div class="lg:sticky lg:top-32 h-fit">
+        <!-- Right Panel - Live Preview (hidden on cover-letter tab) -->
+        <div v-show="activeTab !== 'cover-letter'" class="lg:sticky lg:top-32 h-fit">
           <div class="glass-panel rounded-2xl p-6 mb-4">
             <div class="flex items-center justify-between mb-4">
               <h3 class="text-lg font-semibold brand-font flex items-center space-x-2">
@@ -271,6 +278,7 @@ import TemplateTwoColumns from './components/templates/TwoColumns/TemplateTwoCol
 import ImportExportPage from './components/pages/Import.vue'
 import ATSScanner from './components/ATSScanner.vue'
 import ATSSidebar from './components/ATSSidebar.vue'
+import CoverLetterPage from './components/pages/CoverLetter.vue'
 
 export default {
   name: 'App',
@@ -291,7 +299,8 @@ export default {
     TemplateTwoColumns,
     ImportExportPage,
     ATSScanner,
-    ATSSidebar
+    ATSSidebar,
+    CoverLetterPage
   },
   data() {
     return {
@@ -306,6 +315,7 @@ export default {
         { id: 'projects', name: 'Projects', icon: '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-6l-2-2H5a2 2 0 00-2 2z" />' },
         { id: 'preview', name: 'Preview', icon: '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" /><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />' },
         { id: 'ats', name: 'ATS Scanner', icon: '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />' },
+        { id: 'cover-letter', name: 'Cover Letter', icon: '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />' },
         { id: 'import', name: 'Import / Export', icon: '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4" />' }
       ],
 
