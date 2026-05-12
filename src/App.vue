@@ -4,13 +4,10 @@
     <header class="border-b border-slate-700/50 bg-slate-900/50 backdrop-blur-md sticky top-0 z-50">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
         <div class="flex items-center space-x-3">
-          <div class="relative">
-            <div class="w-8 h-8 bg-gradient-to-br from-emerald-500 to-cyan-500 rounded-lg flex items-center justify-center">
-              <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-              </svg>
-            </div>
-            <div class="absolute inset-0 bg-emerald-500 rounded-lg pulse-ring"></div>
+          <div class="w-8 h-8 bg-gradient-to-br from-emerald-500 to-cyan-500 rounded-lg flex items-center justify-center shadow-lg shadow-emerald-500/20">
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+            </svg>
           </div>
           <span class="text-xl font-bold brand-font tracking-tight">Resume Forge</span>
         </div>
@@ -23,11 +20,14 @@
             <span>Add</span>
           </button>
 
-          <button @click="toggleStyle" class="px-4 py-2 bg-slate-700 hover:bg-slate-600 rounded-lg transition-all text-sm font-medium">
-            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01" />
-            </svg>
-          </button>
+          <select
+            v-model="settings.font"
+            @change="updateFont(settings.font)"
+            class="hidden sm:block px-3 py-2 bg-slate-700/80 hover:bg-slate-600 border border-slate-600/50 rounded-lg transition-all text-sm text-slate-300 cursor-pointer focus:outline-none focus:border-emerald-500/60"
+            title="Change font"
+          >
+            <option v-for="f in fontOptions" :key="f" :value="f">{{ f }}</option>
+          </select>
 
           <button @click="exportPDF" class="px-4 py-2 bg-gradient-to-r from-emerald-600 to-cyan-600 hover:from-emerald-500 hover:to-cyan-500 rounded-lg transition-all text-sm font-medium">
             Export PDF
@@ -37,18 +37,18 @@
     </header>
 
     <!-- Navigation Tabs -->
-    <nav class="border-b border-slate-700/50 bg-slate-900/30 backdrop-blur-sm sticky top-16 z-40">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="flex space-x-1 overflow-x-auto hide-scrollbar">
+    <nav class="border-b border-slate-700/50 bg-slate-900/40 backdrop-blur-sm sticky top-16 z-40">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
+        <div class="flex overflow-x-auto hide-scrollbar tab-scroll-container">
           <button
             v-for="tab in tabs"
             :key="tab.id"
             @click="activeTab = tab.id"
             :class="[
-              'flex items-center space-x-2 px-4 py-3 text-sm font-medium transition-all whitespace-nowrap border-b-2',
+              'flex items-center space-x-2 px-4 py-3 text-sm font-medium transition-all whitespace-nowrap border-b-2 flex-shrink-0',
               activeTab === tab.id
-                ? 'border-emerald-400 text-emerald-400'
-                : 'border-transparent text-slate-400 hover:text-slate-200 hover:border-slate-600'
+                ? 'border-emerald-400 text-emerald-300'
+                : 'border-transparent text-slate-500 hover:text-slate-300 hover:border-slate-600/60'
             ]"
           >
             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" v-html="tab.icon"></svg>
@@ -141,18 +141,25 @@
 
         <!-- Right Panel - Live Preview (hidden on cover-letter tab) -->
         <div v-show="activeTab !== 'cover-letter'" class="lg:sticky lg:top-32 h-fit">
-          <div class="glass-panel rounded-2xl p-6 mb-4">
+          <div class="glass-panel rounded-2xl p-5 mb-4">
             <div class="flex items-center justify-between mb-4">
-              <h3 class="text-lg font-semibold brand-font flex items-center space-x-2">
-                <div class="w-6 h-6 bg-emerald-500/20 rounded flex items-center justify-center">
-                  <svg class="w-4 h-4 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
-                  </svg>
-                </div>
+              <h3 class="text-sm font-semibold brand-font flex items-center space-x-2 text-slate-300">
+                <svg class="w-4 h-4 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                </svg>
                 <span>Live Preview</span>
+                <span class="flex items-center space-x-1 text-xs text-slate-500 font-normal">
+                  <span class="w-1.5 h-1.5 bg-emerald-500 rounded-full inline-block"></span>
+                  <span>live</span>
+                </span>
               </h3>
-              <span class="px-2 py-1 bg-emerald-500/20 text-emerald-400 text-xs rounded-lg animate-pulse">Auto-updating</span>
+              <button @click="exportPDF" class="flex items-center space-x-1.5 px-3 py-1.5 bg-emerald-600/20 hover:bg-emerald-600/30 border border-emerald-500/30 hover:border-emerald-500/50 rounded-lg transition-all text-xs font-medium text-emerald-400">
+                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+                </svg>
+                <span>Export PDF</span>
+              </button>
             </div>
 
             <div class="preview-wrapper">
@@ -314,9 +321,9 @@ export default {
         { id: 'skills', name: 'Skills', icon: '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />' },
         { id: 'projects', name: 'Projects', icon: '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-6l-2-2H5a2 2 0 00-2 2z" />' },
         { id: 'preview', name: 'Preview', icon: '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" /><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />' },
-        { id: 'ats', name: 'ATS Scanner', icon: '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />' },
+        { id: 'ats', name: 'ATS', icon: '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />' },
         { id: 'cover-letter', name: 'Cover Letter', icon: '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />' },
-        { id: 'import', name: 'Import / Export', icon: '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4" />' }
+        { id: 'import', name: 'Import', icon: '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4" />' }
       ],
 
       profile: {
@@ -346,6 +353,13 @@ export default {
   },
 
   computed: {
+    fontOptions() {
+      return [
+        'Arial', 'Arial Narrow', 'Calibri', 'Consolas', 'Courier New',
+        'Georgia', 'Helvetica', 'Lato', 'Montserrat', 'Open Sans',
+        'Roboto', 'Segoe UI', 'Times New Roman', 'Verdana'
+      ].sort()
+    },
     maindata() {
       const profileForPreview = Object.assign({}, this.profile)
       if (!this.showSummary) {
@@ -612,64 +626,51 @@ h1, h2, h3, .brand-font {
 }
 
 .gradient-bg {
-  background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+  background: linear-gradient(145deg, #080e1a 0%, #0f172a 50%, #111827 100%);
   min-height: 100vh;
 }
 
 .glass-panel {
-  background: rgba(30, 41, 59, 0.7);
-  backdrop-filter: blur(12px);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(22, 32, 50, 0.75);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.2), inset 0 1px 0 rgba(255,255,255,0.04);
 }
 
 .form-input {
   width: 100%;
-  background: rgba(15, 23, 42, 0.5);
-  border: 1px solid rgb(51, 65, 85);
+  background: rgba(10, 17, 32, 0.6);
+  border: 1px solid rgba(51, 65, 85, 0.8);
   border-radius: 0.5rem;
-  padding: 0.625rem 1rem;
-  color: white;
+  padding: 0.625rem 0.875rem;
+  color: #e2e8f0;
   font-size: 0.875rem;
-  transition: all 0.2s;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
 }
 
 .form-input:focus {
   outline: none;
-  border-color: rgb(16, 185, 129);
-  box-shadow: 0 0 0 1px rgb(16, 185, 129);
+  border-color: rgba(16, 185, 129, 0.7);
+  box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.12);
 }
 
 .form-input::placeholder {
-  color: rgb(100, 116, 139);
+  color: rgb(71, 85, 105);
 }
 
 select.form-input {
   appearance: auto;
 }
 
-.pulse-ring {
-  animation: pulse-ring 2s cubic-bezier(0.215, 0.61, 0.355, 1) infinite;
-}
-
-@keyframes pulse-ring {
-  0% {
-    transform: scale(0.8);
-    opacity: 0.8;
-  }
-  100% {
-    transform: scale(2);
-    opacity: 0;
-  }
-}
-
 .fade-in {
-  animation: fadeIn 0.5s ease-in;
+  animation: fadeIn 0.25s ease-out;
 }
 
 @keyframes fadeIn {
   from {
     opacity: 0;
-    transform: translateY(10px);
+    transform: translateY(6px);
   }
   to {
     opacity: 1;
@@ -686,12 +687,18 @@ select.form-input {
   scrollbar-width: none;
 }
 
+.tab-scroll-container {
+  position: relative;
+}
+
 /* Scaled preview wrapper */
 .preview-wrapper {
   width: 100%;
   overflow: hidden;
-  border-radius: 0.75rem;
-  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+  border-radius: 0.625rem;
+  box-shadow:
+    0 0 0 1px rgba(255,255,255,0.06),
+    0 20px 60px -12px rgba(0, 0, 0, 0.5);
   background: white;
   position: relative;
 }
@@ -711,23 +718,23 @@ select.form-input {
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  padding: 0.6rem 1.1rem;
-  background: rgba(16, 185, 129, 0.15);
-  border: 1px solid rgba(16, 185, 129, 0.4);
-  border-radius: 0.75rem;
+  padding: 0.5rem 1rem;
+  background: rgba(16, 185, 129, 0.12);
+  border: 1px solid rgba(16, 185, 129, 0.35);
+  border-radius: 0.625rem;
   color: #6ee7b7;
-  font-size: 0.875rem;
+  font-size: 0.8125rem;
   font-weight: 500;
-  backdrop-filter: blur(8px);
+  backdrop-filter: blur(12px);
   pointer-events: none;
 }
 
 .toast-enter-active, .toast-leave-active {
-  transition: opacity 0.25s ease, transform 0.25s ease;
+  transition: opacity 0.2s ease, transform 0.2s ease;
 }
 .toast-enter, .toast-leave-to {
   opacity: 0;
-  transform: translateY(0.5rem);
+  transform: translateY(0.375rem);
 }
 
 #resume-preview ul,
@@ -748,5 +755,4 @@ select.form-input {
   content: none !important;
   display: none !important;
 }
-
 </style>

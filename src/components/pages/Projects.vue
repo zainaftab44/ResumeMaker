@@ -1,5 +1,15 @@
 <template>
   <div class="space-y-4 fade-in">
+    <div v-if="!projs.length" class="glass-panel rounded-2xl p-10 text-center border-2 border-dashed border-slate-700/60">
+      <div class="w-12 h-12 bg-blue-500/10 rounded-xl flex items-center justify-center mx-auto mb-3">
+        <svg class="w-6 h-6 text-blue-500/60" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-6l-2-2H5a2 2 0 00-2 2z" />
+        </svg>
+      </div>
+      <p class="text-sm font-medium text-slate-400 mb-1">No projects added yet</p>
+      <p class="text-xs text-slate-600">Showcase your work and side projects</p>
+    </div>
+
     <div
       v-for="(proj, index) in projs"
       :key="index"

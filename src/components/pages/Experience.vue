@@ -1,5 +1,16 @@
 <template>
   <div class="space-y-4 fade-in">
+    <!-- Empty state -->
+    <div v-if="!exps.length" class="glass-panel rounded-2xl p-10 text-center border-2 border-dashed border-slate-700/60">
+      <div class="w-12 h-12 bg-emerald-500/10 rounded-xl flex items-center justify-center mx-auto mb-3">
+        <svg class="w-6 h-6 text-emerald-500/60" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+        </svg>
+      </div>
+      <p class="text-sm font-medium text-slate-400 mb-1">No experience added yet</p>
+      <p class="text-xs text-slate-600">Add your work history to strengthen your resume</p>
+    </div>
+
     <div
       v-for="(exp, index) in exps"
       :key="index"
