@@ -1275,7 +1275,6 @@ INSTRUCTIONS:
           }
         }
 
-        // Surface extracted info after generation
         this.extractedInfo = {
           name: name || null,
           company: safeCompany || null,
@@ -1285,6 +1284,22 @@ INSTRUCTIONS:
           tone: tone || null,
           stage: companyStage || null,
           seniority: null
+        }
+
+        if (this.coverLetterOutput) {
+          const entry = {
+            id: Date.now().toString(),
+            date: new Date().toISOString(),
+            profileName: name || (this.maindata && this.maindata.profile ? this.maindata.profile.name : null) || 'Unnamed',
+            company: safeCompany || '',
+            jobTitle: jobTitle || '',
+            letter: this.coverLetterOutput,
+            wordCount: this.coverLetterOutput.trim().split(/\s+/).filter(Boolean).length,
+            mode: 'ai'
+          }
+          const history = JSON.parse(localStorage.getItem('coverLetterHistory') || '[]')
+          history.unshift(entry)
+          localStorage.setItem('coverLetterHistory', JSON.stringify(history.slice(0, 30)))
         }
       } catch (e) {
         console.error('[CoverLetter AI]', e)
@@ -1351,7 +1366,6 @@ INSTRUCTIONS:
         jd, resumeText: resume
       })
 
-      // Surface what was detected
       const stage = extractCompanyStage(jd)
       const seniority = extractSeniorityLevel(jd)
       this.extractedInfo = {
@@ -1363,6 +1377,23 @@ INSTRUCTIONS:
         tone: tone || null,
         stage: stage || null,
         seniority: seniority !== 'mid' ? seniority : null
+      }
+
+      if (this.coverLetterOutput) {
+        const safeCompany = company && !JOB_TITLE_WORDS.test(company) ? company : null
+        const entry = {
+          id: Date.now().toString(),
+          date: new Date().toISOString(),
+          profileName: name || (this.maindata && this.maindata.profile ? this.maindata.profile.name : null) || 'Unnamed',
+          company: safeCompany || '',
+          jobTitle: jobTitle || '',
+          letter: this.coverLetterOutput,
+          wordCount: this.coverLetterOutput.trim().split(/\s+/).filter(Boolean).length,
+          mode: 'template'
+        }
+        const history = JSON.parse(localStorage.getItem('coverLetterHistory') || '[]')
+        history.unshift(entry)
+        localStorage.setItem('coverLetterHistory', JSON.stringify(history.slice(0, 30)))
       }
     },
 
