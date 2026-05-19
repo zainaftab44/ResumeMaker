@@ -3,7 +3,7 @@
     <!-- Skill Style Toggle -->
     <div class="glass-panel rounded-2xl p-4">
       <div class="flex items-center justify-between">
-        <h3 class="text-sm font-medium text-slate-300">Skill Display Style</h3>
+        <h3 class="text-sm font-medium text-slate-400 uppercase tracking-wide">Display Style</h3>
         <div class="flex bg-slate-800 rounded-lg p-0.5">
           <button
             @click="$emit('update:skillStyle', 1)"

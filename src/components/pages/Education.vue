@@ -1,5 +1,15 @@
 <template>
   <div class="space-y-4 fade-in">
+    <div v-if="!eds.length" class="glass-panel rounded-2xl p-10 text-center border-2 border-dashed border-slate-700/60">
+      <div class="w-12 h-12 bg-cyan-500/10 rounded-xl flex items-center justify-center mx-auto mb-3">
+        <svg class="w-6 h-6 text-cyan-500/60" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 14l9-5-9-5-9 5 9 5zm0 0l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z" />
+        </svg>
+      </div>
+      <p class="text-sm font-medium text-slate-400 mb-1">No education added yet</p>
+      <p class="text-xs text-slate-600">Add your degrees and certifications</p>
+    </div>
+
     <div
       v-for="(edu, index) in eds"
       :key="index"

@@ -169,11 +169,37 @@ Requirements:
           </div>
         </div>
 
+        <!-- Generation Mode Toggle -->
+        <div class="glass-panel rounded-xl p-3 flex items-center justify-between">
+          <div class="flex items-center space-x-2">
+            <div :class="['w-7 h-7 rounded-lg flex items-center justify-center flex-shrink-0', useAI ? 'bg-violet-500/20' : 'bg-slate-700/60']">
+              <svg :class="['w-4 h-4', useAI ? 'text-violet-400' : 'text-slate-500']" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
+              </svg>
+            </div>
+            <div>
+              <p class="text-xs font-medium text-slate-300">{{ useAI ? 'AI Generation - May need signin' : 'Smart Template' }}</p>
+              <p class="text-xs text-slate-600">{{ useAI ? 'GPT-4o · streams live · free via Puter' : 'Instant · fully offline · no account needed' }}</p>
+            </div>
+          </div>
+          <button
+            @click="useAI = !useAI"
+            :class="['relative inline-flex h-5 w-9 items-center rounded-full transition-colors flex-shrink-0', useAI ? 'bg-violet-600' : 'bg-slate-600']"
+          >
+            <span :class="['inline-block h-3.5 w-3.5 transform rounded-full bg-white transition-transform', useAI ? 'translate-x-4' : 'translate-x-0.5']"></span>
+          </button>
+        </div>
+
         <!-- Generate Button -->
         <button
           @click="generate"
           :disabled="isGenerating"
-          class="w-full py-3.5 bg-gradient-to-r from-emerald-600 to-cyan-600 hover:from-emerald-500 hover:to-cyan-500 disabled:opacity-50 disabled:cursor-not-allowed rounded-xl font-semibold text-sm transition-all flex items-center justify-center space-x-2 shadow-lg shadow-emerald-900/30"
+          :class="[
+            'w-full py-3.5 disabled:opacity-50 disabled:cursor-not-allowed rounded-xl font-semibold text-sm transition-all flex items-center justify-center space-x-2',
+            useAI
+              ? 'bg-gradient-to-r from-violet-600 to-emerald-600 hover:from-violet-500 hover:to-emerald-500 shadow-lg shadow-violet-900/20'
+              : 'bg-gradient-to-r from-emerald-600 to-cyan-600 hover:from-emerald-500 hover:to-cyan-500 shadow-lg shadow-emerald-900/30'
+          ]"
         >
           <svg v-if="!isGenerating" class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
@@ -181,7 +207,7 @@ Requirements:
           <svg v-else class="w-4 h-4 animate-spin" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
           </svg>
-          <span>{{ isGenerating ? 'Crafting your letter…' : 'Generate Cover Letter' }}</span>
+          <span>{{ isGenerating ? generatingLabel : 'Generate Cover Letter' }}</span>
         </button>
 
         <!-- Validation Error -->
@@ -274,29 +300,39 @@ Requirements:
             <p class="text-xs text-slate-600 leading-relaxed">Paste your resume and job description,<br>then click <span class="text-emerald-500">Generate Cover Letter</span>.</p>
           </div>
 
-          <!-- Generating state -->
-          <div v-if="isGenerating" class="flex-1 flex flex-col items-center justify-center text-center py-8">
-            <div class="w-16 h-16 bg-emerald-500/10 rounded-2xl flex items-center justify-center mb-4">
-              <svg class="w-8 h-8 text-emerald-400 animate-pulse" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <!-- AI waiting for first token -->
+          <div v-if="isGenerating && !coverLetterOutput" class="flex-1 flex flex-col items-center justify-center text-center py-8">
+            <div class="w-16 h-16 bg-violet-500/10 rounded-2xl flex items-center justify-center mb-4">
+              <svg class="w-8 h-8 text-violet-400 animate-pulse" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
               </svg>
             </div>
-            <p class="text-sm font-medium text-emerald-400 mb-1">Crafting your letter…</p>
-            <p class="text-xs text-slate-500">Matching your experience to the role</p>
+            <p class="text-sm font-medium text-violet-400 mb-1">{{ generatingLabel }}</p>
+            <p class="text-xs text-slate-500">{{ useAI ? 'Connecting to AI…' : 'Matching your experience to the role' }}</p>
           </div>
 
-          <!-- Editable output -->
-          <textarea
-            v-if="coverLetterOutput && !isGenerating"
-            v-model="coverLetterOutput"
-            class="flex-1 w-full bg-transparent text-slate-200 text-sm leading-[1.8] resize-none focus:outline-none"
-            style="min-height: 460px; font-family: 'Georgia', serif;"
-          ></textarea>
+          <!-- Output (shows during streaming and after) -->
+          <div v-if="coverLetterOutput" class="flex-1 flex flex-col">
+            <textarea
+              v-model="coverLetterOutput"
+              class="flex-1 w-full bg-transparent text-slate-200 text-sm leading-[1.8] resize-none focus:outline-none"
+              style="min-height: 460px; font-family: 'Georgia', serif;"
+              :readonly="isGenerating"
+            ></textarea>
+            <!-- streaming cursor -->
+            <span v-if="isGenerating" class="inline-block w-0.5 h-4 bg-violet-400 animate-pulse ml-0.5"></span>
+          </div>
 
           <!-- Footer stats -->
-          <div v-if="coverLetterOutput && !isGenerating" class="flex justify-between items-center mt-3 pt-3 border-t border-slate-700/40">
+          <div v-if="coverLetterOutput" class="flex justify-between items-center mt-3 pt-3 border-t border-slate-700/40">
             <span class="text-xs text-slate-600">{{ wordCount }} words</span>
-            <span class="text-xs text-slate-600">Editable — click anywhere to modify</span>
+            <span v-if="isGenerating" class="text-xs text-violet-500 flex items-center space-x-1">
+              <svg class="w-3 h-3 animate-spin" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+              </svg>
+              <span>Generating…</span>
+            </span>
+            <span v-else class="text-xs text-slate-600">Editable — click anywhere to modify</span>
           </div>
         </div>
 
@@ -1078,7 +1114,8 @@ export default {
       isGenerating: false,
       errorMsg: '',
       extractedInfo: null,
-      copied: false
+      copied: false,
+      useAI: true
     }
   },
   computed: {
@@ -1106,6 +1143,12 @@ export default {
     },
     wordCount() {
       return this.coverLetterOutput.trim().split(/\s+/).filter(Boolean).length
+    },
+    generatingLabel() {
+      return this.useAI ? 'Writing with AI…' : 'Crafting your letter…'
+    },
+    puterAvailable() {
+      return typeof window !== 'undefined' && typeof window.puter !== 'undefined'
     }
   },
   watch: {
@@ -1139,21 +1182,152 @@ export default {
         return
       }
 
+      if (this.useAI && this.puterAvailable) {
+        this._runGenerationAI()
+      } else {
+        if (this.useAI && !this.puterAvailable) {
+          this.errorMsg = 'Puter.js not loaded yet. Falling back to Smart Template mode.'
+          this.useAI = false
+        }
+        this.isGenerating = true
+        this.coverLetterOutput = ''
+        this.extractedInfo = null
+        this.$nextTick(() => {
+          setTimeout(() => {
+            try {
+              this._runGeneration()
+            } catch (e) {
+              this.errorMsg = 'Something went wrong. Please check your inputs and try again.'
+              console.error('[CoverLetter]', e)
+            } finally {
+              this.isGenerating = false
+            }
+          }, 80)
+        })
+      }
+    },
+
+    async _runGenerationAI() {
       this.isGenerating = true
       this.coverLetterOutput = ''
       this.extractedInfo = null
+      this.errorMsg = ''
 
-      // Defer to next tick so the loading UI renders
+      const resume = this.effectiveResumeText
+      const jd = this.jobDescription
+
+      // Extract context to make the prompt highly targeted
+      const name = extractName(resume)
+      const currentTitle = extractCurrentTitle(resume)
+      const skills = extractSkills(resume)
+      const jobTitle = extractJobTitle(jd)
+      const company = extractCompany(jd)
+      const requirements = extractRequirements(jd)
+      const domain = extractDomain(jd)
+      const tone = extractTone(jd)
+      const companyStage = extractCompanyStage(jd)
+      const jdSkillMatches = matchSkillsToJD(skills, jd)
+      const quantifiedAchievements = extractQuantifiedAchievements(resume)
+
+      const safeCompany = company && !JOB_TITLE_WORDS.test(company) ? company : null
+
+      const contextLines = [
+        name && `Candidate: ${name}${currentTitle ? ', ' + currentTitle : ''}`,
+        jdSkillMatches.length && `Matching skills: ${jdSkillMatches.slice(0, 8).join(', ')}`,
+        skills.length && `All skills: ${skills.slice(0, 12).join(', ')}`,
+        quantifiedAchievements.length && `Key achievements:\n${quantifiedAchievements.slice(0, 3).map(a => '• ' + a).join('\n')}`,
+        requirements.length && `JD requirements:\n${requirements.slice(0, 5).map(r => '• ' + r).join('\n')}`,
+        domain && `Domain: ${domain}`,
+        tone && `Company tone: ${tone}`,
+        companyStage && `Company stage: ${companyStage}`,
+      ].filter(Boolean).join('\n')
+
+      const prompt = `You are an expert cover letter writer. Write a professional, tailored cover letter.
+
+CONTEXT (extracted highlights):
+${contextLines}
+
+RESUME:
+${resume.slice(0, 2500)}
+
+JOB DESCRIPTION:
+${jd.slice(0, 2500)}
+
+INSTRUCTIONS:
+- Address: Dear ${safeCompany ? safeCompany + ' ' : ''}Hiring Manager,
+- Start with today's date: ${new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}
+- 3–4 tight paragraphs, under 400 words total
+- Opening: hook tied to the company/role, not "I am writing to apply"
+- Body: cite 1–2 specific achievements with numbers if available; mirror the JD's language
+- Closing: genuine enthusiasm + clear call to action
+- Sign off: Sincerely,\n${name || '[Your Name]'}
+- Write ONLY the letter — no commentary, no preamble, no markdown`
+
+      try {
+        const response = await window.puter.ai.chat(prompt, {
+          stream: true,
+          model: 'gpt-4o-mini'
+        })
+
+        for await (const part of response) {
+          if (part?.text) {
+            this.coverLetterOutput += part.text
+          }
+        }
+
+        this.extractedInfo = {
+          name: name || null,
+          company: safeCompany || null,
+          jobTitle: jobTitle || null,
+          skillCount: skills.length || null,
+          matchCount: jdSkillMatches.length || null,
+          tone: tone || null,
+          stage: companyStage || null,
+          seniority: null
+        }
+
+        if (this.coverLetterOutput) {
+          const entry = {
+            id: Date.now().toString(),
+            date: new Date().toISOString(),
+            profileName: name || (this.maindata && this.maindata.profile ? this.maindata.profile.name : null) || 'Unnamed',
+            company: safeCompany || '',
+            jobTitle: jobTitle || '',
+            letter: this.coverLetterOutput,
+            wordCount: this.coverLetterOutput.trim().split(/\s+/).filter(Boolean).length,
+            mode: 'ai'
+          }
+          const history = JSON.parse(localStorage.getItem('coverLetterHistory') || '[]')
+          history.unshift(entry)
+          localStorage.setItem('coverLetterHistory', JSON.stringify(history.slice(0, 30)))
+        }
+      } catch (e) {
+        console.error('[CoverLetter AI]', e)
+        const msg = e?.message || ''
+        if (msg.toLowerCase().includes('auth') || msg.toLowerCase().includes('sign')) {
+          this.errorMsg = 'Sign in to Puter to use AI generation — a login window may have appeared. Then click Generate again.'
+        } else if (msg.toLowerCase().includes('network') || msg.toLowerCase().includes('fetch')) {
+          this.errorMsg = 'Network error reaching Puter AI. Check your connection and try again.'
+        } else {
+          this.errorMsg = 'AI generation failed. Switching to Smart Template mode.'
+          this.useAI = false
+          this.coverLetterOutput = ''
+          this._runGenerationSync()
+        }
+      } finally {
+        this.isGenerating = false
+      }
+    },
+
+    _runGenerationSync() {
+      this.isGenerating = true
+      this.coverLetterOutput = ''
+      this.extractedInfo = null
       this.$nextTick(() => {
         setTimeout(() => {
-          try {
-            this._runGeneration()
-          } catch (e) {
-            this.errorMsg = 'Something went wrong during generation. Please check your inputs and try again.'
-            console.error('[CoverLetter]', e)
-          } finally {
-            this.isGenerating = false
-          }
+          try { this._runGeneration() } catch (e) {
+            this.errorMsg = 'Generation failed. Please check your inputs.'
+          } finally { this.isGenerating = false }
         }, 80)
       })
     },
@@ -1192,7 +1366,6 @@ export default {
         jd, resumeText: resume
       })
 
-      // Surface what was detected
       const stage = extractCompanyStage(jd)
       const seniority = extractSeniorityLevel(jd)
       this.extractedInfo = {
@@ -1204,6 +1377,23 @@ export default {
         tone: tone || null,
         stage: stage || null,
         seniority: seniority !== 'mid' ? seniority : null
+      }
+
+      if (this.coverLetterOutput) {
+        const safeCompany = company && !JOB_TITLE_WORDS.test(company) ? company : null
+        const entry = {
+          id: Date.now().toString(),
+          date: new Date().toISOString(),
+          profileName: name || (this.maindata && this.maindata.profile ? this.maindata.profile.name : null) || 'Unnamed',
+          company: safeCompany || '',
+          jobTitle: jobTitle || '',
+          letter: this.coverLetterOutput,
+          wordCount: this.coverLetterOutput.trim().split(/\s+/).filter(Boolean).length,
+          mode: 'template'
+        }
+        const history = JSON.parse(localStorage.getItem('coverLetterHistory') || '[]')
+        history.unshift(entry)
+        localStorage.setItem('coverLetterHistory', JSON.stringify(history.slice(0, 30)))
       }
     },
 
